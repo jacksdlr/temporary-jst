@@ -2,53 +2,59 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Please provide name'],
-    maxlength: 50,
-    minlength: 3,
+const MesocycleSchema = require('./Mesocycle');
+
+const UserSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Please provide a name'],
+      maxlength: 50,
+      minlength: 3,
+    },
+    email: {
+      type: String,
+      required: [true, 'Please provide an email'],
+      match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        'Please provide a valid email',
+      ],
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: [true, 'Please provide a password'],
+      minlength: 8,
+    },
+    height: {
+      type: Number,
+    },
+    weight: {
+      type: Number,
+    },
+    age: {
+      type: Number,
+    },
+    activityLevel: {
+      type: Number,
+    },
+    customExercises: {
+      type: Array,
+      default: [],
+    },
+    mesocycles: {
+      type: [MesocycleSchema],
+    },
+    currentMeso: {
+      type: mongoose.Types.ObjectId,
+      ref: 'Mesocycle',
+    },
   },
-  email: {
-    type: String,
-    required: [true, 'Please provide email'],
-    match: [
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      'Please provide a valid email',
-    ],
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: [true, 'Please provide password'],
-    minlength: 8,
-  },
-  height: {
-    type: Number,
-    min: 2,
-    max: 3,
-  },
-  weight: {
-    type: Number,
-    min: 2,
-    max: 3,
-  },
-  activityLevel: {
-    type: Number,
-    min: 1,
-    max: 1,
-  },
-  customExercises: {
-    type: Array,
-    default: [],
-  },
-  mesocycles: {
-    type: Array,
-    default: [],
-  },
-});
+  { timestamps: true }
+);
 
 UserSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
@@ -63,9 +69,8 @@ UserSchema.methods.createJWT = function () {
   );
 };
 
-UserSchema.methods.comparePassword = async function (userPassword) {
-  const isMatch = await bcrypt.compare(userPassword, this.password);
-  return isMatch;
+UserSchema.methods.comparePassword = function (userPassword) {
+  return bcrypt.compare(userPassword, this.password);
 };
 
 module.exports = mongoose.model('User', UserSchema);

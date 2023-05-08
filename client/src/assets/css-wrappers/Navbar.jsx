@@ -11,8 +11,7 @@ const Wrapper = styled.nav`
   .logo {
     display: flex;
     align-items: center;
-    max-width: 10rem;
-    min-height: calc(var(--nav-height) - 2rem);
+    max-height: 2rem;
   }
   .nav-center {
     display: flex;

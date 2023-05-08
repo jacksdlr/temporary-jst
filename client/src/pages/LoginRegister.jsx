@@ -80,6 +80,20 @@ const LoginRegister = () => {
         <button type='submit' className='btn btn-block' disabled={isLoading}>
           {isLoading ? 'Loading...' : isUser ? 'Login' : 'Register'}
         </button>
+        <button
+          className='btn btn-block btn-hipster'
+          disabled={isLoading}
+          onClick={() =>
+            dispatch(
+              loginUser({
+                email: 'testUser@email.com',
+                password: 'testPassword',
+              })
+            )
+          }
+        >
+          Demo User
+        </button>
         <p>
           {isUser ? 'Not a user yet?' : 'Already a user?'}
           <button type='button' className='user-btn' onClick={toggleIsUser}>
