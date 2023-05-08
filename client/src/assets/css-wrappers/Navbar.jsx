@@ -7,10 +7,12 @@ const Wrapper = styled.nav`
   justify-content: center;
   box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
   z-index: 999;
+  position: sticky;
   .logo {
     display: flex;
     align-items: center;
-    width: 100px;
+    max-width: 10rem;
+    min-height: calc(var(--nav-height) - 2rem);
   }
   .nav-center {
     display: flex;
@@ -39,7 +41,6 @@ const Wrapper = styled.nav`
     position: relative;
     box-shadow: var(--shadow-2);
   }
-
   .dropdown {
     position: absolute;
     top: 40px;

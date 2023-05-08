@@ -8,20 +8,16 @@ const SharedLayout = () => {
   return (
     <Wrapper>
       <main className='dashboard'>
-        {/* <DesktopSidebar /> */}
-        <MobileSidebar />
-        <div>
-          <Navbar />
-          <div className='main-container'>
-            <DesktopSidebar />
-
-            <div
-              className={
-                isSidebarOpen ? 'dashboard-page open-sidebar' : 'dashboard-page'
-              }
-            >
-              <Outlet />
-            </div>
+        <Navbar />
+        <div className='main-container'>
+          <MobileSidebar />
+          <DesktopSidebar />
+          <div
+            className={
+              isSidebarOpen ? 'dashboard-page open-sidebar' : 'dashboard-page'
+            }
+          >
+            <Outlet />
           </div>
         </div>
       </main>

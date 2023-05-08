@@ -17,15 +17,6 @@ const MobileSidebar = () => {
         }
       >
         <div className='content'>
-          <button
-            className='close-btn'
-            onClick={() => dispatch(toggleSidebar())}
-          >
-            <AiOutlineClose />
-          </button>
-          <header>
-            <Logo />
-          </header>
           <NavLinks toggleSidebar={() => dispatch(toggleSidebar())} />
         </div>
       </div>

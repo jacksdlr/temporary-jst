@@ -13,6 +13,7 @@ const Wrapper = styled.section`
   }
   .main-container {
     display: flex;
+    flex-direction: column;
   }
   @media (min-width: 992px) {
     .dashboard {
@@ -24,6 +25,9 @@ const Wrapper = styled.section`
     }
     .open-sidebar {
       width: calc(90% - 250px);
+    }
+    .main-container {
+      flex-direction: row;
     }
   }
 `;
