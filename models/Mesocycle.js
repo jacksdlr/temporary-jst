@@ -8,24 +8,29 @@ const MesocycleSchema = new mongoose.Schema(
     },
     startWeight: {
       type: Number,
-      min: 2,
-      max: 3,
     },
     endWeight: {
       type: Number,
-      min: 2,
-      max: 3,
+    },
+    goal: {
+      type: String,
+      enum: ['Bulk', 'Cut', 'Maintenance'],
     },
     microcycles: {
       type: Number,
       min: 1,
-      max: 1,
+      max: 8,
+      required: true,
     },
-    notes: {
+    sessions: {
       type: Array,
       default: [],
     },
-    sessions: {
+    currentSession: {
+      type: mongoose.Types.ObjectId,
+      ref: 'Session',
+    },
+    notes: {
       type: Array,
       default: [],
     },

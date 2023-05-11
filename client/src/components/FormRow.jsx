@@ -2,15 +2,24 @@ const FormRow = ({ type, name, value, handleChange, labelText }) => {
   return (
     <div className='form-row'>
       <label htmlFor={name} className='form-label'>
-        {labelText || name}
+        {labelText}
       </label>
-      <input
-        className='form-input'
-        type={type}
-        name={name}
-        value={value}
-        onChange={handleChange}
-      />
+      {type != 'dropdown' ? (
+        <input
+          className='form-input'
+          type={type}
+          name={name}
+          value={value}
+          onChange={handleChange}
+        />
+      ) : (
+        <select
+          className='form-input'
+          name={name}
+          value={value}
+          onChange={handleChange}
+        ></select>
+      )}
     </div>
   );
 };

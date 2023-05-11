@@ -9,7 +9,8 @@ const DesktopSidebar = () => {
     <Wrapper>
       <div
         className={
-          isSidebarOpen ? 'sidebar-container show-sidebar' : 'sidebar-container'
+          // Sidebar open by default on desktop, so when isSidebarOpen is true it is actually false
+          isSidebarOpen ? 'sidebar-container' : 'sidebar-container show-sidebar'
         }
       >
         <div className='content'>

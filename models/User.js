@@ -35,8 +35,19 @@ const UserSchema = new mongoose.Schema(
     age: {
       type: Number,
     },
+    sex: {
+      type: String,
+      enum: ['Male', 'Female'],
+    },
     activityLevel: {
-      type: Number,
+      type: String,
+      enum: [
+        'Sedentary',
+        'Lightly active',
+        'Moderately active',
+        'Active',
+        'Very active',
+      ],
     },
     customExercises: {
       type: Array,

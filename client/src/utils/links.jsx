@@ -28,7 +28,7 @@ const links = [
   {
     id: 4,
     text: 'Create Meso',
-    path: 'new-meso',
+    path: 'create-meso',
     icon: <AiOutlineBarChart />,
   },
   {

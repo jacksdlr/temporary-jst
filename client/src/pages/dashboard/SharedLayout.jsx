@@ -14,7 +14,8 @@ const SharedLayout = () => {
           <DesktopSidebar />
           <div
             className={
-              isSidebarOpen ? 'dashboard-page open-sidebar' : 'dashboard-page'
+              // Sidebar open by default on desktop, so when isSidebarOpen is true it is actually false
+              isSidebarOpen ? 'dashboard-page' : 'dashboard-page open-sidebar'
             }
           >
             <Outlet />

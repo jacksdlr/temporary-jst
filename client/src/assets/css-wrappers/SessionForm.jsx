@@ -1,13 +1,27 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Wrapper = styled.section`
-  border-radius: var(--borderRadius);
-  width: 100%;
-  background: var(--white);
-  padding: 3rem 2rem 4rem;
-  box-shadow: var(--shadow-2);
+  .session {
+    border-radius: var(--borderRadius);
+    width: 100%;
+    background: var(--white);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-2);
+  }
+  .add-session {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+  .add-session:hover {
+    color: var(--primary-500);
+  }
   h3 {
     margin-top: 0;
+  }
+  p {
+    margin: 0;
   }
   .form {
     margin: 0;
@@ -16,6 +30,7 @@ const Wrapper = styled.section`
     padding: 0;
     max-width: 100%;
     width: 100%;
+    padding-bottom: 1rem;
   }
   .form-row {
     margin-bottom: 0;
@@ -45,6 +60,26 @@ const Wrapper = styled.section`
   .clear-btn:hover {
     background: var(--black);
   }
+  .calories-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .calories-container svg:hover {
+    color: var(--primary-500);
+  }
+  /*   .info {
+    max-height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 0;
+    border-radius: var(--borderRadius);
+    background-color: var(--primary-100);
+    transition: var(--slow-transition);
+  }
+  .show-calories {
+    max-height: 500px;
+  } */
   @media (min-width: 992px) {
     .form-center {
       grid-template-columns: 1fr 1fr;
@@ -63,6 +98,6 @@ const Wrapper = styled.section`
       margin-top: 0;
     }
   }
-`
+`;
 
-export default Wrapper
+export default Wrapper;

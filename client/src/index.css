@@ -54,6 +54,7 @@ html {
   --borderRadius: 0.25rem;
   --letterSpacing: 1px;
   --transition: 0.3s ease-in-out all;
+  --slow-transition: 1s ease-in-out all;
   --max-width: 1120px;
   --fixed-width: 500px;
   --fluid-width: 90vw;
@@ -223,7 +224,6 @@ ul {
   display: block;
   font-size: var(--smallText);
   margin-bottom: 0.5rem;
-  text-transform: capitalize;
   letter-spacing: var(--letterSpacing);
 }
 .form-input,

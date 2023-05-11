@@ -7,7 +7,7 @@ import {
   Home,
   Workout,
   AllWorkouts,
-  CreateMesocycle,
+  CreateMeso,
   Profile,
 } from './pages/dashboard';
 
@@ -27,7 +27,7 @@ function App() {
           <Route path='workout' element={<Workout />} />
           <Route path='all-workouts' element={<AllWorkouts />} />
           {/* CUSTOM EXERCISES ROUTE? */}
-          <Route path='new-meso' element={<CreateMesocycle />} />
+          <Route path='create-meso' element={<CreateMeso />} />
           <Route path='profile' element={<Profile />} />
         </Route>
         <Route path='landing' element={<Landing />} />

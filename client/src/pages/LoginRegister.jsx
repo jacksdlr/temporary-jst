@@ -61,6 +61,7 @@ const LoginRegister = () => {
           <FormRow
             type='text'
             name='name'
+            labelText='Name'
             value={name}
             handleChange={handleChange}
           />
@@ -68,12 +69,14 @@ const LoginRegister = () => {
         <FormRow
           type='email'
           name='email'
+          labelText='Email'
           value={email}
           handleChange={handleChange}
         />
         <FormRow
           type='password'
           name='password'
+          labelText='Password'
           value={password}
           handleChange={handleChange}
         />

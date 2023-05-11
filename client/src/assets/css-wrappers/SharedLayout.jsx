@@ -7,9 +7,11 @@ const Wrapper = styled.section`
   } */ /* remove this */
   .dashboard-page {
     display: flex;
+    flex-direction: column;
     width: 90vw;
     margin: 0 auto;
     padding: 2rem 0;
+    align-self: start;
   }
   .main-container {
     display: flex;
