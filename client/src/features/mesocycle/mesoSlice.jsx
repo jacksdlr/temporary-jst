@@ -9,8 +9,14 @@ const initialState = {
   goalOptions: ['Select a goal', 'Bulk', 'Cut', 'Maintenance'],
   goal: '',
   microcycles: '',
-  sessions: [],
-  sessionsNumber: 0,
+  sessions: [
+    /* {
+      sessionName: 'Session 1',
+      sessionNumber: 1,
+      exercises: [{ muscleGroup: '', exerciseName: '', repRange: '' }],
+    }, */
+  ],
+  sessionsCount: 0,
   isEditing: '',
 };
 
@@ -18,20 +24,66 @@ const mesoSlice = createSlice({
   name: 'meso',
   initialState,
   reducers: {
-    handleChange: (state, { payload: { input, value } }) => {
+    handleMesoChange: (state, { payload: { input, value } }) => {
       state[input] = value;
+    },
+    handleSessionChange: (state, { payload: { input, value, index } }) => {
+      state.sessions[index][input] = value;
+    },
+    addSession: (state) => {
+      state.sessionsCount++;
+      state.sessions.push({
+        sessionsCount: state.sessionsCount,
+        sessionName: `Session ${state.sessionsCount}`,
+        exercises: [
+          /* { muscleGroup: '', exerciseName: '', repRange: '' } */
+        ],
+      });
+    },
+    deleteSession: (state, { payload: { index } }) => {
+      state.sessionsCount--;
+      state.sessions.splice(index, 1);
+    },
+    handleExerciseChange: (
+      state,
+      { payload: { input, value, sessionIndex, exerciseIndex } }
+    ) => {
+      state.sessions[sessionIndex].exercises[exerciseIndex][input] = value;
+    },
+    addExercise: (state, { payload: { index } }) => {
+      state.sessions[index].exercises.push({
+        muscleGroup: '',
+        exerciseName: '',
+        repRange: '',
+      });
+    },
+    deleteExercise: (state, { payload: { sessionIndex, exerciseIndex } }) => {
+      /* state.sessions[sessionIndex].exercises.length == 1
+        ? (state.sessions[sessionIndex].exercises = [
+            {
+              muscleGroup: '',
+              exerciseName: '',
+              repRange: '',
+            },
+          ])
+        :  */ state.sessions[sessionIndex].exercises.splice(exerciseIndex, 1);
     },
     clearInputs: () => {
       return {
         ...initialState,
       };
     },
-    addSession: (state) => {
-      state.sessionsNumber++;
-      state.sessions.push({ sessionNumber: state.sessionsNumber });
-    },
   },
 });
 
 export default mesoSlice.reducer;
-export const { handleChange, clearInputs, addSession } = mesoSlice.actions;
+export const {
+  handleMesoChange,
+  handleSessionChange,
+  addSession,
+  deleteSession,
+  handleExerciseChange,
+  addExercise,
+  deleteExercise,
+  clearInputs,
+} = mesoSlice.actions;

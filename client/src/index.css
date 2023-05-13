@@ -320,3 +320,38 @@ ul {
     margin-right: 0.5rem;
   }
 }
+
+/* Exercise colors */
+.Back {
+  background: #ffe5e5;
+}
+.Chest {
+  background: #e5ffe5;
+}
+.Shoulders {
+  background: #f9ffe5;
+}
+.Biceps {
+  background: #fff5e6;
+}
+.Triceps {
+  background: #e5fff9;
+}
+.Quads {
+  background: #e5f2ff;
+}
+.Hamstrings {
+  background: #ece5ff;
+}
+.Calves {
+  background: #ffe5ff;
+}
+.Glutes {
+  background: #ffe5ec;
+}
+.Forearms {
+  background: #ffece5;
+}
+.Abs {
+  background: #ffe5f9;
+}

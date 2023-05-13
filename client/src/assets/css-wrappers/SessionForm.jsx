@@ -17,6 +17,25 @@ const Wrapper = styled.section`
   .add-session:hover {
     color: var(--primary-500);
   }
+  .add-session:active {
+    background-color: var(--grey-100);
+    color: var(--primary-500);
+    margin: 0.2rem 0 0 0.2rem;
+  }
+  .session-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.38rem;
+  }
+  .session-label input:first-of-type {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    color: var(--textColor);
+    letter-spacing: var(--letterSpacing);
+    padding-left: 0;
+  }
   h3 {
     margin-top: 0;
   }
@@ -39,10 +58,24 @@ const Wrapper = styled.section`
     display: grid;
     row-gap: 0.5rem;
   }
-  .form-center button {
+  .form-center button,
+  .add-exercise {
     align-self: end;
     height: 35px;
     margin-top: 1rem;
+  }
+  .exercise-container {
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  h5 {
+    margin: 0;
   }
   .btn-container {
     display: grid;
@@ -55,17 +88,21 @@ const Wrapper = styled.section`
     }
   }
   .clear-btn {
+    width: 2.5rem;
     background: var(--grey-500);
   }
   .clear-btn:hover {
     background: var(--black);
   }
-  .calories-container {
+  .icon:hover {
+    color: var(--primary-500);
+  }
+  .info-container {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
-  .calories-container svg:hover {
+  .info-container svg:hover {
     color: var(--primary-500);
   }
   /*   .info {
@@ -77,7 +114,7 @@ const Wrapper = styled.section`
     background-color: var(--primary-100);
     transition: var(--slow-transition);
   }
-  .show-calories {
+  .show-info {
     max-height: 500px;
   } */
   @media (min-width: 992px) {
