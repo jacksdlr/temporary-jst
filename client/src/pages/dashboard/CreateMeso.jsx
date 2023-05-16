@@ -1,25 +1,15 @@
+import CreateSessions from './../../components/CreateSessions';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { FormRow, FormRowSelect } from '../../components';
 import {
   handleMesoChange,
-  handleSessionChange,
   addSession,
-  deleteSession,
-  handleExerciseChange,
-  addExercise,
-  deleteExercise,
   clearInputs,
 } from '../../features/mesocycle/mesoSlice';
 import MesoWrapper from '../../assets/css-wrappers/DashboardFormPage';
 import SessionsWrapper from '../../assets/css-wrappers/SessionForm';
-import {
-  AiOutlinePlusCircle,
-  AiOutlineClose,
-  AiOutlineCloseSquare,
-} from 'react-icons/ai';
-import { muscleGroups } from '../../utils/muscleGroups';
-import { exercisesList } from '../../utils/exercises';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 const MesoDetails = () => {
   const dispatch = useDispatch();
@@ -28,11 +18,10 @@ const MesoDetails = () => {
     isLoading,
     startDate,
     startWeight,
-    goalOptions,
     goal,
     microcycles,
     sessions,
-    sessionsNumber,
+    sessionsCount,
     isEditing,
   } = useSelector((store) => store.meso);
 
@@ -44,36 +33,37 @@ const MesoDetails = () => {
       return;
     }
 
+    if (sessions.length === 0) {
+      toast.error('At least one session must exist');
+      return;
+    }
+
     for (let i = 0; i < sessions.length; i++) {
+      if (sessions[i].exercises.length === 0) {
+        toast.error(
+          `Session "${sessions[i].sessionName}" does not have any exercises`
+        );
+        return;
+      }
       for (let j = 0; j < sessions[i].exercises.length; j++) {
         const { muscleGroup, exerciseName, repRange } =
           sessions[i].exercises[j];
         if (!muscleGroup || !exerciseName || !repRange) {
-          toast.error('Some sessions have incomplete details');
+          toast.error(
+            `Session "${sessions[i].sessionName}" has incomplete details`
+          );
           return;
         }
       }
     }
+
+    toast.success('submitted');
   };
 
   const handleMesoInput = (e) => {
     const input = e.target.name;
     const value = e.target.value;
     dispatch(handleMesoChange({ input, value }));
-  };
-
-  const handleChange = (e, exerciseIndex) => {
-    const input = e.target.name;
-    const value = e.target.value;
-    const sessionIndex = sessions.findIndex(
-      (session) =>
-        session.sessionNumber ==
-        e.target.parentElement.parentElement.parentElement.id
-    );
-
-    dispatch(
-      handleExerciseChange({ input, value, sessionIndex, exerciseIndex })
-    );
   };
 
   return (
@@ -99,7 +89,7 @@ const MesoDetails = () => {
             name='goal'
             labelText='Goal'
             value={goal}
-            list={goalOptions}
+            list={['Select a goal', 'Bulk', 'Cut', 'Maintenance']}
             handleChange={handleMesoInput}
           />
           <FormRowSelect
@@ -120,139 +110,20 @@ const MesoDetails = () => {
           <button
             className='btn btn-block submit-btn'
             onClick={handleSubmit}
-            disabled={isLoading || sessionsNumber === 0}
+            disabled={isLoading}
           >
             Create Mesocycle
           </button>
         </div>
       </MesoWrapper>
       <SessionsWrapper>
-        {sessions.map((session, index) => {
+        {sessions.map((session, sessionIndex) => {
           return (
-            <div className='session session-form' key={index}>
-              <div className='session-label'>
-                <input
-                  type='text'
-                  name='sessionName'
-                  value={session.sessionName}
-                  onChange={(e) =>
-                    dispatch(
-                      handleSessionChange({
-                        input: e.target.name,
-                        value: e.target.value,
-                        index,
-                      })
-                    )
-                  }
-                  autoFocus
-                />
-                <AiOutlineClose
-                  size={25}
-                  className='icon'
-                  onClick={() =>
-                    dispatch(
-                      deleteSession({
-                        index,
-                      })
-                    )
-                  }
-                />
-              </div>
-              {session.exercises.map((exercise, index) => {
-                return (
-                  <div
-                    key={index}
-                    id={session.sessionNumber}
-                    className={
-                      !exercise.muscleGroup
-                        ? 'form'
-                        : `form exercise-container ${exercise.muscleGroup}`
-                    }
-                  >
-                    <div className='label'>
-                      <h5>{exercise.muscleGroup || 'Muscle group'}</h5>
-                      <AiOutlineCloseSquare
-                        size={25}
-                        className='icon'
-                        onClick={() =>
-                          dispatch(
-                            deleteExercise({
-                              sessionIndex: sessions.findIndex(
-                                (item) =>
-                                  item.sessionNumber == session.sessionNumber
-                              ),
-                              exerciseIndex: index,
-                            })
-                          )
-                        }
-                      />
-                    </div>
-                    <div
-                      className={
-                        !exercise.exerciseName
-                          ? 'exercise-details'
-                          : 'exercise-details form-center'
-                      }
-                    >
-                      <FormRowSelect
-                        name={
-                          !exercise.muscleGroup ? 'muscleGroup' : 'exerciseName'
-                        }
-                        labelText=''
-                        value={
-                          !exercise.muscleGroup
-                            ? exercise.muscleGroup
-                            : exercise.exerciseName
-                        }
-                        list={
-                          !exercise.muscleGroup
-                            ? ['Select a muscle group', ...muscleGroups]
-                            : [
-                                'Select an exercise',
-                                ...exercisesList
-                                  .filter(
-                                    (listItem) =>
-                                      listItem.muscleGroup ===
-                                      exercise.muscleGroup
-                                  )
-                                  .map((listItem) => listItem.name),
-                              ]
-                        }
-                        handleChange={(e) => handleChange(e, index)}
-                      />
-                      {exercise.exerciseName && (
-                        <FormRowSelect
-                          name='repRange'
-                          labelText=''
-                          value={exercise.repRange}
-                          list={[
-                            'Select a rep range',
-                            '5-10',
-                            '10-20',
-                            '20-30',
-                          ]}
-                          handleChange={(e) => handleChange(e, index)}
-                        />
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-              <button
-                className='btn btn-block add-exercise'
-                onClick={() =>
-                  dispatch(
-                    addExercise({
-                      index: sessions.findIndex(
-                        (item) => item.sessionNumber == session.sessionNumber
-                      ),
-                    })
-                  )
-                }
-              >
-                <AiOutlinePlusCircle size={25} />
-              </button>
-            </div>
+            <CreateSessions
+              session={session}
+              sessionIndex={sessionIndex}
+              key={sessionIndex}
+            />
           );
         })}
         <div

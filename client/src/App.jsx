@@ -36,6 +36,7 @@ function App() {
       </Routes>
       <ToastContainer
         position='top-center'
+        autoClose='2500'
         pauseOnFocusLoss={false} /* theme='dark' */
       />
     </BrowserRouter>

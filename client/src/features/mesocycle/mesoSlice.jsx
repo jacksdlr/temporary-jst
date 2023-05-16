@@ -5,8 +5,7 @@ import customFetch from '../../utils/axios';
 const initialState = {
   isLoading: false,
   startDate: '',
-  startWeight: '',
-  goalOptions: ['Select a goal', 'Bulk', 'Cut', 'Maintenance'],
+  startWeight: '', // get user store here?
   goal: '',
   microcycles: '',
   sessions: [
@@ -27,8 +26,11 @@ const mesoSlice = createSlice({
     handleMesoChange: (state, { payload: { input, value } }) => {
       state[input] = value;
     },
-    handleSessionChange: (state, { payload: { input, value, index } }) => {
-      state.sessions[index][input] = value;
+    handleSessionChange: (
+      state,
+      { payload: { input, value, sessionIndex } }
+    ) => {
+      state.sessions[sessionIndex][input] = value;
     },
     addSession: (state) => {
       state.sessionsCount++;
@@ -40,9 +42,9 @@ const mesoSlice = createSlice({
         ],
       });
     },
-    deleteSession: (state, { payload: { index } }) => {
+    deleteSession: (state, { payload: { sessionIndex } }) => {
       state.sessionsCount--;
-      state.sessions.splice(index, 1);
+      state.sessions.splice(sessionIndex, 1);
     },
     handleExerciseChange: (
       state,
@@ -50,23 +52,21 @@ const mesoSlice = createSlice({
     ) => {
       state.sessions[sessionIndex].exercises[exerciseIndex][input] = value;
     },
-    addExercise: (state, { payload: { index } }) => {
-      state.sessions[index].exercises.push({
+    addExercise: (state, { payload: { sessionIndex } }) => {
+      state.sessions[sessionIndex].exercises.push({
         muscleGroup: '',
         exerciseName: '',
         repRange: '',
       });
     },
     deleteExercise: (state, { payload: { sessionIndex, exerciseIndex } }) => {
-      /* state.sessions[sessionIndex].exercises.length == 1
-        ? (state.sessions[sessionIndex].exercises = [
-            {
-              muscleGroup: '',
-              exerciseName: '',
-              repRange: '',
-            },
-          ])
-        :  */ state.sessions[sessionIndex].exercises.splice(exerciseIndex, 1);
+      !state.sessions[sessionIndex].exercises[exerciseIndex].muscleGroup
+        ? state.sessions[sessionIndex].exercises.splice(exerciseIndex, 1)
+        : (state.sessions[sessionIndex].exercises[exerciseIndex] = {
+            muscleGroup: '',
+            exerciseName: '',
+            repRange: '',
+          });
     },
     clearInputs: () => {
       return {

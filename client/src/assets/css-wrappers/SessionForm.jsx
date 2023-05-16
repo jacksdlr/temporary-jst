@@ -28,7 +28,8 @@ const Wrapper = styled.section`
     align-items: center;
     margin-bottom: 1.38rem;
   }
-  .session-label input:first-of-type {
+  .session-label input {
+    max-width: 90%;
     background: none;
     border: none;
     font-size: 1.75rem;
