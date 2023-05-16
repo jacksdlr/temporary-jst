@@ -16,6 +16,7 @@ const Wrapper = styled.section`
   }
   .add-session:hover {
     color: var(--primary-500);
+    cursor: grab;
   }
   .add-session:active {
     background-color: var(--grey-100);
@@ -57,7 +58,7 @@ const Wrapper = styled.section`
   }
   .form-center {
     display: grid;
-    row-gap: 0.5rem;
+    row-gap: 0.25rem;
   }
   .form-center button,
   .add-exercise {
@@ -97,6 +98,7 @@ const Wrapper = styled.section`
   }
   .icon:hover {
     color: var(--primary-500);
+    cursor: grab;
   }
   .info-container {
     display: flex;
@@ -122,7 +124,7 @@ const Wrapper = styled.section`
     .form-center {
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      column-gap: 1rem;
+      column-gap: 0.5rem;
     }
     .btn-container {
       margin-top: 0;

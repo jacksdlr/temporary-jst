@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import FormRow from './FormRow';
 import FormRowSelect from './FormRowSelect';
 import {
   handleExerciseChange,
@@ -73,13 +74,39 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
           handleChange={(e) => handleChange(e, sessionIndex, exerciseIndex)}
         />
         {exercise.exerciseName && (
-          <FormRowSelect
-            name='repRange'
-            labelText=''
-            value={exercise.repRange}
-            list={['Select a rep range', '5-10', '10-20', '20-30']}
-            handleChange={(e) => handleChange(e, sessionIndex, exerciseIndex)}
-          />
+          <>
+            <FormRowSelect
+              name='repRange'
+              labelText=''
+              value={exercise.repRange}
+              list={[
+                'Select a rep range',
+                'Standard rep ranges',
+                '5-10',
+                '10-20',
+                '20-30',
+                'More specific rep ranges',
+                '6-8',
+                '8-10',
+                '10-12',
+                '12-15',
+                '15-20',
+                '20-25',
+                '25-30',
+              ]}
+              handleChange={(e) => handleChange(e, sessionIndex, exerciseIndex)}
+            />
+            <FormRow
+              type='text'
+              name='notes'
+              labelText=''
+              value={exercise.notes}
+              placeholder='Additional notes'
+              handleChange={(e) => {
+                handleChange(e, sessionIndex, exerciseIndex);
+              }}
+            />
+          </>
         )}
       </div>
     </div>

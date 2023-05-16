@@ -1,4 +1,12 @@
+import SearchContainer from '../../components/SearchContainer';
+import WorkoutsContainer from '../../components/WorkoutsContainer';
+
 const AllWorkouts = () => {
-  return <h1>AllWorkouts</h1>;
+  return (
+    <>
+      <SearchContainer />
+      <WorkoutsContainer />
+    </>
+  );
 };
 export default AllWorkouts;

@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
+import { getUserFromLocalStorage } from '../../utils/localStorage';
 
 const initialState = {
   isLoading: false,
   startDate: '',
-  startWeight: '', // get user store here?
+  startWeight: getUserFromLocalStorage()?.data?.weight || '',
   goal: '',
   microcycles: '',
   sessions: [
@@ -66,11 +67,13 @@ const mesoSlice = createSlice({
             muscleGroup: '',
             exerciseName: '',
             repRange: '',
+            notes: '',
           });
     },
     clearInputs: () => {
       return {
         ...initialState,
+        startWeight: getUserFromLocalStorage()?.data?.weight || '',
       };
     },
   },

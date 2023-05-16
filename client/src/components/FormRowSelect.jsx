@@ -17,6 +17,12 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
               key={index}
               value={itemValue}
               hidden={index === 0 ? true : false}
+              disabled={
+                itemValue == 'Standard rep ranges' ||
+                itemValue == 'More specific rep ranges'
+                  ? true
+                  : false
+              }
             >
               {itemValue}
             </option>
