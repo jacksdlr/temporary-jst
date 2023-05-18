@@ -4,7 +4,6 @@ const MesocycleSchema = new mongoose.Schema(
   {
     startDate: {
       type: Date,
-      required: true,
     },
     startWeight: {
       type: Number,

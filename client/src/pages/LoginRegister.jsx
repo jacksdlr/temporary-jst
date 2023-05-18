@@ -90,7 +90,7 @@ const LoginRegister = () => {
             dispatch(
               loginUser({
                 email: 'testUser@email.com',
-                password: 'testPassword',
+                password: 'testPassword123',
               })
             )
           }

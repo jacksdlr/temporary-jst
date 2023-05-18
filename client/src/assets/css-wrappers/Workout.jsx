@@ -3,19 +3,23 @@ import styled from 'styled-components';
 const Wrapper = styled.article`
   background: var(--white);
   border-radius: var(--borderRadius);
-  display: grid;
-  grid-template-rows: 1fr auto;
+  display: flex;
+  flex-direction: column;
   box-shadow: var(--shadow-2);
 
   header {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--grey-100);
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr 1fr;
     align-items: center;
     h5 {
       letter-spacing: 0;
     }
+  }
+  footer {
+    border-top: 1px solid var(--grey-100);
+    margin-top: auto;
   }
   .main-icon {
     width: 60px;
@@ -30,10 +34,10 @@ const Wrapper = styled.article`
     color: var(--white);
     margin-right: 2rem;
   }
+  h5 {
+    margin-bottom: 0.25rem;
+  }
   .info {
-    h5 {
-      margin-bottom: 0.25rem;
-    }
     p {
       margin: 0;
       text-transform: capitalize;
@@ -41,47 +45,56 @@ const Wrapper = styled.article`
       letter-spacing: var(--letterSpacing);
     }
   }
-  .pending {
+  .planned {
     background: #fcefc7;
     color: #e9b949;
   }
-  .interview {
+  .completed {
     background: #e0e8f9;
     color: #647acb;
   }
-  .declined {
+  .missed {
     color: #d66a6a;
     background: #ffeeee;
   }
   .content {
     padding: 1rem 1.5rem;
   }
-  .content-center {
-    display: grid;
-    grid-template-columns: 1fr;
+  .muscles {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
     row-gap: 0.5rem;
-    @media (min-width: 576px) {
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (min-width: 992px) {
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 1120px) {
-      grid-template-columns: 1fr 1fr;
-    }
   }
-
+  .muscles {
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--grey-100);
+  }
+  .muscles p {
+    padding: 0.2rem 0.6rem;
+    margin: 0;
+    margin-right: 1rem;
+    border-radius: var(--borderRadius);
+  }
+  .exercises p {
+    margin: 0;
+  }
   .status {
     border-radius: var(--borderRadius);
     text-transform: capitalize;
     letter-spacing: var(--letterSpacing);
+    font-size: 1rem;
     text-align: center;
+    padding: 5px;
     width: 100px;
     height: 30px;
     margin-top: 0.5rem;
   }
-  footer {
-    margin-top: 1rem;
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
   }
   .edit-btn,
   .delete-btn {

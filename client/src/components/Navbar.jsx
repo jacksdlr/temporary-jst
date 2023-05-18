@@ -21,6 +21,8 @@ const Navbar = () => {
   const { user } = useSelector((store) => store.user);
   const { isSidebarOpen } = useSelector((store) => store.navbar);
 
+  const isMobile = () => window.innerWidth < 992;
+
   return (
     <Wrapper>
       <div className='nav-center'>
@@ -28,7 +30,15 @@ const Navbar = () => {
           className='toggle-btn'
           onClick={() => dispatch(toggleSidebar())}
         >
-          {isSidebarOpen ? <AiOutlineMenuFold /> : <AiOutlineMenuUnfold />}
+          {isSidebarOpen && isMobile() ? (
+            <AiOutlineMenuFold />
+          ) : !isSidebarOpen && isMobile() ? (
+            <AiOutlineMenuUnfold />
+          ) : isSidebarOpen ? (
+            <AiOutlineMenuUnfold />
+          ) : (
+            <AiOutlineMenuFold />
+          )}
         </button>
         <div>
           <Logo />

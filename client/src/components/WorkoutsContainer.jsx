@@ -1,18 +1,19 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllWorkouts } from '../features/allWorkouts/allWorkoutsSlice';
 import Workout from './Workout';
 import Loading from './Loading';
-import Wrapper from '../assets/css-wrappers/WorkoutContainer';
+import Wrapper from '../assets/css-wrappers/WorkoutsContainer';
 
 const WorkoutsContainer = () => {
   const dispatch = useDispatch();
 
   const { workouts, isLoading } = useSelector((store) => store.allWorkouts);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     dispatch(getAllWorkouts());
-  }, []);
+  }, []); */
+
+  // const workouts = user.mesocycles.map((mesocycle) => mesocycle.sessions);
 
   if (isLoading) {
     return (

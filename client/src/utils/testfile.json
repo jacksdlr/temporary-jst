@@ -1,0 +1,1379 @@
+{
+  "_id": { "$oid": "64664245336a28fbdbeeb727" },
+  "customExercises": [],
+  "name": "Test User",
+  "email": "testUser@email.com",
+  "password": "$2a$10$HuXSOSiDtpdRTOcXqRLs8evBVIT7IDR//1O10wSgv9cL/d1pSM2p6",
+  "mesocycles": [
+    {
+      "microcycles": { "$numberInt": "4" },
+      "sessions": [
+        {
+          "microcycle": { "$numberInt": "1" },
+          "sessionNumber": { "$numberInt": "1" },
+          "sessionName": "Push #1",
+          "musclesTrained": ["Chest", "Triceps", "Shoulders"],
+          "exercises": [
+            {
+              "exerciseName": "Bench Press",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Cable Fly",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Cable Triceps Pushdown",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Dumbbell Laterals",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "646649da914580c2e4d20f45" }
+        },
+        {
+          "microcycle": { "$numberInt": "1" },
+          "sessionNumber": { "$numberInt": "2" },
+          "sessionName": "Legs #1",
+          "musclesTrained": ["Quads", "Hamstrings", "Calves"],
+          "exercises": [
+            {
+              "exerciseName": "Squat",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Leg Press",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Lying Leg Curl",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Standing Calve Raise",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "646649d4914580c2e4d20f44" }
+        },
+        {
+          "microcycle": { "$numberInt": "1" },
+          "sessionNumber": { "$numberInt": "3" },
+          "sessionName": "Pull #1",
+          "musclesTrained": ["Back", "Biceps", "Shoulders"],
+          "exercises": [
+            {
+              "exerciseName": "Weighted Pullup",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Barbell Row",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Dumbbell Curl",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Facepull",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "646649c9914580c2e4d20f43" }
+        },
+        {
+          "microcycle": { "$numberInt": "1" },
+          "sessionNumber": { "$numberInt": "4" },
+          "sessionName": "Push #2",
+          "musclesTrained": ["Chest", "Triceps", "Shoulders"],
+          "exercises": [
+            {
+              "exerciseName": "Bench Press",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Cable Fly",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Cable Triceps Pushdown",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Dumbbell Laterals",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "646649c3914580c2e4d20f42" }
+        },
+        {
+          "microcycle": { "$numberInt": "1" },
+          "sessionNumber": { "$numberInt": "5" },
+          "sessionName": "Legs #2",
+          "musclesTrained": ["Quads", "Hamstrings", "Calves"],
+          "exercises": [
+            {
+              "exerciseName": "Squat",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Leg Press",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Lying Leg Curl",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Standing Calve Raise",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "646649be914580c2e4d20f41" }
+        },
+        {
+          "microcycle": { "$numberInt": "1" },
+          "sessionNumber": { "$numberInt": "6" },
+          "sessionName": "Pull #2",
+          "musclesTrained": ["Back", "Biceps", "Shoulders"],
+          "exercises": [
+            {
+              "exerciseName": "Weighted Pullup",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Barbell Row",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Dumbbell Curl",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Facepull",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "646649b9914580c2e4d20f40" }
+        },
+        {
+          "microcycle": { "$numberInt": "2" },
+          "sessionNumber": { "$numberInt": "1" },
+          "sessionName": "Push #1",
+          "musclesTrained": ["Chest", "Triceps", "Shoulders"],
+          "exercises": [
+            {
+              "exerciseName": "Bench Press",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Cable Fly",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Cable Triceps Pushdown",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Dumbbell Laterals",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "646649b3914580c2e4d20f3f" }
+        },
+        {
+          "microcycle": { "$numberInt": "2" },
+          "sessionNumber": { "$numberInt": "2" },
+          "sessionName": "Legs #1",
+          "musclesTrained": ["Quads", "Hamstrings", "Calves"],
+          "exercises": [
+            {
+              "exerciseName": "Squat",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Leg Press",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Lying Leg Curl",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Standing Calve Raise",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "646649a1914580c2e4d20f3e" }
+        },
+        {
+          "microcycle": { "$numberInt": "2" },
+          "sessionNumber": { "$numberInt": "3" },
+          "sessionName": "Pull #1",
+          "musclesTrained": ["Back", "Biceps", "Shoulders"],
+          "exercises": [
+            {
+              "exerciseName": "Weighted Pullup",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Barbell Row",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Dumbbell Curl",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Facepull",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "64664999914580c2e4d20f3d" }
+        },
+        {
+          "microcycle": { "$numberInt": "2" },
+          "sessionNumber": { "$numberInt": "4" },
+          "sessionName": "Push #2",
+          "musclesTrained": ["Chest", "Triceps", "Shoulders"],
+          "exercises": [
+            {
+              "exerciseName": "Bench Press",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Cable Fly",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "40" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Cable Triceps Pushdown",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "120" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Dumbbell Laterals",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "8" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "64664994914580c2e4d20f3c" }
+        },
+        {
+          "microcycle": { "$numberInt": "2" },
+          "sessionNumber": { "$numberInt": "5" },
+          "sessionName": "Legs #2",
+          "musclesTrained": ["Quads", "Hamstrings", "Calves"],
+          "exercises": [
+            {
+              "exerciseName": "Squat",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Leg Press",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "160" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Lying Leg Curl",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "80" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Standing Calve Raise",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "100" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "6466498e914580c2e4d20f3b" }
+        },
+        {
+          "microcycle": { "$numberInt": "2" },
+          "sessionNumber": { "$numberInt": "6" },
+          "sessionName": "Pull #2",
+          "musclesTrained": ["Back", "Biceps", "Shoulders"],
+          "exercises": [
+            {
+              "exerciseName": "Weighted Pullup",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "8" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "7" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "6" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Barbell Row",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "15" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "14" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "50" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Dumbbell Curl",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "10" },
+                  "repetitions": { "$numberInt": "10" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "exerciseName": "Facepull",
+              "sets": [
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "13" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "weight": { "$numberInt": "70" },
+                  "repetitions": { "$numberInt": "12" },
+                  "repsInReserve": { "$numberInt": "3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "_id": { "$oid": "64664988914580c2e4d20f3a" }
+        }
+      ],
+      "_id": { "$oid": "64664938914580c2e4d20f39" }
+    }
+  ],
+  "createdAt": { "$date": { "$numberLong": "1684423237703" } },
+  "updatedAt": { "$date": { "$numberLong": "1684423562777" } },
+  "__v": { "$numberInt": "0" },
+  "activityLevel": "Moderately active",
+  "age": { "$numberInt": "25" },
+  "height": { "$numberInt": "180" },
+  "sex": "Male",
+  "weight": { "$numberInt": "80" }
+}
