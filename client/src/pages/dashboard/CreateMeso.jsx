@@ -16,10 +16,11 @@ const MesoDetails = () => {
 
   const {
     isLoading,
+    mesoName,
+    microcycles,
+    goal,
     startDate,
     startWeight,
-    goal,
-    microcycles,
     sessions,
     sessionsCount,
     isEditing,
@@ -72,6 +73,27 @@ const MesoDetails = () => {
         <h3>Create Mesocycle</h3>
         <div className='form-center'>
           <FormRow
+            type='text'
+            name='mesoName'
+            labelText='Mesocycle Name *'
+            value={mesoName}
+            handleChange={handleMesoInput}
+          />
+          <FormRowSelect
+            name='microcycles'
+            labelText='Microcycles *'
+            value={microcycles}
+            list={['Select mesocycle length', 1, 2, 3, 4, 5, 6, 7, 8]}
+            handleChange={handleMesoInput}
+          />
+          <FormRowSelect
+            name='goal'
+            labelText='Goal'
+            value={goal}
+            list={['Select a goal', 'Bulk', 'Cut', 'Maintenance']}
+            handleChange={handleMesoInput}
+          />
+          <FormRow
             type='date'
             name='startDate'
             labelText='Start Date'
@@ -83,20 +105,6 @@ const MesoDetails = () => {
             name='startWeight'
             labelText='Start Weight (kg)'
             value={startWeight}
-            handleChange={handleMesoInput}
-          />
-          <FormRowSelect
-            name='goal'
-            labelText='Goal'
-            value={goal}
-            list={['Select a goal', 'Bulk', 'Cut', 'Maintenance']}
-            handleChange={handleMesoInput}
-          />
-          <FormRowSelect
-            name='microcycles'
-            labelText='Microcycles *'
-            value={microcycles}
-            list={['Select mesocycle length', 1, 2, 3, 4, 5, 6, 7, 8]}
             handleChange={handleMesoInput}
           />
           <button

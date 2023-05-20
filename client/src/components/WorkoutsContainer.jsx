@@ -3,15 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import Workout from './Workout';
 import Loading from './Loading';
 import Wrapper from '../assets/css-wrappers/WorkoutsContainer';
+import { getAllWorkouts } from '../features/allWorkouts/allWorkoutsSlice';
 
 const WorkoutsContainer = () => {
   const dispatch = useDispatch();
 
   const { workouts, isLoading } = useSelector((store) => store.allWorkouts);
 
-  /*   useEffect(() => {
+  useEffect(() => {
     dispatch(getAllWorkouts());
-  }, []); */
+  }, []);
 
   // const workouts = user.mesocycles.map((mesocycle) => mesocycle.sessions);
 
@@ -36,9 +37,15 @@ const WorkoutsContainer = () => {
     <Wrapper>
       <h5>Workouts Info</h5>
       <div className='workouts'>
-        {workouts.map((workout) => {
-          return <Workout key={workout._id} {...workout} />;
-        })}
+        {workouts.map((meso, mesoIndex) =>
+          meso.sessions.map((session, index) => (
+            <Workout
+              key={index}
+              mesoName={`Meso ${mesoIndex + 1}`}
+              {...session}
+            />
+          ))
+        )}
       </div>
     </Wrapper>
   );

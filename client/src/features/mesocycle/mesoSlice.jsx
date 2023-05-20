@@ -3,12 +3,15 @@ import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 
+console.log(getUserFromLocalStorage()?.mesocycles?.length);
+
 const initialState = {
   isLoading: false,
+  mesoName: `Meso ${getUserFromLocalStorage()?.mesocycles?.length + 1}`,
+  microcycles: '',
+  goal: '',
   startDate: '',
   startWeight: getUserFromLocalStorage()?.data?.weight || '',
-  goal: '',
-  microcycles: '',
   sessions: [
     /* {
       sessionName: 'Session 1',

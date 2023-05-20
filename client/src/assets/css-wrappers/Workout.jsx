@@ -28,7 +28,7 @@ const Wrapper = styled.article`
     place-items: center;
     background: var(--primary-500);
     border-radius: var(--borderRadius);
-    font-size: 1.5rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--white);
@@ -81,15 +81,23 @@ const Wrapper = styled.article`
     margin: 0;
   }
   .status {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
     border-radius: var(--borderRadius);
     text-transform: capitalize;
     letter-spacing: var(--letterSpacing);
     font-size: 1rem;
     text-align: center;
-    padding: 5px;
-    width: 100px;
+    width: auto;
     height: 30px;
+    padding: 5px;
+    padding-top: 7px;
     margin-top: 0.5rem;
+  }
+  .icon {
+    margin-top: 3px;
   }
   .actions {
     display: flex;

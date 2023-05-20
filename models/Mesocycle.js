@@ -2,6 +2,22 @@ const mongoose = require('mongoose');
 
 const MesocycleSchema = new mongoose.Schema(
   {
+    mesoName: {
+      type: Number,
+      min: 1,
+      max: 50,
+      required: true,
+    },
+    microcycles: {
+      type: Number,
+      min: 1,
+      max: 8,
+      required: true,
+    },
+    goal: {
+      type: String,
+      enum: ['Bulk', 'Cut', 'Maintenance'],
+    },
     startDate: {
       type: Date,
     },
@@ -10,16 +26,6 @@ const MesocycleSchema = new mongoose.Schema(
     },
     endWeight: {
       type: Number,
-    },
-    goal: {
-      type: String,
-      enum: ['Bulk', 'Cut', 'Maintenance'],
-    },
-    microcycles: {
-      type: Number,
-      min: 1,
-      max: 8,
-      required: true,
     },
     sessions: {
       type: Array,
