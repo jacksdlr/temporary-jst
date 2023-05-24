@@ -13,6 +13,7 @@ const authenticateUser = require('./middleware/authentication');
 // routers
 const authRouter = require('./routes/auth');
 const workoutsRouter = require('./routes/workouts');
+const mesocyclesRouter = require('./routes/mesocycles');
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
@@ -28,6 +29,7 @@ app.use(xss());
 // routes
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/workouts', authenticateUser, workoutsRouter);
+app.use('/api/v1/mesocycles', authenticateUser, mesocyclesRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));

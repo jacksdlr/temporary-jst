@@ -37,15 +37,9 @@ const WorkoutsContainer = () => {
     <Wrapper>
       <h5>Workouts Info</h5>
       <div className='workouts'>
-        {workouts.map((meso, mesoIndex) =>
-          meso.sessions.map((session, index) => (
-            <Workout
-              key={index}
-              mesoName={`Meso ${mesoIndex + 1}`}
-              {...session}
-            />
-          ))
-        )}
+        {workouts.map((workout, index) => (
+          <Workout key={index} {...workout} />
+        ))}
       </div>
     </Wrapper>
   );

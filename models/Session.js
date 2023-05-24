@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
+const { ExerciseSchema } = require('./Exercise');
 
 const SessionSchema = new mongoose.Schema(
   {
     microcycle: {
       type: Number,
       required: true,
+    },
+    sessionName: {
+      type: String,
     },
     sessionNumber: {
       type: Number,
@@ -16,17 +20,18 @@ const SessionSchema = new mongoose.Schema(
       required: true,
     },
     exercises: {
-      type: Array,
-      default: [],
+      type: [ExerciseSchema],
       required: true,
     },
-    /* currentExercise: {
-      type: mongoose.Types.ObjectId,
-      ref: 'Exercise',
-    }, */
     notes: {
       type: Array,
       default: [],
+    },
+    status: {
+      type: String,
+      required: true,
+      default: 'planned',
+      enum: ['completed', 'planned', 'missed'],
     },
   },
   { timestamps: true }
@@ -34,4 +39,4 @@ const SessionSchema = new mongoose.Schema(
 
 const Session = mongoose.model('Session', SessionSchema);
 
-module.exports = { SessionSchema };
+module.exports = { Session, SessionSchema };

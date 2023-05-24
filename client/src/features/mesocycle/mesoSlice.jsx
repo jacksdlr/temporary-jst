@@ -3,8 +3,6 @@ import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 
-console.log(getUserFromLocalStorage()?.mesocycles?.length);
-
 const initialState = {
   isLoading: false,
   mesoName: `Meso ${getUserFromLocalStorage()?.mesocycles?.length + 1}`,
@@ -22,6 +20,22 @@ const initialState = {
   sessionsCount: 0,
   isEditing: '',
 };
+
+export const createMeso = createAsyncThunk(
+  'mesocycles/createMeso',
+  async (mesocycle, thunkAPI) => {
+    try {
+      const response = await customFetch.post('/mesocycles', mesocycle, {
+        headers: {
+          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return checkForUnauthorizedResponse(error, thunkAPI);
+    }
+  }
+);
 
 const mesoSlice = createSlice({
   name: 'meso',
@@ -79,6 +93,20 @@ const mesoSlice = createSlice({
         startWeight: getUserFromLocalStorage()?.data?.weight || '',
       };
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createMeso.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createMeso.fulfilled, (state) => {
+        state.isLoading = false;
+        toast.success('Created mesocycle!');
+      })
+      .addCase(createMeso.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      });
   },
 });
 

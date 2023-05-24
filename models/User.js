@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const MesocycleSchema = require('./Mesocycle');
+const {MesocycleSchema} = require('./Mesocycle');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -53,11 +53,9 @@ const UserSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    mesocycles: {
-      type: [MesocycleSchema],
-    },
+    mesocycles: [MesocycleSchema],
     currentMeso: {
-      type: mongoose.Types.ObjectId,
+      type: String,
       ref: 'Mesocycle',
     },
   },

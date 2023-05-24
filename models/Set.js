@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ExerciseSchema = new mongoose.Schema({
+const SetSchema = new mongoose.Schema({
   weight: {
     type: Number,
   },
@@ -24,6 +24,6 @@ const ExerciseSchema = new mongoose.Schema({
   },
 });
 
-const Exercise = mongoose.model('Exercise', ExerciseSchema);
+const Set = mongoose.model('Set', SetSchema);
 
-module.exports = { ExerciseSchema };
+module.exports = { Set, SetSchema };

@@ -6,6 +6,7 @@ import {
   handleMesoChange,
   addSession,
   clearInputs,
+  createMeso,
 } from '../../features/mesocycle/mesoSlice';
 import MesoWrapper from '../../assets/css-wrappers/DashboardFormPage';
 import SessionsWrapper from '../../assets/css-wrappers/SessionForm';
@@ -58,7 +59,17 @@ const MesoDetails = () => {
       }
     }
 
-    toast.success('submitted');
+    // toast.success('submitted');
+    dispatch(
+      createMeso({
+        mesoName,
+        microcycles,
+        goal,
+        startDate,
+        startWeight,
+        sessions,
+      })
+    );
   };
 
   const handleMesoInput = (e) => {

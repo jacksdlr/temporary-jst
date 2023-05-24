@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const { SessionSchema } = require('./Session');
 
 const MesocycleSchema = new mongoose.Schema(
   {
     mesoName: {
-      type: Number,
+      type: String,
       min: 1,
       max: 50,
       required: true,
@@ -27,12 +28,9 @@ const MesocycleSchema = new mongoose.Schema(
     endWeight: {
       type: Number,
     },
-    sessions: {
-      type: Array,
-      default: [],
-    },
+    sessions: [SessionSchema],
     currentSession: {
-      type: mongoose.Types.ObjectId,
+      type: String,
       ref: 'Session',
     },
     notes: {
@@ -45,4 +43,4 @@ const MesocycleSchema = new mongoose.Schema(
 
 const Mesocycle = mongoose.model('Mesocycle', MesocycleSchema);
 
-module.exports = { MesocycleSchema };
+module.exports = { Mesocycle, MesocycleSchema };

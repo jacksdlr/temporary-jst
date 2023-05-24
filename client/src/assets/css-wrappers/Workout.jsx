@@ -11,7 +11,9 @@ const Wrapper = styled.article`
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--grey-100);
     display: grid;
-    grid-template-columns: auto 1fr 1fr;
+    grid-template-areas:
+      'meso meso'
+      'session date';
     align-items: center;
     h5 {
       letter-spacing: 0;
@@ -22,22 +24,22 @@ const Wrapper = styled.article`
     margin-top: auto;
   }
   .main-icon {
-    width: 60px;
-    height: 60px;
-    display: grid;
-    place-items: center;
+    // maybe make this random color
     background: var(--primary-500);
     border-radius: var(--borderRadius);
     font-size: 0.9rem;
     font-weight: 700;
+    text-align: center;
     text-transform: uppercase;
     color: var(--white);
-    margin-right: 2rem;
+    grid-area: meso;
+    margin-bottom: 0.5rem;
   }
   h5 {
     margin-bottom: 0.25rem;
   }
   .info {
+    grid-area: session;
     p {
       margin: 0;
       text-transform: capitalize;
@@ -95,6 +97,7 @@ const Wrapper = styled.article`
     padding: 5px;
     padding-top: 7px;
     margin-top: 0.5rem;
+    grid-area: date;
   }
   .icon {
     margin-top: 3px;

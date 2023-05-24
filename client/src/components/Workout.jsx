@@ -7,6 +7,7 @@ import {
   AiOutlineCloseCircle,
   AiOutlineClockCircle,
 } from 'react-icons/ai';
+import { deleteWorkout } from '../features/allWorkouts/allWorkoutsSlice';
 
 const Workout = ({
   mesoName,
@@ -20,6 +21,8 @@ const Workout = ({
   comments,
   updatedAt,
 }) => {
+  const dispatch = useDispatch();
+
   return (
     <Wrapper>
       <header>
@@ -70,10 +73,11 @@ const Workout = ({
           <button
             className='btn delete-btn'
             onClick={() => {
-              console.log('hide workout');
+              // ASK FOR CONFIRMATION
+              dispatch(deleteWorkout(_id));
             }}
           >
-            hide
+            delete
           </button>
         </div>
       </footer>
