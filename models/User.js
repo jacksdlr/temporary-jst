@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const {MesocycleSchema} = require('./Mesocycle');
+const { MesocycleSchema } = require('./Mesocycle');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -37,11 +37,12 @@ const UserSchema = new mongoose.Schema(
     },
     sex: {
       type: String,
-      enum: ['Male', 'Female'],
+      enum: ['', 'Male', 'Female'],
     },
     activityLevel: {
       type: String,
       enum: [
+        '',
         'Sedentary',
         'Lightly active',
         'Moderately active',

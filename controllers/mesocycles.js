@@ -13,6 +13,12 @@ const createMeso = async (req, res) => {
   const { mesoName, microcycles, goal, startDate, startWeight, sessions } =
     req.body;
 
+  const user = await User.findById(req.user.userId);
+
+  if (user.mesocycles.find((meso) => meso.mesoName == mesoName)) {
+    throw new BadRequestError('Mesocycle name already exists');
+  }
+
   const newMesocycle = new Mesocycle({
     mesoName,
     microcycles,
@@ -53,8 +59,6 @@ const createMeso = async (req, res) => {
           });
           return newExercise;
         }),
-
-        status: 'planned',
       });
       return newSession;
     }),
@@ -62,12 +66,28 @@ const createMeso = async (req, res) => {
     notes: [],
   });
 
-  const user = await User.findById(req.user.userId);
-
   user.mesocycles.push(newMesocycle);
-  user.save();
+  await user.save();
 
-  res.status(StatusCodes.CREATED).json({ user });
+  const token = user.createJWT();
+
+  res.status(StatusCodes.OK).json({
+    user: {
+      name: user.name,
+      email: user.email,
+      mesocycles: user.mesocycles,
+      currentMeso: user.currentMeso,
+      exercises: user.customExercises,
+      data: {
+        height: user.height,
+        weight: user.weight,
+        age: user.age,
+        sex: user.sex,
+        activityLevel: user.activityLevel,
+      },
+      token,
+    },
+  });
 };
 
 module.exports = {

@@ -33,9 +33,9 @@ const Workout = ({
         </div>
         <h5 className={`status ${status}`}>
           <span className='icon'>
-            {status == 'completed' ? (
+            {status == 'Completed' ? (
               <AiOutlineCalendar />
-            ) : status == 'missed' ? (
+            ) : status == 'Incomplete' ? (
               <AiOutlineCloseCircle />
             ) : (
               <AiOutlineClockCircle />

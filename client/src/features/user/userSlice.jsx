@@ -11,6 +11,7 @@ import {
   updateUserDetailsThunk,
   updateUserDataThunk,
 } from './userThunk';
+import { createMeso } from '../mesocycle/mesoSlice';
 
 const initialState = {
   isLoading: false,
@@ -116,9 +117,15 @@ const userSlice = createSlice({
       .addCase(updateUserData.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      })
+      // update user when creating mesocycle)
+      .addCase(createMeso.fulfilled, (state, { payload }) => {
+        const { user } = payload;
+        state.user = user;
+        addUserToLocalStorage(user);
       });
   },
 });
 
-export const { logoutUser } = userSlice.actions;
+export const { logoutUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;

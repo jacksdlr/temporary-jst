@@ -30,8 +30,8 @@ const SessionSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      default: 'planned',
-      enum: ['completed', 'planned', 'missed'],
+      default: 'Planned',
+      enum: ['Completed', 'Planned', 'Incomplete'],
     },
   },
   { timestamps: true }

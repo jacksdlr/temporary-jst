@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../user/userSlice';
 import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 
 const initialState = {
   isLoading: false,
-  mesoName: `Meso ${getUserFromLocalStorage()?.mesocycles?.length + 1}`,
+  mesoName: `Meso ${getUserFromLocalStorage()?.mesocycles?.length + 1 || 1}`,
   microcycles: '',
   goal: '',
   startDate: '',
@@ -32,7 +34,9 @@ export const createMeso = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return checkForUnauthorizedResponse(error, thunkAPI);
+      return thunkAPI.rejectWithValue(error.response.data.msg);
+
+      // return checkForUnauthorizedResponse(error, thunkAPI);
     }
   }
 );
@@ -90,7 +94,9 @@ const mesoSlice = createSlice({
     clearInputs: () => {
       return {
         ...initialState,
-        startWeight: getUserFromLocalStorage()?.data?.weight || '',
+        mesoName: `Meso ${
+          getUserFromLocalStorage()?.mesocycles?.length + 1 || 1
+        }`,
       };
     },
   },

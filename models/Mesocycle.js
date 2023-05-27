@@ -17,7 +17,7 @@ const MesocycleSchema = new mongoose.Schema(
     },
     goal: {
       type: String,
-      enum: ['Bulk', 'Cut', 'Maintenance'],
+      enum: ['', 'Bulk', 'Cut', 'Maintenance'],
     },
     startDate: {
       type: Date,
@@ -32,6 +32,10 @@ const MesocycleSchema = new mongoose.Schema(
     currentSession: {
       type: String,
       ref: 'Session',
+    },
+    status: {
+      type: String,
+      enum: ['Active', 'Completed', 'Planned'],
     },
     notes: {
       type: Array,

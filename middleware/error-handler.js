@@ -17,6 +17,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     customError.statusCode = 400;
   }
   if (err.code && err.code === 11000) {
+    console.log(err);
     customError.msg = 'Email is already in use';
     /* `Duplicate value entered for ${Object.keys(
       err.keyValue
