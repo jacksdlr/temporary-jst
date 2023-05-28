@@ -35,7 +35,9 @@ const MesocycleSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Active', 'Completed', 'Planned'],
+      required: true,
+      default: 'Planned',
+      enum: ['', 'Active', 'Completed', 'Planned'],
     },
     notes: {
       type: Array,

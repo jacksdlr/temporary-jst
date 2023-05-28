@@ -1,10 +1,10 @@
-import SearchContainer from '../../components/SearchContainer';
+import WorkoutsSearchContainer from '../../components/WorkoutsSearchContainer';
 import WorkoutsContainer from '../../components/WorkoutsContainer';
 
 const AllWorkouts = () => {
   return (
     <>
-      <SearchContainer />
+      <WorkoutsSearchContainer />
       <WorkoutsContainer />
     </>
   );

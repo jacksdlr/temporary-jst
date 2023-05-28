@@ -1,12 +1,13 @@
-// const User = require('../models/User');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, NotFoundError } = require('../errors');
-// const { Mesocycle } = require('../models/Mesocycle');
-// const { Session } = require('../models/Session');
-// const { Exercise } = require('../models/Exercise');
-// const { Set } = require('../models/Set');
 const { User, Mesocycle, Session, Exercise, Set } = require('../models');
+
+const getAllMesocycles = async (req, res) => {
+  const user = await User.findById(req.user.userId);
+
+  res.status(StatusCodes.OK).json({ mesocycles: user.mesocycles });
+};
 
 // DOES THIS NEED AUTHENTICATING???
 const createMeso = async (req, res) => {
@@ -91,5 +92,6 @@ const createMeso = async (req, res) => {
 };
 
 module.exports = {
+  getAllMesocycles,
   createMeso,
 };

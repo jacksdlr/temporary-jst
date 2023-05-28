@@ -7,8 +7,9 @@ import {
   deleteExercise,
 } from '../features/mesocycle/mesoSlice';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
-import { muscleGroups } from '../utils/muscleGroups';
-import { exercisesList } from '../utils/exercises';
+import { directory } from '../utils/directory';
+
+const muscleGroups = directory.map((item) => item.muscleGroup);
 
 const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
   const dispatch = useDispatch();
@@ -22,6 +23,15 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
     );
   };
 
+  const getExercises = (muscleGroup) => {
+    const exercises = directory.filter(
+      (item) =>
+        item.muscleGroup == muscleGroup || item.exerciseType == muscleGroup
+    )[0].exercises;
+
+    return exercises.map((exercise) => exercise.name);
+  };
+
   return (
     <div
       className={
@@ -31,7 +41,7 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
       }
     >
       <div className='label'>
-        <h5>{exercise.muscleGroup || 'Muscle group'}</h5>
+        <h5>{exercise.muscleGroup || 'Exercise'}</h5>
         <AiOutlineCloseSquare
           size={25}
           className='icon'
@@ -60,15 +70,15 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
           }
           list={
             !exercise.muscleGroup
-              ? ['Select a muscle group', ...muscleGroups]
+              ? ['Select a muscle group / exercise type', ...muscleGroups]
               : [
                   'Select an exercise',
-                  ...exercisesList
-                    .filter(
+                  ...getExercises(exercise.muscleGroup),
+                  /* .filter(
                       (listItem) =>
-                        listItem.muscleGroup === exercise.muscleGroup
-                    )
-                    .map((listItem) => listItem.name),
+                        listItem.muscleGroup === exercise.muscleGroup ||
+                        listItem.exerciseType === exercise.muscleGroup
+                    ) */
                 ]
           }
           handleChange={(e) => handleChange(e, sessionIndex, exerciseIndex)}
@@ -81,11 +91,11 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
               value={exercise.repRange}
               list={[
                 'Select a rep range',
-                'Standard rep ranges',
+                '- Standard rep ranges -',
                 '5-10',
                 '10-20',
                 '20-30',
-                'More specific rep ranges',
+                '- More specific rep ranges -',
                 '6-8',
                 '8-10',
                 '10-12',

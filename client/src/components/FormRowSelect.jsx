@@ -18,8 +18,7 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
               value={itemValue}
               hidden={index === 0 ? true : false}
               disabled={
-                itemValue == 'Standard rep ranges' ||
-                itemValue == 'More specific rep ranges'
+                typeof itemValue == 'string' && itemValue.charAt(0) === '-'
                   ? true
                   : false
               }
