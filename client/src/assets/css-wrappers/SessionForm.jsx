@@ -16,7 +16,7 @@ const Wrapper = styled.section`
   }
   .add-session:hover {
     color: var(--primary-500);
-    cursor: grab;
+    cursor: pointer;
   }
   .add-session:active {
     background-color: var(--grey-100);
@@ -98,7 +98,7 @@ const Wrapper = styled.section`
   }
   .icon:hover {
     color: var(--primary-500);
-    cursor: grab;
+    cursor: pointer;
   }
   .info-container {
     display: flex;

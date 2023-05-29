@@ -6,7 +6,11 @@ import {
   handleExerciseChange,
   deleteExercise,
 } from '../features/mesocycle/mesoSlice';
-import { AiOutlineCloseSquare } from 'react-icons/ai';
+import {
+  AiOutlineCloseSquare,
+  AiOutlineDelete,
+  AiOutlineRollback,
+} from 'react-icons/ai';
 import { directory } from '../utils/directory';
 
 const muscleGroups = directory.map((item) => item.muscleGroup);
@@ -42,18 +46,33 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
     >
       <div className='label'>
         <h5>{exercise.muscleGroup || 'Exercise'}</h5>
-        <AiOutlineCloseSquare
-          size={25}
-          className='icon'
-          onClick={() =>
-            dispatch(
-              deleteExercise({
-                sessionIndex,
-                exerciseIndex,
-              })
-            )
-          }
-        />
+        {exercise.muscleGroup ? (
+          <AiOutlineRollback
+            size={25}
+            className='icon'
+            onClick={() =>
+              dispatch(
+                deleteExercise({
+                  sessionIndex,
+                  exerciseIndex,
+                })
+              )
+            }
+          />
+        ) : (
+          <AiOutlineDelete
+            size={25}
+            className='icon'
+            onClick={() =>
+              dispatch(
+                deleteExercise({
+                  sessionIndex,
+                  exerciseIndex,
+                })
+              )
+            }
+          />
+        )}
       </div>
       <div
         className={
