@@ -243,7 +243,19 @@ ul {
 .form-row {
   margin-bottom: 1rem;
 }
-
+.checkbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  margin-top: 0.5rem;
+}
+.checkbox .form-input {
+  width: 1.5rem;
+}
+.checkbox .form-label {
+  margin: 0;
+}
 .form-textarea {
   height: 7rem;
 }

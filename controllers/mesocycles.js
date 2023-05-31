@@ -11,8 +11,15 @@ const getAllMesocycles = async (req, res) => {
 
 // DOES THIS NEED AUTHENTICATING???
 const createMeso = async (req, res) => {
-  const { mesoName, microcycles, goal, startDate, startWeight, sessions } =
-    req.body;
+  const {
+    mesoName,
+    microcycles,
+    goal,
+    startDate,
+    startWeight,
+    status,
+    sessions,
+  } = req.body;
 
   const user = await User.findById(req.user.userId);
 
@@ -26,6 +33,7 @@ const createMeso = async (req, res) => {
     goal,
     startDate,
     startWeight,
+    status: !status ? 'Planned' : 'Active',
     sessions: sessions.map((session, index) => {
       const { sessionName, exercises } = session;
 

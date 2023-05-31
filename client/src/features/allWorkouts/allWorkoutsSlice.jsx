@@ -5,7 +5,8 @@ import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 
 const initialFilters = {
-  search: '',
+  mesoName: '',
+  sessionName: '',
   searchStatus: 'all',
   searchType: 'all',
   sort: 'last updated',
@@ -55,8 +56,20 @@ const initialState = {
 export const getAllWorkouts = createAsyncThunk(
   'allWorkouts/getWorkouts',
   async (_, thunkAPI) => {
+    const { searchStatus, mesoName, sessionName } =
+      thunkAPI.getState().allWorkouts;
+
+    let url = `/workouts?status=${searchStatus}`;
+
+    if (mesoName) {
+      url = url + `&mesoName=${mesoName}`;
+    }
+    if (sessionName) {
+      url = url + `&sessionName=${sessionName}`;
+    }
+
     try {
-      const response = await customFetch.get('/workouts', {
+      const response = await customFetch.get(url, {
         headers: {
           authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
         },
@@ -98,6 +111,9 @@ const allWorkoutsSlice = createSlice({
     hideLoading: (state) => {
       state.isLoading = false;
     },
+    setSearch: (state, { payload }) => {
+      return { ...state, ...payload };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -116,5 +132,5 @@ const allWorkoutsSlice = createSlice({
   },
 });
 
-export const { showLoading, hideLoading } = allWorkoutsSlice.actions;
+export const { showLoading, hideLoading, setSearch } = allWorkoutsSlice.actions;
 export default allWorkoutsSlice.reducer;

@@ -6,7 +6,9 @@ import {
   AiOutlineCarryOut,
   AiOutlineExclamationCircle,
   AiOutlineClockCircle,
+  AiOutlineFile,
 } from 'react-icons/ai';
+import { setSearch } from '../features/allWorkouts/allWorkoutsSlice';
 
 const Mesocycle = ({
   _id,
@@ -15,65 +17,87 @@ const Mesocycle = ({
   microcycles,
   notes,
   sessions,
+  goal,
   startDate,
   startWeight,
   endWeight,
 }) => {
   const dispatch = useDispatch();
 
+  let sessionNames = [];
+  sessions.map((session) => {
+    if (!sessionNames.find((name) => name == session.sessionName)) {
+      sessionNames.push(session.sessionName);
+    }
+  });
+
   return (
     <Wrapper>
-      {
-        <header>
-          <div className='main-icon'>{mesoName}</div>
-          <div className='info'>
-            <h5>{`Microcycles: ${microcycles}`}</h5>
-            <p>{`Sessions: ${sessions.length}`}</p>
-          </div>
-          <h5 className={`status ${status}`}>
-            <span className='icon'>
-              {status == 'Active' ? (
-                <AiOutlineExclamationCircle />
-              ) : status == 'Completed' ? (
-                <AiOutlineCarryOut />
-              ) : (
-                <AiOutlineClockCircle />
-              )}{' '}
-            </span>
-            <span className='text'>{status}</span>
-          </h5>
-        </header> /*
+      <header>
+        <div className='main-icon'>{mesoName}</div>
+        <div className='info'>
+          <h5>{`Microcycles: ${microcycles}`}</h5>
+          <p>{`Total Sessions: ${sessions.length}`}</p>
+        </div>
+        <h5 className={`status ${status}`}>
+          <span className='icon'>
+            {status == 'Active' ? (
+              <AiOutlineExclamationCircle />
+            ) : status == 'Completed' ? (
+              <AiOutlineCarryOut />
+            ) : (
+              <AiOutlineClockCircle />
+            )}{' '}
+          </span>
+          <span className='text'>{status}</span>
+        </h5>
+      </header>
       <div className='content'>
-        <div className='muscles'>
-          {musclesTrained.map((muscle, index) => (
-            <p key={index} className={muscle}>
-              {muscle}
-            </p>
+        <div className='stats'>
+          {goal && <p>{goal}</p>}
+          {startWeight && <p>Start weight: {startWeight}kg</p>}
+          {endWeight && <p>End weight: {endWeight}kg</p>}
+        </div>
+        <div className='sessions'>
+          {sessionNames.map((sessionName, index) => (
+            <Link
+              key={index}
+              to={`/all-workouts`}
+              onClick={() => dispatch(setSearch({ mesoName, sessionName }))}
+            >
+              <p className='session'>{sessionName}</p>
+            </Link>
           ))}
         </div>
-        <div className='exercises'>
-          {exercises.map((exercise, index) => (
-            <p key={index}>{exercise.exerciseName}</p>
+        <div className='notes'>
+          {notes.map((note, index) => (
+            <div key={index} className='note'>
+              <AiOutlineFile />
+              <p>{note}</p>
+            </div>
           ))}
         </div>
       </div>
       <footer>
         <div className='actions'>
-          <Link to={`/workout/${_id}`} className='btn edit-btn'>
-            view / edit
+          <Link
+            to={`/all-workouts`}
+            className='btn edit-btn'
+            onClick={() => dispatch(setSearch({ mesoName }))}
+          >
+            view
           </Link>
           <button
             className='btn delete-btn'
             onClick={() => {
               // ASK FOR CONFIRMATION
-              dispatch(deleteWorkout(_id));
+              dispatch(deleteMesocycle(_id));
             }}
           >
             delete
           </button>
         </div>
-      </footer> */
-      }
+      </footer>
     </Wrapper>
   );
 };

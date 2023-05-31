@@ -7,7 +7,7 @@ const FormRow = ({
   placeholder,
 }) => {
   return (
-    <div className='form-row'>
+    <div className={`form-row ${type == 'checkbox' && 'checkbox'}`}>
       <label htmlFor={name} className='form-label'>
         {labelText}
       </label>

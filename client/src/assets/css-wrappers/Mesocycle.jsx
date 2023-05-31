@@ -55,32 +55,46 @@ const Wrapper = styled.article`
     background: #e0e8f9;
     color: #647acb;
   }
-  .Incomplete {
-    color: #d66a6a;
-    background: #ffeeee;
+  .Active {
+    color: #7bca56;
+    background: #f1ffee;
   }
   .content {
     padding: 1rem 1.5rem;
   }
-  .muscles {
+  .stats {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     row-gap: 0.5rem;
-  }
-  .muscles {
     padding-bottom: 1rem;
     margin-bottom: 0.5rem;
     border-bottom: 1px solid var(--grey-100);
   }
-  .muscles p {
+  .stats p {
     padding: 0.2rem 0.6rem;
     margin: 0;
     margin-right: 1rem;
     border-radius: var(--borderRadius);
+    background: #e0e8f9;
+    color: #647acb;
   }
-  .exercises p {
+  .sessions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+    padding: 0.5rem 0 1rem;
+    border-bottom: 1px solid var(--grey-100);
+    margin-bottom: 1rem;
+  }
+  .session {
+    padding: 0.2rem 0.6rem;
     margin: 0;
+    background: var(--primary-50);
+    color: var(--primary-400);
+    text-align: center;
+    border-radius: var(--borderRadius);
   }
   .status {
     display: flex;
@@ -98,6 +112,25 @@ const Wrapper = styled.article`
     padding-top: 7px;
     margin-top: 0.5rem;
     grid-area: date;
+  }
+  .notes {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    row-gap: 0.5rem;
+  }
+  .note {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background: #fcfbc7;
+  }
+  .note p {
+    flex: 1 0 20%;
+    margin: 0;
+    line-height: 1rem;
   }
   .icon {
     margin-top: 3px;

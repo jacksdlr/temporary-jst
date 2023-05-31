@@ -10,7 +10,7 @@ const { BadRequestError, NotFoundError } = require('../errors');
 
 // DOES THIS NEED AUTHENTICATING???
 const getAllWorkouts = async (req, res) => {
-  const { sessionNumber } = req.params;
+  const { status, mesoName, sessionName } = req.query;
   // only aggregate allows mesocycles to be mapped???
   // const user = await User.findById(req.user.userId);
   const user = await User.aggregate([
@@ -18,9 +18,12 @@ const getAllWorkouts = async (req, res) => {
     {
       $unwind: '$mesocycles',
     },
+    mesoName != undefined
+      ? { $match: { 'mesocycles.mesoName': mesoName } }
+      : { $match: {} },
     { $unwind: '$mesocycles.sessions' },
-    sessionNumber != undefined
-      ? { $match: { 'mesocycles.sessions.sessionNumber': 1 } }
+    sessionName != undefined
+      ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
       : { $match: {} },
   ]);
 
@@ -57,6 +60,7 @@ const getAllWorkouts = async (req, res) => {
   res.status(StatusCodes.OK).json({ workouts });
 };
 
+// This is for individual workout route (like current workout, when user clicks to view/edit in all-workouts it brings them to workout page)
 const getWorkout = async (req, res) => {
   const {
     user: { userId },

@@ -12,6 +12,7 @@ const initialState = {
   goal: '',
   startDate: '',
   startWeight: getUserFromLocalStorage()?.data?.weight || '',
+  setActive: false,
   sessions: [
     /* {
       sessionName: 'Session 1',

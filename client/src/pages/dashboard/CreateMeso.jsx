@@ -22,6 +22,7 @@ const MesoDetails = () => {
     goal,
     startDate,
     startWeight,
+    setActive,
     sessions,
     sessionsCount,
     isEditing,
@@ -67,6 +68,7 @@ const MesoDetails = () => {
         goal,
         startDate,
         startWeight,
+        setActive,
         sessions,
       })
     );
@@ -116,6 +118,13 @@ const MesoDetails = () => {
             name='startWeight'
             labelText='Start Weight (kg)'
             value={startWeight}
+            handleChange={handleMesoInput}
+          />
+          <FormRow
+            type='checkbox'
+            name='setActive'
+            labelText='Set as active meso?'
+            value={setActive}
             handleChange={handleMesoInput}
           />
           <button

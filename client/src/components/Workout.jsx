@@ -13,6 +13,7 @@ const Workout = ({
   mesoName,
   _id,
   microcycle,
+  sessionName,
   sessionNumber,
   dayCompleted,
   status,
