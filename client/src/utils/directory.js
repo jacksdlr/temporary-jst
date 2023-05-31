@@ -1141,168 +1141,167 @@ export const directory = [
     exercises: [
       {
         name: 'Barbell Lunge',
-        equipment: '',
+        equipment: 'Barbell',
         videoURL: '',
       },
       {
         name: 'Barbell Lunge (Walking)',
-        equipment: '',
+        equipment: 'Barbell',
         videoURL: '',
       },
       {
         name: 'Barbell Lunge (Reverse)',
-        equipment: '',
+        equipment: 'Barbell',
         videoURL: '',
       },
       {
         name: 'Barbell Single Leg Split Squat',
-        equipment: '',
+        equipment: 'Barbell',
         videoURL: '',
       },
       {
         name: 'Belt Squat',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Dumbbell Lunge',
-        equipment: '',
+        equipment: 'Dumbbell',
         videoURL: '',
       },
       {
         name: 'Dumbbell Lunge (Walking)',
-        equipment: '',
+        equipment: 'Dumbbell',
         videoURL: '',
       },
       {
         name: 'Dumbbell Lunge (Reverse)',
-        equipment: '',
+        equipment: 'Dumbbell',
         videoURL: '',
       },
       {
         name: 'Dumbbell Single Leg Split Squat',
-        equipment: '',
+        equipment: 'Dumbbell',
         videoURL: '',
       },
       {
         name: 'Dumbbell Squat',
-        equipment: '',
+        equipment: 'Dumbbell',
         videoURL: '',
       },
       {
         name: 'Front Squat',
-        equipment: '',
+        equipment: 'Barbell',
         videoURL: '',
       },
       {
         name: 'Hack Squat',
-        equipment: '',
-        videoURL: '',
-      },
-      {
-        name: 'Squat (High Bar)',
-        equipment: '',
-        videoURL: '',
-      },
-      {
-        name: 'Squat (Low Bar)',
-        equipment: '',
-        videoURL: '',
-      },
-      {
-        name: 'Squat (Safety Bar)',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Leg Extension (Plate Loaded)',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Leg Extension (Plate Loaded, Single Leg)',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Leg Extension (Selectorized)',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Leg Extension (Selectorized, Single Leg)',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Leg Press',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Leg Press (Single Leg)',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Lunge',
-        equipment: '',
+        equipment: 'Bodyweight',
         videoURL: '',
       },
       {
         name: 'Lunge (Walking)',
-        equipment: '',
+        equipment: 'Bodyweight',
         videoURL: '',
       },
       {
         name: 'Lunge (Weighted)',
-        equipment: '',
+        equipment: 'Weighted',
         videoURL: '',
       },
-
       {
         name: 'Lunge (Weighted, Walking)',
-        equipment: '',
+        equipment: 'Weighted',
         videoURL: '',
       },
       {
         name: 'Machine Leg Press',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
         name: 'Machine Leg Press (Single Leg)',
-        equipment: '',
+        equipment: 'Machine',
         videoURL: '',
       },
-      {
-        name: 'Sissy Squat',
-        equipment: '',
-        videoURL: '',
-      },
-      {
-        name: 'Sissy Squat (Weighted)',
-        equipment: '',
-        videoURL: '',
-      },
+      // {
+      //   name: 'Sissy Squat',
+      //   equipment: 'Bodyweight',
+      //   videoURL: '',
+      // },
+      // {
+      //   name: 'Sissy Squat (Weighted)',
+      //   equipment: 'Weighted',
+      //   videoURL: '',
+      // },
       {
         name: 'Smith Machine Leg Press',
-        equipment: '',
+        equipment: 'Smith Machine',
         videoURL: '',
       },
       {
         name: 'Smith Machine Lunge',
-        equipment: '',
+        equipment: 'Smith Machine',
         videoURL: '',
       },
       {
         name: 'Smith Machine Split Squat',
-        equipment: '',
+        equipment: 'Smith Machine',
         videoURL: '',
       },
       {
         name: 'Smith Machine Squat',
-        equipment: '',
+        equipment: 'Smith Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Squat (High Bar)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Squat (Low Bar)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Squat (Safety Bar)',
+        equipment: 'Barbell',
         videoURL: '',
       },
     ],
@@ -1311,13 +1310,108 @@ export const directory = [
     muscleGroup: 'Hamstrings',
     exercises: [
       {
-        name: '',
+        name: 'Back Raise / Hyperextension',
+        equipment: 'Other',
+        videoURL: '',
+      },
+      {
+        name: 'Barbell Romanian Deadlift',
         equipment: '',
         videoURL: '',
       },
       {
-        name: '',
+        name: 'Barbell Stiff Legged Deadlift',
         equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Good Morning (High Bar)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Good Morning (Low Bar)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Glute Ham Raise',
+        equipment: 'Other',
+        videoURL: '',
+      },
+      {
+        name: 'Dumbbell Stiff Legged Deadlift',
+        equipment: 'Dumbbell',
+        videoURL: '',
+      },
+      {
+        name: 'Dumbbell Lying Leg Curl',
+        equipment: 'Dumbbell',
+        videoURL: '',
+      },
+      {
+        name: 'Lying Leg Curl (Plate Loaded)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Lying Leg Curl (Plate Loaded, Single Leg)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Lying Leg Curl (Selectorized)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Lying Leg Curl (Selectorized, Single Leg)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Nordic Hamstring Curl',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Nordic Hamstring Curl (Weighted)',
+        equipment: 'Weighted',
+        videoURL: '',
+      },
+      {
+        name: 'Seated Leg Curl (Plate Loaded)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Seated Leg Curl (Plate Loaded, Single Leg)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Seated Leg Curl (Selectorized)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Seated Leg Curl (Selectorized, Single Leg)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Smith Machine Romanian Deadlift',
+        equipment: 'Smith Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Standing Leg Curl (Plate Loaded)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Standing Leg Curl (Selectorized)',
+        equipment: 'Machine',
         videoURL: '',
       },
     ],
@@ -1326,13 +1420,133 @@ export const directory = [
     muscleGroup: 'Glutes',
     exercises: [
       {
-        name: '',
-        equipment: '',
+        name: 'Barbell Hip Thrust',
+        equipment: 'Barbell',
         videoURL: '',
       },
       {
-        name: '',
-        equipment: '',
+        name: 'Barbell Lunge',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Barbell Lunge (Walking)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Barbell Lunge (Reverse)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Belt Squat (Wide Stance)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Cable Glute Kickback',
+        equipment: 'Cable',
+        videoURL: '',
+      },
+      {
+        name: 'Cable Pull-Through',
+        equipment: 'Cable',
+        videoURL: '',
+      },
+      {
+        name: 'Deadlift',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Deadlift (Deficit)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Deadlift (Sumo)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Deadlift (Sumo, Deficit)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Deadlift (Trap Bar)',
+        equipment: 'Barbell',
+        videoURL: '',
+      },
+      {
+        name: 'Dumbbell Lunge',
+        equipment: 'Dumbbell',
+        videoURL: '',
+      },
+      {
+        name: 'Dumbbell Lunge (Walking)',
+        equipment: 'Dumbbell',
+        videoURL: '',
+      },
+      {
+        name: 'Dumbbell Lunge (Reverse)',
+        equipment: 'Dumbbell',
+        videoURL: '',
+      },
+      {
+        name: 'Dumbbell Single Leg Split Squat',
+        equipment: 'Dumbbell',
+        videoURL: '',
+      },
+      {
+        name: 'Lunge',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Lunge (Walking)',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Lunge (Weighted)',
+        equipment: 'Weighted',
+        videoURL: '',
+      },
+      {
+        name: 'Lunge (Weighted, Walking)',
+        equipment: 'Weighted',
+        videoURL: '',
+      },
+      {
+        name: 'Machine Hip Thrust',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Machine Hip Abductor',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Machine Glute Kickback',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Smith Machine Lunge',
+        equipment: 'Smith Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Smith Machine Split Squat',
+        equipment: 'Smith Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Squat (Sumo)',
+        equipment: 'Barbell',
         videoURL: '',
       },
     ],
@@ -1341,13 +1555,53 @@ export const directory = [
     muscleGroup: 'Calves',
     exercises: [
       {
-        name: '',
-        equipment: '',
+        name: 'Leg Press Calf Raise',
+        equipment: 'Machine',
         videoURL: '',
       },
       {
-        name: '',
-        equipment: '',
+        name: 'Machine Calf Raise',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Machine Calf Raise (Seated)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Machine Calf Raise (Standing)',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Machine Leg Press Calf Raise',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Smith Machine Calf Raise',
+        equipment: 'Smith Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Step Calf Raise',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Step Calf Raise (Single Leg)',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Step Calf Raise (Weighted)',
+        equipment: 'Weighted',
+        videoURL: '',
+      },
+      {
+        name: 'Step Calf Raise (Weighted, Single Leg)',
+        equipment: 'Weighted',
         videoURL: '',
       },
     ],
@@ -1356,13 +1610,53 @@ export const directory = [
     muscleGroup: 'Abs',
     exercises: [
       {
-        name: '',
-        equipment: '',
+        name: 'Cable Crunch',
+        equipment: 'Cable',
         videoURL: '',
       },
       {
-        name: '',
-        equipment: '',
+        name: 'Candlestick',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Hanging Knee Raise',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Hanging Leg Raise',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Machine Crunch',
+        equipment: 'Machine',
+        videoURL: '',
+      },
+      {
+        name: 'Sit-Up',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Sit-Up (Weighted)',
+        equipment: 'Weighted',
+        videoURL: '',
+      },
+      {
+        name: 'Sit-Up (Incline)',
+        equipment: 'Bodyweight',
+        videoURL: '',
+      },
+      {
+        name: 'Sit-Up (Incline, Weighted)',
+        equipment: 'Weighted',
+        videoURL: '',
+      },
+      {
+        name: 'V-Up',
+        equipment: 'Bodyweight',
         videoURL: '',
       },
     ],
@@ -1375,12 +1669,87 @@ export const directory = [
     muscleGroup: 'Cardio & Conditioning',
     exercises: [
       {
-        name: '',
+        name: 'Cycle',
         equipment: '',
         videoURL: '',
       },
       {
-        name: '',
+        name: 'Cycle Machine',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Elliptical',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Jog',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Jump Rope',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Row Machine',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Run',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Ski Machine',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Sled Push',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Sled Pull',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Sprint',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Stair Climb',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Swim',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Treadmill (Walk)',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Treadmill (Run)',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Treadmill (Incline, Walk)',
+        equipment: '',
+        videoURL: '',
+      },
+      {
+        name: 'Treadmill (Incline, Run)',
         equipment: '',
         videoURL: '',
       },
