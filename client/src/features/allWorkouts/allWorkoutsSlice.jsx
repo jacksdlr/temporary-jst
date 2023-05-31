@@ -112,7 +112,7 @@ const allWorkoutsSlice = createSlice({
       state.isLoading = false;
     },
     setSearch: (state, { payload }) => {
-      return { ...state, ...payload };
+      return { ...initialState, ...payload };
     },
   },
   extraReducers: (builder) => {
