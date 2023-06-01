@@ -21,7 +21,7 @@ const initialState = {
     }, */
   ],
   sessionsCount: 0,
-  isEditing: '',
+  isEditing: false,
 };
 
 export const createMeso = createAsyncThunk(
@@ -38,6 +38,27 @@ export const createMeso = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.response.data.msg);
 
       // return checkForUnauthorizedResponse(error, thunkAPI);
+    }
+  }
+);
+
+//// this might be wrong, come back
+export const editMeso = createAsyncThunk(
+  'mesocycles/editMeso',
+  async (mesocycle, thunkAPI) => {
+    try {
+      const response = await customFetch.patch(
+        `/mesocycles/${mesocycle._id}`,
+        mesocycle,
+        {
+          headers: {
+            authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.msg);
     }
   }
 );
@@ -100,6 +121,9 @@ const mesoSlice = createSlice({
         }`,
       };
     },
+    setEditing: (state, { payload }) => {
+      return { ...initialState, ...payload, isEditing: true };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -111,6 +135,17 @@ const mesoSlice = createSlice({
         toast.success('Created mesocycle!');
       })
       .addCase(createMeso.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      })
+      .addCase(editMeso.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editMeso.fulfilled, (state) => {
+        state.isLoading = false;
+        toast.success('Saved changes!');
+      })
+      .addCase(editMeso.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
       });
@@ -127,4 +162,5 @@ export const {
   addExercise,
   deleteExercise,
   clearInputs,
+  setEditing,
 } = mesoSlice.actions;

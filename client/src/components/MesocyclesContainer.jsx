@@ -38,7 +38,6 @@ const MesocyclesContainer = () => {
       <h5>Mesocycles Info</h5>
       <div className='workouts'>
         {mesocycles.map((mesocycle, index) => {
-          console.log(mesocycle);
           return <Mesocycle key={index} {...mesocycle} />;
         })}
       </div>

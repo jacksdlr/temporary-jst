@@ -34,7 +34,6 @@ export const updateUserDetailsThunk = async (url, user, thunkAPI) => {
         'User token does not match! Logging out...'
       );
     }
-    console.log(error.response);
     return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };
@@ -54,7 +53,6 @@ export const updateUserDataThunk = async (url, user, thunkAPI) => {
         'User token does not match! Logging out...'
       );
     }
-    console.log(error.response);
     return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };

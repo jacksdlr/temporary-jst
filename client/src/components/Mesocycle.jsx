@@ -9,6 +9,7 @@ import {
   AiOutlineFile,
 } from 'react-icons/ai';
 import { setSearch } from '../features/allWorkouts/allWorkoutsSlice';
+import { setEditing } from '../features/mesocycle/mesoSlice';
 
 const Mesocycle = ({
   _id,
@@ -86,6 +87,30 @@ const Mesocycle = ({
             onClick={() => dispatch(setSearch({ mesoName }))}
           >
             view
+          </Link>
+          <Link
+            to={`/create-meso`}
+            className='btn edit-btn'
+            onClick={() =>
+              dispatch(
+                setEditing({
+                  _id,
+                  mesoName,
+                  setActive: status == 'Active' ? true : false,
+                  microcycles,
+                  notes,
+                  goal,
+                  startDate: `${startDate?.slice(0, 4)}-${startDate?.slice(
+                    5,
+                    7
+                  )}-${startDate?.slice(8, 10)}`,
+                  startWeight,
+                  endWeight,
+                })
+              )
+            }
+          >
+            edit
           </Link>
           <button
             className='btn delete-btn'

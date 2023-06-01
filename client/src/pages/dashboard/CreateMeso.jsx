@@ -1,5 +1,6 @@
 import CreateSessions from './../../components/CreateSessions';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormRow, FormRowSelect } from '../../components';
 import {
@@ -7,6 +8,7 @@ import {
   addSession,
   clearInputs,
   createMeso,
+  editMeso,
 } from '../../features/mesocycle/mesoSlice';
 import MesoWrapper from '../../assets/css-wrappers/DashboardFormPage';
 import SessionsWrapper from '../../assets/css-wrappers/SessionForm';
@@ -22,14 +24,34 @@ const MesoDetails = () => {
     goal,
     startDate,
     startWeight,
+    endWeight,
     setActive,
     sessions,
     sessionsCount,
     isEditing,
+    _id,
+    notes,
   } = useSelector((store) => store.meso);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (isEditing == true) {
+      dispatch(
+        editMeso({
+          _id,
+          mesoName,
+          setActive,
+          microcycles,
+          notes,
+          goal,
+          startDate,
+          startWeight,
+          endWeight,
+        })
+      );
+      return;
+    }
 
     if (!microcycles) {
       toast.error('Please specify mesocycle length');
@@ -74,6 +96,10 @@ const MesoDetails = () => {
     );
   };
 
+  const handleChecked = () => {
+    dispatch(handleMesoChange({ input: 'setActive', value: !setActive }));
+  };
+
   const handleMesoInput = (e) => {
     const input = e.target.name;
     const value = e.target.value;
@@ -83,7 +109,7 @@ const MesoDetails = () => {
   return (
     <>
       <MesoWrapper>
-        <h3>Create Mesocycle</h3>
+        <h3>{!isEditing ? 'Create Mesocycle' : 'Edit Mesocycle'}</h3>
         <div className='form-center'>
           <FormRow
             type='text'
@@ -120,47 +146,77 @@ const MesoDetails = () => {
             value={startWeight}
             handleChange={handleMesoInput}
           />
+          {isEditing && (
+            <FormRow
+              type='number'
+              name='endWeight'
+              labelText='End Weight (kg)'
+              value={endWeight}
+              handleChange={handleMesoInput}
+            />
+          )}
           <FormRow
             type='checkbox'
             name='setActive'
             labelText='Set as active meso?'
-            value={setActive}
-            handleChange={handleMesoInput}
+            checked={setActive}
+            handleChange={handleChecked}
           />
-          <button
-            className='btn btn-block clear-btn'
-            /* ask for confirmation here */
-            onClick={() => dispatch(clearInputs())}
-          >
-            Reset Mesocycle
-          </button>
-          {/* 55 IN README */}
-          <button
-            className='btn btn-block submit-btn'
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            Create Mesocycle
-          </button>
+          {!isEditing ? (
+            <button
+              className='btn btn-block clear-btn'
+              /* ask for confirmation here */
+              onClick={() => dispatch(clearInputs())}
+            >
+              Reset Mesocycle
+            </button>
+          ) : (
+            <button
+              className='btn btn-block clear-btn'
+              /* ask for confirmation here */
+              onClick={() => dispatch(clearInputs())}
+            >
+              Cancel
+            </button>
+          )}
+          {!isEditing ? (
+            <button
+              className='btn btn-block submit-btn'
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              Create Mesocycle
+            </button>
+          ) : (
+            <button
+              className='btn btn-block submit-btn'
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              Save Changes
+            </button>
+          )}
         </div>
       </MesoWrapper>
-      <SessionsWrapper>
-        {sessions.map((session, sessionIndex) => {
-          return (
-            <CreateSessions
-              session={session}
-              sessionIndex={sessionIndex}
-              key={sessionIndex}
-            />
-          );
-        })}
-        <div
-          className='session add-session'
-          onClick={() => dispatch(addSession())}
-        >
-          <AiOutlinePlusCircle size={50} />
-        </div>
-      </SessionsWrapper>
+      {!isEditing && (
+        <SessionsWrapper>
+          {sessions.map((session, sessionIndex) => {
+            return (
+              <CreateSessions
+                session={session}
+                sessionIndex={sessionIndex}
+                key={sessionIndex}
+              />
+            );
+          })}
+          <div
+            className='session add-session'
+            onClick={() => dispatch(addSession())}
+          >
+            <AiOutlinePlusCircle size={50} />
+          </div>
+        </SessionsWrapper>
+      )}
     </>
   );
 };

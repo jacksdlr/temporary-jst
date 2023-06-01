@@ -84,16 +84,20 @@ export const getAllWorkouts = createAsyncThunk(
 // move to 'workout' folder
 export const deleteWorkout = createAsyncThunk(
   'workout/deleteWorkout',
-  async (workoutId, thunkAPI) => {
+  async ({ mesoId, workoutId }, thunkAPI) => {
     thunkAPI.dispatch(showLoading());
+
     try {
-      const response = await customFetch.delete(`/workouts/${workoutId}`, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
+      const response = await customFetch.delete(
+        `/workouts/${mesoId}/${workoutId}`,
+        {
+          headers: {
+            authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+          },
+        }
+      );
       thunkAPI.dispatch(getAllWorkouts());
-      return response.data.workouts;
+      return response.data;
     } catch (error) {
       thunkAPI.dispatch(hideLoading());
       return thunkAPI.rejectWithValue(error.response.data.msg);
@@ -128,9 +132,21 @@ const allWorkoutsSlice = createSlice({
       .addCase(getAllWorkouts.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      })
+      .addCase(deleteWorkout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteWorkout.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        toast.success('Deleted workout');
+      })
+      .addCase(deleteWorkout.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
       });
   },
 });
 
-export const { showLoading, hideLoading, setSearch } = allWorkoutsSlice.actions;
+export const { showLoading, hideLoading, setSearch, clearState } =
+  allWorkoutsSlice.actions;
 export default allWorkoutsSlice.reducer;

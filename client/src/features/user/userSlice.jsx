@@ -11,7 +11,8 @@ import {
   updateUserDetailsThunk,
   updateUserDataThunk,
 } from './userThunk';
-import { createMeso } from '../mesocycle/mesoSlice';
+import { createMeso, editMeso } from '../mesocycle/mesoSlice';
+import { deleteWorkout } from '../allWorkouts/allWorkoutsSlice';
 
 const initialState = {
   isLoading: false,
@@ -120,6 +121,16 @@ const userSlice = createSlice({
       })
       // update user when creating mesocycle)
       .addCase(createMeso.fulfilled, (state, { payload }) => {
+        const { user } = payload;
+        state.user = user;
+        addUserToLocalStorage(user);
+      })
+      .addCase(deleteWorkout.fulfilled, (state, { payload }) => {
+        const { user } = payload;
+        state.user = user;
+        addUserToLocalStorage(user);
+      })
+      .addCase(editMeso.fulfilled, (state, { payload }) => {
         const { user } = payload;
         state.user = user;
         addUserToLocalStorage(user);

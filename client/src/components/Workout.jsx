@@ -11,6 +11,7 @@ import { deleteWorkout } from '../features/allWorkouts/allWorkoutsSlice';
 
 const Workout = ({
   mesoName,
+  mesoId,
   _id,
   microcycle,
   sessionName,
@@ -75,7 +76,7 @@ const Workout = ({
             className='btn delete-btn'
             onClick={() => {
               // ASK FOR CONFIRMATION
-              dispatch(deleteWorkout(_id));
+              dispatch(deleteWorkout({ mesoId, workoutId: _id }));
             }}
           >
             delete

@@ -9,6 +9,8 @@ const {
 
 router.route('/').get(getAllWorkouts);
 
-router.route('/:id').get(getWorkout).delete(deleteWorkout);
+router.route('/:id').get(getWorkout);
+
+router.route('/:mesoId/:workoutId').delete(deleteWorkout);
 
 module.exports = router;

@@ -35,6 +35,7 @@ const getAllWorkouts = async (req, res) => {
   user.forEach((item) => {
     return allWorkouts.push({
       mesoName: item.mesocycles.mesoName,
+      mesoId: item.mesocycles._id,
       ...item.mesocycles.sessions,
     });
   });
@@ -77,16 +78,15 @@ const getWorkout = async (req, res) => {
   res.status(StatusCodes.OK).json({ workout });
 };
 
-// COME BACK TO THIS 66
 const deleteWorkout = async (req, res) => {
   const {
     user: { userId },
-    params: { id: workoutId },
+    params: { mesoId, workoutId },
   } = req;
 
   const user = await User.findById(userId);
 
-  const workout = (
+  /* const workout = (
     await User.aggregate([
       { $match: { _id: ObjectId(userId) } },
       {
@@ -99,27 +99,50 @@ const deleteWorkout = async (req, res) => {
   )[0];
 
   const mesoId = workout.mesocycles._id.toString();
-  const sessionId = workout.mesocycles.sessions._id.toString();
+  const sessionId = workout.mesocycles.sessions._id.toString(); */
 
-  const mesoIndex = await user.mesocycles.findIndex(
+  const mesoIndex = user.mesocycles.findIndex(
     (mesocycle) => mesocycle._id == mesoId
   );
 
   const sessionIndex = user.mesocycles[mesoIndex].sessions.findIndex(
-    (session) => session._id == sessionId
+    (session) => session._id == workoutId
   );
 
   console.log(user.mesocycles[mesoIndex].sessions[sessionIndex]);
+
+  user.mesocycles[mesoIndex].sessions.length == 1
+    ? user.mesocycles[mesoIndex].remove()
+    : user.mesocycles[mesoIndex].sessions[sessionIndex].remove();
+  await user.save();
+
+  const token = user.createJWT();
 
   // console.log(workout);
   /* workout.mesocycles.sessions.remove();
   workout.save();
  */
-  if (!workout) {
-    throw new NotFoundError(`No workout with id ${workoutId}`);
-  }
+  // if (!workout) {
+  //   throw new NotFoundError(`No workout with id ${workoutId}`);
+  // }
 
-  res.status(StatusCodes.OK).send();
+  res.status(StatusCodes.OK).json({
+    user: {
+      name: user.name,
+      email: user.email,
+      mesocycles: user.mesocycles,
+      currentMeso: user.currentMeso,
+      exercises: user.customExercises,
+      data: {
+        height: user.height,
+        weight: user.weight,
+        age: user.age,
+        sex: user.sex,
+        activityLevel: user.activityLevel,
+      },
+      token,
+    },
+  });
 };
 
 /* const createJob = async (req, res) => {
