@@ -4,7 +4,7 @@ const {
   login,
   updateUserDetails,
   updateUserData,
-} = require('../controllers/auth');
+} = require('../controllers/user');
 const authenticateUser = require('../middleware/authentication');
 
 const router = express.Router();

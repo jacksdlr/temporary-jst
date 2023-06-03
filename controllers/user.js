@@ -2,6 +2,35 @@ const { User } = require('../models');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
 
+const userObject = (user) => {
+  const token = user.createJWT();
+  console.log(token);
+  return {
+    name: user.name,
+    email: user.email,
+    mesocycles: user.mesocycles,
+    exercises: user.customExercises,
+    data: {
+      height: user.height,
+      weight: user.weight,
+      age: user.age,
+      sex: user.sex,
+      activityLevel: user.activityLevel,
+    },
+    stats: {
+      completedWorkouts: user.mesocycles
+        .map(
+          (meso) =>
+            meso.sessions.filter((session) => session.status == 'Completed')
+              .length
+        )
+        .reduce((sum, next) => sum + next),
+      totalMesocycles: user.mesocycles.length,
+    },
+    token,
+  };
+};
+
 // Register user
 const register = async (req, res) => {
   const user = await User.create({ ...req.body });
@@ -33,11 +62,11 @@ const login = async (req, res) => {
 
   const token = user.createJWT();
   res.status(StatusCodes.OK).json({
-    user: {
+    user: /* {
       name: user.name,
       email: user.email,
       mesocycles: user.mesocycles,
-      currentMeso: user.currentMeso,
+      // currentMeso: user.currentMeso,
       exercises: user.customExercises,
       data: {
         height: user.height,
@@ -46,8 +75,18 @@ const login = async (req, res) => {
         sex: user.sex,
         activityLevel: user.activityLevel,
       },
+      stats: {
+        completedWorkouts: user.mesocycles
+          .map(
+            (meso) =>
+              meso.sessions.filter((session) => session.status == 'Completed')
+                .length
+          )
+          .reduce((sum, next) => sum + next),
+        totalMesocycles: user.mesocycles.length,
+      },
       token,
-    },
+    }, */ userObject(user),
   });
 };
 
@@ -69,11 +108,11 @@ const updateUserDetails = async (req, res) => {
   const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
-    user: {
+    user: /* {
       name: user.name,
       email: user.email,
       mesocycles: user.mesocycles,
-      currentMeso: user.currentMeso,
+      // currentMeso: user.currentMeso,
       exercises: user.customExercises,
       data: {
         height: user.height,
@@ -82,8 +121,18 @@ const updateUserDetails = async (req, res) => {
         sex: user.sex,
         activityLevel: user.activityLevel,
       },
+      stats: {
+        completedWorkouts: user.mesocycles
+          .map(
+            (meso) =>
+              meso.sessions.filter((session) => session.status == 'Completed')
+                .length
+          )
+          .reduce((sum, next) => sum + next),
+        totalMesocycles: user.mesocycles.length,
+      },
       token,
-    },
+    }, */ userObject(user),
   });
 };
 
@@ -103,14 +152,12 @@ const updateUserData = async (req, res) => {
 
   await user.save();
 
-  const token = user.createJWT();
-
   res.status(StatusCodes.OK).json({
-    user: {
+    user: /* {
       name: user.name,
       email: user.email,
       mesocycles: user.mesocycles,
-      currentMeso: user.currentMeso,
+      // currentMeso: user.currentMeso,
       exercises: user.customExercises,
       data: {
         height: user.height,
@@ -119,12 +166,23 @@ const updateUserData = async (req, res) => {
         sex: user.sex,
         activityLevel: user.activityLevel,
       },
+      stats: {
+        completedWorkouts: user.mesocycles
+          .map(
+            (meso) =>
+              meso.sessions.filter((session) => session.status == 'Completed')
+                .length
+          )
+          .reduce((sum, next) => sum + next),
+        totalMesocycles: user.mesocycles.length,
+      },
       token,
-    },
+    }, */ userObject(user),
   });
 };
 
 module.exports = {
+  userObject,
   register,
   login,
   updateUserDetails,

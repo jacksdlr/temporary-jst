@@ -1,0 +1,646 @@
+{
+  "_id": { "$oid": "6472389adfbf69eb492a466e" },
+  "customExercises": [],
+  "name": "Test User",
+  "email": "testUser@email.com",
+  "password": "$2a$10$rYhoe5v/ju0HK2BadEEWX.pAPO4x9J.dYZLMfwABiUy1f7vMlCpNu",
+  "createdAt": { "$date": { "$numberLong": "1685207194432" } },
+  "updatedAt": { "$date": { "$numberLong": "1685645865046" } },
+  "__v": { "$numberInt": "34" },
+  "activityLevel": "Moderately active",
+  "age": { "$numberInt": "25" },
+  "height": { "$numberInt": "180" },
+  "sex": "Male",
+  "weight": { "$numberInt": "80" },
+  "mesocycles": [
+    {
+      "status": "Active",
+      "notes": [
+        "First meso of first bulk block",
+        "Another test note that is long enough to add wrap to"
+      ],
+      "_id": { "$oid": "647761156fb554ca05943059" },
+      "mesoName": "Mesocycle 1",
+      "microcycles": { "$numberInt": "5" },
+      "goal": "Cut",
+      "startDate": { "$date": { "$numberLong": "1685577600000" } },
+      "startWeight": { "$numberInt": "85" },
+      "sessions": [
+        {
+          "musclesTrained": ["Chest", "Triceps", "Shoulders"],
+          "notes": [],
+          "status": "Planned",
+          "_id": { "$oid": "647761156fb554ca05942f87" },
+          "microcycle": { "$numberInt": "1" },
+          "sessionName": "PUSH 1",
+          "sessionNumber": { "$numberInt": "1" },
+          "exercises": [
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942f75" },
+              "exerciseName": "Bench Press",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f73" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f74" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942f7a" },
+              "exerciseName": "Bench Press (Incline)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f78" },
+                  "targetReps": { "$numberInt": "8" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f79" },
+                  "targetReps": { "$numberInt": "8" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942f7f" },
+              "exerciseName": "Cable Pushdown (EZ-Bar)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f7d" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f7e" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942f84" },
+              "exerciseName": "Machine Shoulder Press (Plate Loaded)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f82" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f83" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "createdAt": { "$date": { "$numberLong": "1685545237771" } },
+          "updatedAt": { "$date": { "$numberLong": "1685545237771" } }
+        },
+        {
+          "musclesTrained": ["Quads", "Hamstrings", "Calves"],
+          "notes": [],
+          "status": "Planned",
+          "_id": { "$oid": "647761156fb554ca05942fad" },
+          "microcycle": { "$numberInt": "1" },
+          "sessionName": "LEGS 1",
+          "sessionNumber": { "$numberInt": "2" },
+          "exercises": [
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942f96" },
+              "exerciseName": "Squat (High Bar)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f94" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f95" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942f9b" },
+              "exerciseName": "Leg Press",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f99" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f9a" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942fa0" },
+              "exerciseName": "Barbell Romanian Deadlift",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f9e" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942f9f" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942fa5" },
+              "exerciseName": "Lying Leg Curl (Selectorized)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fa3" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fa4" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942faa" },
+              "exerciseName": "Leg Press Calf Raise",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fa8" },
+                  "targetReps": { "$numberInt": "8" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fa9" },
+                  "targetReps": { "$numberInt": "8" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "createdAt": { "$date": { "$numberLong": "1685545237772" } },
+          "updatedAt": { "$date": { "$numberLong": "1685545237772" } }
+        },
+        {
+          "musclesTrained": ["Back", "Biceps", "Shoulders"],
+          "notes": [],
+          "status": "Planned",
+          "_id": { "$oid": "647761156fb554ca05942fd1" },
+          "microcycle": { "$numberInt": "1" },
+          "sessionName": "PULL 1",
+          "sessionNumber": { "$numberInt": "3" },
+          "exercises": [
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942fbf" },
+              "exerciseName": "Pullup (Weighted)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fbd" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fbe" },
+                  "targetReps": { "$numberInt": "6" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": ["With small plates for extra ROM"],
+              "_id": { "$oid": "647761156fb554ca05942fc4" },
+              "exerciseName": "Barbell Row",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fc2" },
+                  "targetReps": { "$numberInt": "8" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fc3" },
+                  "targetReps": { "$numberInt": "8" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942fc9" },
+              "exerciseName": "Dumbbell Curl (Incline Bench)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fc7" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fc8" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942fce" },
+              "exerciseName": "Cable Lateral Raise (Behind)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fcc" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fcd" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "createdAt": { "$date": { "$numberLong": "1685545237772" } },
+          "updatedAt": { "$date": { "$numberLong": "1685545237772" } }
+        },
+        {
+          "musclesTrained": ["Chest", "Triceps", "Shoulders"],
+          "notes": [],
+          "status": "Planned",
+          "_id": { "$oid": "647761156fb554ca05942ff7" },
+          "microcycle": { "$numberInt": "1" },
+          "sessionName": "PUSH 2",
+          "sessionNumber": { "$numberInt": "4" },
+          "exercises": [
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942fe0" },
+              "exerciseName": "Smith Machine Bench Press (Incline)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fde" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fdf" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": ["Slight incline, super deep stretch, slow eccentric"],
+              "_id": { "$oid": "647761156fb554ca05942fe5" },
+              "exerciseName": "Dumbbell Bench Press (Incline)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fe3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fe4" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942fea" },
+              "exerciseName": "Machine Flye",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fe8" },
+                  "targetReps": { "$numberInt": "15" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fe9" },
+                  "targetReps": { "$numberInt": "15" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": ["Bent over, facing away from stack"],
+              "_id": { "$oid": "647761156fb554ca05942fef" },
+              "exerciseName": "Cable Overhead Extension (EZ-Bar)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fed" },
+                  "targetReps": { "$numberInt": "15" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942fee" },
+                  "targetReps": { "$numberInt": "15" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05942ff4" },
+              "exerciseName": "Dumbbell Lateral Raise",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942ff2" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05942ff3" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "createdAt": { "$date": { "$numberLong": "1685545237772" } },
+          "updatedAt": { "$date": { "$numberLong": "1685545237772" } }
+        },
+        {
+          "musclesTrained": ["Quads", "Hamstrings", "Calves"],
+          "notes": [],
+          "status": "Planned",
+          "_id": { "$oid": "647761156fb554ca05943020" },
+          "microcycle": { "$numberInt": "1" },
+          "sessionName": "LEGS 2",
+          "sessionNumber": { "$numberInt": "5" },
+          "exercises": [
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05943009" },
+              "exerciseName": "Leg Press",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943007" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943008" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca0594300e" },
+              "exerciseName": "Leg Extension (Selectorized)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca0594300c" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca0594300d" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05943013" },
+              "exerciseName": "Lying Leg Curl (Selectorized)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943011" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943012" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05943018" },
+              "exerciseName": "Back Raise / Hyperextension",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943016" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943017" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca0594301d" },
+              "exerciseName": "Leg Press Calf Raise",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca0594301b" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca0594301c" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "createdAt": { "$date": { "$numberLong": "1685545237772" } },
+          "updatedAt": { "$date": { "$numberLong": "1685545237772" } }
+        },
+        {
+          "musclesTrained": ["Back", "Biceps", "Shoulders"],
+          "notes": [],
+          "status": "Planned",
+          "_id": { "$oid": "647761156fb554ca05943049" },
+          "microcycle": { "$numberInt": "1" },
+          "sessionName": "PULL 2",
+          "sessionNumber": { "$numberInt": "6" },
+          "exercises": [
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05943032" },
+              "exerciseName": "Pulldown",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943030" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943031" },
+                  "targetReps": { "$numberInt": "10" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05943037" },
+              "exerciseName": "Machine Row (Selectorized, Neutral Grip)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943035" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943036" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca0594303c" },
+              "exerciseName": "Pullover (Cable)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca0594303a" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca0594303b" },
+                  "targetReps": { "$numberInt": "12" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05943041" },
+              "exerciseName": "Cable Curl (EZ-Bar)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca0594303f" },
+                  "targetReps": { "$numberInt": "15" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943040" },
+                  "targetReps": { "$numberInt": "15" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            },
+            {
+              "notes": [],
+              "_id": { "$oid": "647761156fb554ca05943046" },
+              "exerciseName": "Cable Lateral Raise (Between Legs)",
+              "sets": [
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943044" },
+                  "targetReps": { "$numberInt": "20" },
+                  "targetRIR": { "$numberInt": "3" }
+                },
+                {
+                  "notes": [],
+                  "_id": { "$oid": "647761156fb554ca05943045" },
+                  "targetReps": { "$numberInt": "20" },
+                  "targetRIR": { "$numberInt": "3" }
+                }
+              ]
+            }
+          ],
+          "createdAt": { "$date": { "$numberLong": "1685545237772" } },
+          "updatedAt": { "$date": { "$numberLong": "1685545237772" } }
+        }
+      ],
+      "currentSession": "",
+      "createdAt": { "$date": { "$numberLong": "1685545237772" } },
+      "updatedAt": { "$date": { "$numberLong": "1685645865045" } },
+      "endWeight": { "$numberInt": "90" }
+    }
+  ]
+}

@@ -2,17 +2,11 @@ const { User } = require('../models');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, NotFoundError } = require('../errors');
+const { userObject } = require('./user');
 
-/* const getAllJobs = async (req, res) => {
-  const jobs = await Job.find({ createdBy: req.user.userId }).sort('createdAt')
-  res.status(StatusCodes.OK).json({ jobs, count: jobs.length })
-} */
-
-// DOES THIS NEED AUTHENTICATING???
 const getAllWorkouts = async (req, res) => {
   const { status, mesoName, sessionName } = req.query;
-  // only aggregate allows mesocycles to be mapped???
-  // const user = await User.findById(req.user.userId);
+
   const user = await User.aggregate([
     { $match: { _id: ObjectId(req.user.userId) } },
     {
@@ -59,6 +53,26 @@ const getAllWorkouts = async (req, res) => {
     throw new NotFoundError(`No workouts found`);
   }
   res.status(StatusCodes.OK).json({ workouts });
+};
+
+const getCurrentWorkout = async (req, res) => {
+  const { userId } = req.user;
+
+  const user = await User.findById(userId);
+  const activeMeso = await user.mesocycles.find(
+    (meso) => meso.status == 'Active'
+  );
+
+  console.log(activeMeso);
+  const workout = await activeMeso.sessions.find(
+    (session) => session.status == 'Planned'
+  );
+
+  if (!activeMeso) {
+    throw new NotFoundError(`You do not have an active mesocycle`);
+  }
+
+  res.status(StatusCodes.OK).json({ workout });
 };
 
 // This is for individual workout route (like current workout, when user clicks to view/edit in all-workouts it brings them to workout page)
@@ -116,7 +130,7 @@ const deleteWorkout = async (req, res) => {
     : user.mesocycles[mesoIndex].sessions[sessionIndex].remove();
   await user.save();
 
-  const token = user.createJWT();
+  // const token = user.createJWT();
 
   // console.log(workout);
   /* workout.mesocycles.sessions.remove();
@@ -127,21 +141,7 @@ const deleteWorkout = async (req, res) => {
   // }
 
   res.status(StatusCodes.OK).json({
-    user: {
-      name: user.name,
-      email: user.email,
-      mesocycles: user.mesocycles,
-      currentMeso: user.currentMeso,
-      exercises: user.customExercises,
-      data: {
-        height: user.height,
-        weight: user.weight,
-        age: user.age,
-        sex: user.sex,
-        activityLevel: user.activityLevel,
-      },
-      token,
-    },
+    user: userObject(user),
   });
 };
 
@@ -190,6 +190,7 @@ const deleteJob = async (req, res) => {
 
 module.exports = {
   getAllWorkouts,
+  getCurrentWorkout,
   getWorkout,
   deleteWorkout,
 };

@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
 import { updateUser } from '../user/userSlice';
 import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
+import { createMesoThunk } from './createMesoThunk';
 
 const initialState = {
   isLoading: false,
@@ -27,44 +27,43 @@ const initialState = {
 export const createMeso = createAsyncThunk(
   'mesocycles/createMeso',
   async (mesocycle, thunkAPI) => {
-    try {
-      const response = await customFetch.post('/mesocycles', mesocycle, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
+    return createMesoThunk('/mesocycles', mesocycle, thunkAPI);
+    // try {
+    //   const response = await customFetch.post('/mesocycles', mesocycle, {
+    //     headers: {
+    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+    //     },
+    //   });
+    //   thunkAPI.dispatch(clearInputs());
+    //   return response.data;
+    // } catch (error) {
+    //   return thunkAPI.rejectWithValue(error.response.data.msg);
 
-      // return checkForUnauthorizedResponse(error, thunkAPI);
-    }
+    //   // return checkForUnauthorizedResponse(error, thunkAPI);
+    // }
   }
 );
 
-//// this might be wrong, come back
 export const editMeso = createAsyncThunk(
   'mesocycles/editMeso',
   async (mesocycle, thunkAPI) => {
-    try {
-      const response = await customFetch.patch(
-        `/mesocycles/${mesocycle._id}`,
-        mesocycle,
-        {
-          headers: {
-            authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
+    return editMesoThunk(`/mesocycles/${mesocycle._id}`, mesocycle, thunkAPI);
+    // try {
+    //   const response = await customFetch.patch(url, mesocycle, {
+    //     headers: {
+    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+    //     },
+    //   });
+    //   thunkAPI.dispatch(clearInputs());
+    //   return response.data;
+    // } catch (error) {
+    //   return thunkAPI.rejectWithValue(error.response.data.msg);
+    // }
   }
 );
 
-const mesoSlice = createSlice({
-  name: 'meso',
+const createMesoSlice = createSlice({
+  name: 'createMeso',
   initialState,
   reducers: {
     handleMesoChange: (state, { payload: { input, value } }) => {
@@ -152,7 +151,7 @@ const mesoSlice = createSlice({
   },
 });
 
-export default mesoSlice.reducer;
+export default createMesoSlice.reducer;
 export const {
   handleMesoChange,
   handleSessionChange,
@@ -163,4 +162,4 @@ export const {
   deleteExercise,
   clearInputs,
   setEditing,
-} = mesoSlice.actions;
+} = createMesoSlice.actions;

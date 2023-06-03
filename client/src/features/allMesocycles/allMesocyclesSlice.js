@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
+import { getAllMesocyclesThunk, deleteMesoThunk } from './allMesocyclesThunk';
 
 const initialFilters = {
   search: '',
@@ -37,36 +38,39 @@ const initialState = {
 // complete
 export const getAllMesocycles = createAsyncThunk(
   'mesocycles/getMesocycles',
-  async (_, thunkAPI) => {
-    try {
-      const response = await customFetch.get('/mesocycles', {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
+  getAllMesocyclesThunk
+  /* async (_, thunkAPI) => {
+    return getAllMesocyclesThunk('/mesocycles', thunkAPI);
+    // try {
+    //   const response = await customFetch.get('/mesocycles', {
+    //     headers: {
+    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+    //     },
+    //   });
+    //   return response.data;
+    // } catch (error) {
+    //   return thunkAPI.rejectWithValue(error.response.data.msg);
+    // }
+  } */
 );
 
-export const deleteMesocycle = createAsyncThunk(
-  'mesocycles/deleteMesocycle',
-  async (mesocycleId, thunkAPI) => {
-    thunkAPI.dispatch(showLoading());
-    try {
-      const response = await customFetch.delete(`/mesocycles/${mesocycleId}`, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      thunkAPI.dispatch(getAllMesocycles());
-      return response.data;
-    } catch (error) {
-      thunkAPI.dispatch(hideLoading());
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
+export const deleteMeso = createAsyncThunk(
+  'mesocycles/deleteMeso',
+  async (mesoId, thunkAPI) => {
+    return deleteMesoThunk(`/mesocycles/${mesoId}`, thunkAPI);
+    // thunkAPI.dispatch(showLoading());
+    // try {
+    //   const response = await customFetch.delete(`/mesocycles/${mesoId}`, {
+    //     headers: {
+    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+    //     },
+    //   });
+    //   thunkAPI.dispatch(getAllMesocycles());
+    //   return response.data;
+    // } catch (error) {
+    //   thunkAPI.dispatch(hideLoading());
+    //   return thunkAPI.rejectWithValue(error.response.data.msg);
+    // }
   }
 );
 
@@ -93,6 +97,17 @@ const allMesocyclesSlice = createSlice({
         state.totalMesocycles = mesocycles.length;
       })
       .addCase(getAllMesocycles.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      })
+      .addCase(deleteMeso.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteMeso.fulfilled, (state) => {
+        state.isLoading = false;
+        toast.success('Deleted mesocycle');
+      })
+      .addCase(deleteMeso.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
       });

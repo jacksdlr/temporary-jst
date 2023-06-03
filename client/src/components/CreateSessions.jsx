@@ -5,7 +5,7 @@ import {
   handleSessionChange,
   deleteSession,
   addExercise,
-} from '../features/mesocycle/mesoSlice';
+} from '../features/createMeso/createMesoSlice';
 import { AiOutlinePlusCircle, AiOutlineClose } from 'react-icons/ai';
 
 const CreateSessions = ({ session, sessionIndex }) => {

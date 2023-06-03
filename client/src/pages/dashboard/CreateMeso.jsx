@@ -1,6 +1,6 @@
 import CreateSessions from './../../components/CreateSessions';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FormRow, FormRowSelect } from '../../components';
 import {
@@ -9,7 +9,7 @@ import {
   clearInputs,
   createMeso,
   editMeso,
-} from '../../features/mesocycle/mesoSlice';
+} from '../../features/createMeso/createMesoSlice';
 import MesoWrapper from '../../assets/css-wrappers/DashboardFormPage';
 import SessionsWrapper from '../../assets/css-wrappers/SessionForm';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
@@ -31,7 +31,7 @@ const MesoDetails = () => {
     isEditing,
     _id,
     notes,
-  } = useSelector((store) => store.meso);
+  } = useSelector((store) => store.createMeso);
 
   const handleSubmit = (e) => {
     e.preventDefault();

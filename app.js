@@ -11,7 +11,7 @@ const app = express();
 const connectDB = require('./db/connect');
 const authenticateUser = require('./middleware/authentication');
 // routers
-const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 const workoutsRouter = require('./routes/workouts');
 const mesocyclesRouter = require('./routes/mesocycles');
 // error handler
@@ -27,7 +27,7 @@ app.use(helmet());
 app.use(xss());
 
 // routes
-app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', userRouter);
 app.use('/api/v1/workouts', authenticateUser, workoutsRouter);
 app.use('/api/v1/mesocycles', authenticateUser, mesocyclesRouter);
 

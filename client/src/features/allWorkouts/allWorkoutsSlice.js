@@ -3,6 +3,11 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
+import {
+  getAllWorkoutsThunk,
+  deleteWorkoutThunk,
+  getCurrentWorkoutThunk,
+} from './allWorkoutsThunk';
 
 const initialFilters = {
   mesoName: '',
@@ -54,54 +59,55 @@ const initialState = {
 
 // complete
 export const getAllWorkouts = createAsyncThunk(
-  'allWorkouts/getWorkouts',
-  async (_, thunkAPI) => {
-    const { searchStatus, mesoName, sessionName } =
-      thunkAPI.getState().allWorkouts;
+  'workouts/getAllWorkouts',
+  getAllWorkoutsThunk
+  /* async (_, thunkAPI) => {
+    return getAllWorkoutsThunk('/workouts', thunkAPI);
+    // const { searchStatus, mesoName, sessionName } =
+    //   thunkAPI.getState().allWorkouts;
 
-    let url = `/workouts?status=${searchStatus}`;
+    // let url = `/workouts?status=${searchStatus}`;
 
-    if (mesoName) {
-      url = url + `&mesoName=${mesoName}`;
-    }
-    if (sessionName) {
-      url = url + `&sessionName=${sessionName}`;
-    }
+    // if (mesoName) {
+    //   url = url + `&mesoName=${mesoName}`;
+    // }
+    // if (sessionName) {
+    //   url = url + `&sessionName=${sessionName}`;
+    // }
 
-    try {
-      const response = await customFetch.get(url, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      return response.data.workouts;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
+    // try {
+    //   const response = await customFetch.get(url, {
+    //     headers: {
+    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+    //     },
+    //   });
+    //   return response.data.workouts;
+    // } catch (error) {
+    //   return thunkAPI.rejectWithValue(error.response.data.msg);
+    // }
+  } */
 );
 
-// move to 'workout' folder
 export const deleteWorkout = createAsyncThunk(
-  'workout/deleteWorkout',
+  'workouts/deleteWorkout',
   async ({ mesoId, workoutId }, thunkAPI) => {
-    thunkAPI.dispatch(showLoading());
-
-    try {
-      const response = await customFetch.delete(
-        `/workouts/${mesoId}/${workoutId}`,
-        {
-          headers: {
-            authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-          },
-        }
-      );
-      thunkAPI.dispatch(getAllWorkouts());
-      return response.data;
-    } catch (error) {
-      thunkAPI.dispatch(hideLoading());
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
+    return deleteWorkoutThunk(`/workouts/${mesoId}/${workoutId}`, thunkAPI);
+    // thunkAPI.dispatch(showLoading());
+    // try {
+    //   const response = await customFetch.delete(
+    //     `/workouts/${mesoId}/${workoutId}`,
+    //     {
+    //       headers: {
+    //         authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+    //       },
+    //     }
+    //   );
+    //   thunkAPI.dispatch(getAllWorkouts());
+    //   return response.data;
+    // } catch (error) {
+    //   thunkAPI.dispatch(hideLoading());
+    //   return thunkAPI.rejectWithValue(error.response.data.msg);
+    // }
   }
 );
 

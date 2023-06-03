@@ -5,12 +5,16 @@ const {
   getAllWorkouts,
   getWorkout,
   deleteWorkout,
+  getCurrentWorkout,
 } = require('../controllers/workouts');
+const authenticateUser = require('../middleware/authentication');
 
-router.route('/').get(getAllWorkouts);
+router.route('/', authenticateUser).get(getAllWorkouts);
 
-router.route('/:id').get(getWorkout);
+router.route('/currentWorkout', authenticateUser).get(getCurrentWorkout);
 
-router.route('/:mesoId/:workoutId').delete(deleteWorkout);
+router.route('/:id', authenticateUser).get(getWorkout);
+
+router.route('/:mesoId/:workoutId', authenticateUser).delete(deleteWorkout);
 
 module.exports = router;

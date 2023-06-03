@@ -2,6 +2,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, NotFoundError } = require('../errors');
 const { User, Mesocycle, Session, Exercise, Set } = require('../models');
+const { userObject } = require('./user');
 
 const getAllMesocycles = async (req, res) => {
   const user = await User.findById(req.user.userId);
@@ -87,27 +88,14 @@ const createMeso = async (req, res) => {
   user.mesocycles.push(newMesocycle);
   await user.save();
 
-  const token = user.createJWT();
+  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
-    user: {
-      name: user.name,
-      email: user.email,
-      mesocycles: user.mesocycles,
-      currentMeso: user.currentMeso,
-      exercises: user.customExercises,
-      data: {
-        height: user.height,
-        weight: user.weight,
-        age: user.age,
-        sex: user.sex,
-        activityLevel: user.activityLevel,
-      },
-      token,
-    },
+    user: userObject(user),
   });
 };
 
+// FOR LATER UPDATE: IF THE CURRENT STATUS IS 'PLANNED' LOAD THE SESSIONS ONTO THE PAGE AND SAVE TO DATABASE (USERS SHOULD BE ALLOWED TO EDIT THE SESSIONS OF A PLANNED MESO FROM THE CREATE MESO PAGE)
 const updateMeso = async (req, res) => {
   const {
     user: { userId },
@@ -131,56 +119,66 @@ const updateMeso = async (req, res) => {
   );
 
   user.mesocycles[mesoIndex].mesoName =
-    mesoName || user.mesocycles[mesoIndex].mesoName;
-  if ((user.mesocycles[mesoIndex].status = 'Planned')) {
-    if (setActive == true) {
-      const activeMesoIndex = user.mesocycles.findIndex(
-        (meso) => meso.status == 'Active'
-      );
-      if (activeMesoIndex != -1) {
-        user.mesocycles[activeMesoIndex].status = 'Completed';
-      }
-      user.mesocycles[mesoIndex].status = 'Active';
+    mesoName /*  || user.mesocycles[mesoIndex].mesoName */;
+  if (user.mesocycles[mesoIndex].status != 'Active' && setActive == true) {
+    const activeMesoIndex = user.mesocycles.findIndex(
+      (meso) => meso.status == 'Active'
+    );
+    if (activeMesoIndex != -1) {
+      user.mesocycles[activeMesoIndex].status = 'Incomplete';
     }
-  } else if ((user.mesocycles[mesoIndex].status = 'Planned')) {
-    if (setActive == false) {
-      user.mesocycles[mesoIndex].status = 'Planned';
-      // !!!!!!!!
-      // check if sessions are complete to mark as complete
-      // !!!!!!!!
-    }
+    user.mesocycles[mesoIndex].status = 'Active';
+  } else if (
+    user.mesocycles[mesoIndex].status == 'Active' &&
+    setActive == false
+  ) {
+    user.mesocycles[mesoIndex].status = 'Incomplete';
   }
   user.mesocycles[mesoIndex].microcycles =
-    microcycles || user.mesocycles[mesoIndex].microcycles;
-  user.mesocycles[mesoIndex].notes = notes || user.mesocycles[mesoIndex].notes;
-  user.mesocycles[mesoIndex].goal = goal || user.mesocycles[mesoIndex].goal;
+    microcycles || '' /* user.mesocycles[mesoIndex].microcycles */;
+  user.mesocycles[mesoIndex].notes =
+    notes || '' /* user.mesocycles[mesoIndex].notes */;
+  user.mesocycles[mesoIndex].goal =
+    goal || '' /* user.mesocycles[mesoIndex].goal */;
   user.mesocycles[mesoIndex].startDate =
-    startDate || user.mesocycles[mesoIndex].startDate;
+    startDate || '' /* user.mesocycles[mesoIndex].startDate */;
   user.mesocycles[mesoIndex].startWeight =
-    startWeight || user.mesocycles[mesoIndex].startWeight;
+    startWeight || '' /* user.mesocycles[mesoIndex].startWeight */;
   user.mesocycles[mesoIndex].endWeight =
-    endWeight || user.mesocycles[mesoIndex].endWeight;
+    endWeight || '' /* user.mesocycles[mesoIndex].endWeight */;
 
   await user.save();
 
-  const token = user.createJWT();
+  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
-    user: {
-      name: user.name,
-      email: user.email,
-      mesocycles: user.mesocycles,
-      currentMeso: user.currentMeso,
-      exercises: user.customExercises,
-      data: {
-        height: user.height,
-        weight: user.weight,
-        age: user.age,
-        sex: user.sex,
-        activityLevel: user.activityLevel,
-      },
-      token,
-    },
+    user: userObject(user),
+  });
+};
+
+const deleteMeso = async (req, res) => {
+  const {
+    user: { userId },
+    params: { mesoId },
+  } = req;
+
+  const user = await User.findById(userId);
+
+  /* const mesoIndex = user.mesocycles.findIndex(
+    (mesocycle) => mesocycle._id == mesoId
+  ); */
+  const meso = await user.mesocycles.find(
+    (mesocycle) => mesocycle._id == mesoId
+  );
+
+  meso.remove();
+
+  await user.save();
+
+  // const token = user.createJWT();
+
+  res.status(StatusCodes.OK).json({
+    user: userObject(user),
   });
 };
 
@@ -188,4 +186,5 @@ module.exports = {
   getAllMesocycles,
   createMeso,
   updateMeso,
+  deleteMeso,
 };

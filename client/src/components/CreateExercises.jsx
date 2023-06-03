@@ -5,7 +5,7 @@ import FormRowSelect from './FormRowSelect';
 import {
   handleExerciseChange,
   deleteExercise,
-} from '../features/mesocycle/mesoSlice';
+} from '../features/createMeso/createMesoSlice';
 import {
   AiOutlineCloseSquare,
   AiOutlineDelete,

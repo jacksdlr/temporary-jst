@@ -7,9 +7,11 @@ import {
   AiOutlineExclamationCircle,
   AiOutlineClockCircle,
   AiOutlineFile,
+  AiOutlineStop,
 } from 'react-icons/ai';
 import { setSearch } from '../features/allWorkouts/allWorkoutsSlice';
-import { setEditing } from '../features/mesocycle/mesoSlice';
+import { deleteMeso } from '../features/allMesocycles/allMesocyclesSlice';
+import { setEditing } from '../features/createMeso/createMesoSlice';
 
 const Mesocycle = ({
   _id,
@@ -46,6 +48,8 @@ const Mesocycle = ({
               <AiOutlineExclamationCircle />
             ) : status == 'Completed' ? (
               <AiOutlineCarryOut />
+            ) : status == 'Incomplete' ? (
+              <AiOutlineStop />
             ) : (
               <AiOutlineClockCircle />
             )}{' '}
@@ -100,10 +104,12 @@ const Mesocycle = ({
                   microcycles,
                   notes,
                   goal,
-                  startDate: `${startDate?.slice(0, 4)}-${startDate?.slice(
-                    5,
-                    7
-                  )}-${startDate?.slice(8, 10)}`,
+                  startDate:
+                    startDate &&
+                    `${startDate?.slice(0, 4)}-${startDate?.slice(
+                      5,
+                      7
+                    )}-${startDate?.slice(8, 10)}`,
                   startWeight,
                   endWeight,
                 })
@@ -116,7 +122,7 @@ const Mesocycle = ({
             className='btn delete-btn'
             onClick={() => {
               // ASK FOR CONFIRMATION
-              dispatch(deleteMesocycle(_id));
+              dispatch(deleteMeso(_id));
             }}
           >
             delete

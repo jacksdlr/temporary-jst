@@ -1,5 +1,6 @@
 import customFetch from '../../utils/axios';
 import { logoutUser } from './userSlice';
+// import { authHeader } from '../../utils/authHeader';
 
 export const registerUserThunk = async (url, user, thunkAPI) => {
   try {
@@ -21,11 +22,10 @@ export const loginUserThunk = async (url, user, thunkAPI) => {
 
 export const updateUserDetailsThunk = async (url, user, thunkAPI) => {
   try {
-    const response = await customFetch.patch(url, user, {
-      headers: {
-        authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-      },
-    });
+    const response = await customFetch.patch(
+      url,
+      user /* , authHeader(thunkAPI) */
+    );
     return response.data;
   } catch (error) {
     if (error.response.status === 401) {
@@ -40,11 +40,10 @@ export const updateUserDetailsThunk = async (url, user, thunkAPI) => {
 
 export const updateUserDataThunk = async (url, user, thunkAPI) => {
   try {
-    const response = await customFetch.patch(url, user, {
-      headers: {
-        authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-      },
-    });
+    const response = await customFetch.patch(
+      url,
+      user /* , authHeader(thunkAPI) */
+    );
     return response.data;
   } catch (error) {
     if (error.response.status === 401) {

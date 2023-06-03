@@ -11,8 +11,9 @@ import {
   updateUserDetailsThunk,
   updateUserDataThunk,
 } from './userThunk';
-import { createMeso, editMeso } from '../mesocycle/mesoSlice';
+import { createMeso, editMeso } from '../createMeso/createMesoSlice';
 import { deleteWorkout } from '../allWorkouts/allWorkoutsSlice';
+import { deleteMeso } from '../allMesocycles/allMesocyclesSlice';
 
 const initialState = {
   isLoading: false,
@@ -22,28 +23,28 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (user, thunkAPI) => {
-    return registerUserThunk('/auth/register', user, thunkAPI);
+    return registerUserThunk('/user/register', user, thunkAPI);
   }
 );
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (user, thunkAPI) => {
-    return loginUserThunk('/auth/login', user, thunkAPI);
+    return loginUserThunk('/user/login', user, thunkAPI);
   }
 );
 
 export const updateUserDetails = createAsyncThunk(
   'user/updateUserDetails',
   async (user, thunkAPI) => {
-    return updateUserDetailsThunk('/auth/updateUserDetails', user, thunkAPI);
+    return updateUserDetailsThunk('/user/updateUserDetails', user, thunkAPI);
   }
 );
 
 export const updateUserData = createAsyncThunk(
   'user/updateUserData',
   async (user, thunkAPI) => {
-    return updateUserDataThunk('/auth/updateUserData', user, thunkAPI);
+    return updateUserDataThunk('/user/updateUserData', user, thunkAPI);
   }
 );
 
@@ -131,6 +132,11 @@ const userSlice = createSlice({
         addUserToLocalStorage(user);
       })
       .addCase(editMeso.fulfilled, (state, { payload }) => {
+        const { user } = payload;
+        state.user = user;
+        addUserToLocalStorage(user);
+      })
+      .addCase(deleteMeso.fulfilled, (state, { payload }) => {
         const { user } = payload;
         state.user = user;
         addUserToLocalStorage(user);

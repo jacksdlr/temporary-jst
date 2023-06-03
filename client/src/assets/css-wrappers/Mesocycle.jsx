@@ -59,6 +59,10 @@ const Wrapper = styled.article`
     color: #7bca56;
     background: #f1ffee;
   }
+  .Incomplete {
+    color: #d66a6a;
+    background: #ffeeee;
+  }
   .content {
     padding: 1rem 1.5rem;
   }
