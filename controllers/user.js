@@ -4,7 +4,6 @@ const { BadRequestError, UnauthenticatedError } = require('../errors');
 
 const userObject = (user) => {
   const token = user.createJWT();
-  console.log(token);
   return {
     name: user.name,
     email: user.email,

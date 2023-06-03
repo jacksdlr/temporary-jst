@@ -62,8 +62,6 @@ const getCurrentWorkout = async (req, res) => {
   const activeMeso = await user.mesocycles.find(
     (meso) => meso.status == 'Active'
   );
-
-  console.log(activeMeso);
   const workout = await activeMeso.sessions.find(
     (session) => session.status == 'Planned'
   );
@@ -122,8 +120,6 @@ const deleteWorkout = async (req, res) => {
   const sessionIndex = user.mesocycles[mesoIndex].sessions.findIndex(
     (session) => session._id == workoutId
   );
-
-  console.log(user.mesocycles[mesoIndex].sessions[sessionIndex]);
 
   user.mesocycles[mesoIndex].sessions.length == 1
     ? user.mesocycles[mesoIndex].remove()

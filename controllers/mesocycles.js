@@ -125,14 +125,18 @@ const updateMeso = async (req, res) => {
       (meso) => meso.status == 'Active'
     );
     if (activeMesoIndex != -1) {
-      user.mesocycles[activeMesoIndex].status = 'Incomplete';
+      user.mesocycles[activeMesoIndex].sessions[0].status == 'Planned'
+        ? (user.mesocycles[activeMesoIndex].status = 'Planned')
+        : (user.mesocycles[activeMesoIndex].status = 'Incomplete');
     }
     user.mesocycles[mesoIndex].status = 'Active';
   } else if (
     user.mesocycles[mesoIndex].status == 'Active' &&
     setActive == false
   ) {
-    user.mesocycles[mesoIndex].status = 'Incomplete';
+    user.mesocycles[mesoIndex].sessions[0].status == 'Planned'
+      ? (user.mesocycles[mesoIndex].status = 'Planned')
+      : (user.mesocycles[mesoIndex].status = 'Incomplete');
   }
   user.mesocycles[mesoIndex].microcycles =
     microcycles || '' /* user.mesocycles[mesoIndex].microcycles */;

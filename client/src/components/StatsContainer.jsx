@@ -16,6 +16,7 @@ const StatsContainer = () => {
       icon: <CgGym />,
       color: '#7bca56',
       background: '#f1ffee',
+      link: '/profile',
     },
     {
       title: 'completed workouts',
@@ -23,6 +24,7 @@ const StatsContainer = () => {
       icon: <AiOutlineCalendar />,
       color: '#647acb',
       background: '#e0e8f9',
+      link: '/all-workouts',
     },
     {
       title: 'total mesocycles',
@@ -30,6 +32,7 @@ const StatsContainer = () => {
       icon: <AiOutlineFolderOpen />,
       color: '#e9b949',
       background: '#fcefc7',
+      link: '/mesocycles',
     },
   ];
 

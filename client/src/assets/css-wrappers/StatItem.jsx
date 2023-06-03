@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Wrapper = styled.article`
   padding: 2rem;
@@ -21,12 +21,13 @@ const Wrapper = styled.article`
     text-transform: capitalize;
     letter-spacing: var(--letterSpacing);
     text-align: left;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+    color: var(--textColor);
   }
   .icon {
     width: 70px;
     height: 60px;
-    background: ${(props) => props.bcg};
+    background: ${(props) => props.background};
     border-radius: var(--borderRadius);
     display: flex;
     align-items: center;
@@ -36,6 +37,6 @@ const Wrapper = styled.article`
       color: ${(props) => props.color};
     }
   }
-`
+`;
 
-export default Wrapper
+export default Wrapper;

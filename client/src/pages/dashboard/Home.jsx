@@ -6,6 +6,9 @@ import {
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentWorkout } from '../../features/currentWorkout/currentWorkoutSlice';
+import { Link } from 'react-router-dom';
+import Wrapper from '../../assets/css-wrappers/HomePage';
+import { AiOutlineArrowRight } from 'react-icons/ai';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,14 +26,20 @@ const Home = () => {
   }
 
   return (
-    <>
+    <Wrapper>
       {!workout ? (
-        <h3>you do not have an active mesocycle... create</h3> // these will be <Link>
+        <Link to={'/create-meso'} className='btn btn-hero'>
+          <h3>Create a mesocycle</h3>
+          <AiOutlineArrowRight size={'3rem'} />
+        </Link> // these will be <Link>
       ) : (
-        <h3>your next planned workout is: {workout.sessionName}... go</h3> // these will be <Link>
+        <Link to={'/workout'} className='btn btn-hero'>
+          <h3>Go to current workout: '{workout.sessionName}'</h3>
+          <AiOutlineArrowRight size={'3rem'} />
+        </Link> // these will be <Link>
       )}
       <StatsContainer />
-    </>
+    </Wrapper>
   );
 };
 export default Home;
