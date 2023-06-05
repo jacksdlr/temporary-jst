@@ -84,9 +84,6 @@ const Wrapper = styled.section`
     .form-center {
       grid-template-columns: 1fr 1fr 1fr;
     }
-    .form-center button {
-      margin-top: 0;
-    }
   }
 `;
 

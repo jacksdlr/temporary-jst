@@ -9,8 +9,14 @@ import {
   AiOutlineFile,
   AiOutlineStop,
 } from 'react-icons/ai';
-import { setSearch } from '../features/allWorkouts/allWorkoutsSlice';
-import { deleteMeso } from '../features/allMesocycles/allMesocyclesSlice';
+import {
+  getAllWorkouts,
+  setSearch,
+} from '../features/allWorkouts/allWorkoutsSlice';
+import {
+  deleteMeso,
+  getAllMesocycles,
+} from '../features/allMesocycles/allMesocyclesSlice';
 import { setEditing } from '../features/createMeso/createMesoSlice';
 
 const Mesocycle = ({
@@ -68,7 +74,14 @@ const Mesocycle = ({
             <Link
               key={index}
               to={`/all-workouts`}
-              onClick={() => dispatch(setSearch({ mesoName, sessionName }))}
+              onClick={() =>
+                dispatch(
+                  setSearch({
+                    searchMesoId: _id,
+                    searchSessionName: sessionName,
+                  })
+                )
+              }
             >
               <p className='session'>{sessionName}</p>
             </Link>
@@ -88,7 +101,7 @@ const Mesocycle = ({
           <Link
             to={`/all-workouts`}
             className='btn edit-btn'
-            onClick={() => dispatch(setSearch({ mesoName }))}
+            onClick={() => dispatch(setSearch({ searchMesoId: _id }))}
           >
             view
           </Link>

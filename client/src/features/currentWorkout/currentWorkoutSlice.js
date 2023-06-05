@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import customFetch from '../../utils/axios';
-import { getUserFromLocalStorage } from '../../utils/localStorage';
 import { getCurrentWorkoutThunk } from './currentWorkoutThunk';
 
 const initialState = {

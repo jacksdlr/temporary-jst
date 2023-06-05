@@ -4,17 +4,38 @@ import Workout from './Workout';
 import Loading from './Loading';
 import Wrapper from '../assets/css-wrappers/WorkoutsContainer';
 import { getAllWorkouts } from '../features/allWorkouts/allWorkoutsSlice';
+import PageButtonContainer from './PageButtonContainer';
 
 const WorkoutsContainer = () => {
   const dispatch = useDispatch();
 
-  const { workouts, isLoading } = useSelector((store) => store.allWorkouts);
+  const {
+    workouts,
+    isLoading,
+    page,
+    numberOfPages,
+    totalWorkouts,
+    searchMesoId,
+    searchSessionName,
+    searchMicrocycle,
+    searchSession,
+    searchStatus,
+    searchMuscle,
+    sort,
+  } = useSelector((store) => store.allWorkouts);
 
   useEffect(() => {
     dispatch(getAllWorkouts());
-  }, []);
-
-  // const workouts = user.mesocycles.map((mesocycle) => mesocycle.sessions);
+  }, [
+    page,
+    searchMesoId,
+    searchSessionName,
+    searchMicrocycle,
+    searchSession,
+    searchStatus,
+    searchMuscle,
+    sort,
+  ]);
 
   if (isLoading) {
     return (
@@ -25,7 +46,7 @@ const WorkoutsContainer = () => {
     );
   }
 
-  if (workouts.length === 0) {
+  if (totalWorkouts === 0) {
     return (
       <Wrapper>
         <h2>No workout logs to display...</h2>
@@ -35,12 +56,15 @@ const WorkoutsContainer = () => {
 
   return (
     <Wrapper>
-      <h5>Workouts Info</h5>
+      <h5>
+        {totalWorkouts} workout{totalWorkouts > 1 && 's'} found
+      </h5>
       <div className='workouts'>
         {workouts.map((workout, index) => (
           <Workout key={index} {...workout} />
         ))}
       </div>
+      {numberOfPages > 1 && <PageButtonContainer />}
     </Wrapper>
   );
 };

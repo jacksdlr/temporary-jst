@@ -1,23 +1,35 @@
 import customFetch from '../../utils/axios';
 import { showLoading, hideLoading, getAllWorkouts } from './allWorkoutsSlice';
-// import { authHeader } from '../../utils/authHeader';
 
 export const getAllWorkoutsThunk = async (_, thunkAPI) => {
-  const { searchStatus, mesoName, sessionName } =
-    thunkAPI.getState().allWorkouts;
+  const {
+    searchMesoId,
+    searchSessionName,
+    searchMicrocycle,
+    searchSession,
+    searchStatus,
+    searchMuscle,
+    sort,
+    page,
+  } = thunkAPI.getState().allWorkouts;
 
-  let url = `/workouts?status=${searchStatus}`;
-
-  if (mesoName) {
-    url = url + `&mesoName=${mesoName}`;
+  let url = `/workouts?status=${searchStatus}&muscle=${searchMuscle}&sort=${sort}&page=${page}`;
+  if (searchMesoId) {
+    url = url + `&mesoId=${searchMesoId}`;
   }
-  if (sessionName) {
-    url = url + `&sessionName=${sessionName}`;
+  if (searchSessionName) {
+    url = url + `&sessionName=${searchSessionName}`;
+  }
+  if (searchMicrocycle) {
+    url = url + `&microcycle=${searchMicrocycle}`;
+  }
+  if (searchSession) {
+    url = url + `&session=${searchSession}`;
   }
 
   try {
-    const response = await customFetch.get(url /* , authHeader(thunkAPI) */);
-    return response.data.workouts;
+    const response = await customFetch.get(url);
+    return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.msg);
   }
@@ -26,7 +38,7 @@ export const getAllWorkoutsThunk = async (_, thunkAPI) => {
 export const deleteWorkoutThunk = async (url, thunkAPI) => {
   thunkAPI.dispatch(showLoading());
   try {
-    const response = await customFetch.delete(url /* , authHeader(thunkAPI) */);
+    const response = await customFetch.delete(url);
     thunkAPI.dispatch(getAllWorkouts());
     return response.data;
   } catch (error) {
@@ -37,7 +49,7 @@ export const deleteWorkoutThunk = async (url, thunkAPI) => {
 
 export const getCurrentWorkoutThunk = async (_, thunkAPI) => {
   try {
-    const response = await customFetch.get('/workouts/currentWorkout'); // go to backend
+    const response = await customFetch.get('/workouts/currentWorkout');
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.msg);

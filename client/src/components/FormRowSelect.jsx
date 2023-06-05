@@ -16,7 +16,7 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
             <option
               key={index}
               value={itemValue}
-              hidden={index === 0 ? true : false}
+              hidden={index === 0 && itemValue != 'All' ? true : false}
               disabled={
                 typeof itemValue == 'string' && itemValue.charAt(0) === '-'
                   ? true

@@ -1,18 +1,18 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Wrapper = styled.section`
   height: 6rem;
   margin-top: 2rem;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
   .btn-container {
     background: var(--primary-100);
     border-radius: var(--borderRadius);
   }
-  .pageBtn {
+  .page-btn {
     background: transparent;
     border-color: transparent;
     width: 50px;
@@ -50,5 +50,5 @@ const Wrapper = styled.section`
     background: var(--primary-500);
     color: var(--white);
   }
-`
-export default Wrapper
+`;
+export default Wrapper;

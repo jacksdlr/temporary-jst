@@ -1,14 +1,9 @@
 import customFetch from '../../utils/axios';
 import { clearInputs } from './createMesoSlice';
-// import { authHeader } from '../../utils/authHeader';
 
 export const createMesoThunk = async (url, mesocycle, thunkAPI) => {
   try {
-    const response = await customFetch.post(
-      url,
-      mesocycle /* ,
-      authHeader(thunkAPI) */
-    );
+    const response = await customFetch.post(url, mesocycle);
     thunkAPI.dispatch(clearInputs());
     return response.data;
   } catch (error) {
@@ -20,11 +15,7 @@ export const createMesoThunk = async (url, mesocycle, thunkAPI) => {
 
 export const editMesoThunk = async (url, mesocycle, thunkAPI) => {
   try {
-    const response = await customFetch.patch(
-      url,
-      mesocycle /* ,
-      authHeader(thunkAPI) */
-    );
+    const response = await customFetch.patch(url, mesocycle);
     thunkAPI.dispatch(clearInputs());
     return response.data;
   } catch (error) {

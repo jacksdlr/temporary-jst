@@ -5,34 +5,98 @@ const { BadRequestError, NotFoundError } = require('../errors');
 const { userObject } = require('./user');
 
 const getAllWorkouts = async (req, res) => {
-  const { status, mesoName, sessionName } = req.query;
+  const {
+    mesoId,
+    sessionName,
+    microcycle,
+    session,
+    status,
+    muscle,
+    sort,
+    page,
+  } = req.query;
 
-  const user = await User.aggregate([
+  let user = await User.aggregate([
     { $match: { _id: ObjectId(req.user.userId) } },
     {
       $unwind: '$mesocycles',
     },
-    mesoName != undefined
-      ? { $match: { 'mesocycles.mesoName': mesoName } }
+    mesoId != undefined
+      ? { $match: { 'mesocycles._id': ObjectId(mesoId) } }
       : { $match: {} },
     { $unwind: '$mesocycles.sessions' },
     sessionName != undefined
       ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
       : { $match: {} },
+    microcycle != undefined
+      ? { $match: { 'mesocycles.sessions.microcycle': microcycle } }
+      : { $match: {} },
+    session != undefined
+      ? { $match: { 'mesocycles.sessions.sessionNumber': session } }
+      : { $match: {} },
+    status != 'All'
+      ? { $match: { 'mesocycles.sessions.status': status } }
+      : { $match: {} },
+    /* { $unwind: '$mesocycles.sessions.musclesTrained' },*/
+    muscle != 'All'
+      ? { $match: { 'mesocycles.sessions.musclesTrained': muscle } }
+      : { $match: {} },
+    /* page != undefined ? { $skip: (Number(page) - 1) * 10 } : { $skip: 0 },
+    { $limit: 10 }, */
+  ]);
+
+  let result = await User.aggregate([
+    { $match: { _id: ObjectId(req.user.userId) } },
+    {
+      $unwind: '$mesocycles',
+    },
+    mesoId != undefined
+      ? { $match: { 'mesocycles._id': ObjectId(mesoId) } }
+      : { $match: {} },
+    { $unwind: '$mesocycles.sessions' },
+    sessionName != undefined
+      ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
+      : { $match: {} },
+    microcycle != undefined
+      ? { $match: { 'mesocycles.sessions.microcycle': microcycle } }
+      : { $match: {} },
+    session != undefined
+      ? { $match: { 'mesocycles.sessions.sessionNumber': session } }
+      : { $match: {} },
+    status != 'All'
+      ? { $match: { 'mesocycles.sessions.status': status } }
+      : { $match: {} },
+    /* { $unwind: '$mesocycles.sessions.musclesTrained' },*/
+    muscle != 'All'
+      ? { $match: { 'mesocycles.sessions.musclesTrained': muscle } }
+      : { $match: {} },
+    page != undefined ? { $skip: (Number(page) - 1) * 10 } : { $skip: 0 },
+    { $limit: 10 },
   ]);
 
   if (!user) {
     throw new NotFoundError(`No workouts found`);
   }
 
-  const allWorkouts = [];
-  user.forEach((item) => {
-    return allWorkouts.push({
+  const totalWorkouts = user.length;
+  const numberOfPages = Math.ceil(totalWorkouts / 10);
+
+  // const page = Number(req.query.page) || 1;
+  // const skip = (page - 1) * 10;
+
+  // user = user.skip(skip).limit(10);
+
+  const workouts = [];
+  result.forEach((item) => {
+    return workouts.push({
       mesoName: item.mesocycles.mesoName,
       mesoId: item.mesocycles._id,
       ...item.mesocycles.sessions,
     });
   });
+  /* if (workouts.length === 0) {
+    throw new NotFoundError(`No workouts found`);
+  } */
 
   /*
 
@@ -47,12 +111,8 @@ const getAllWorkouts = async (req, res) => {
 */
 
   // this will be where they get filtered
-  let workouts = allWorkouts;
 
-  if (allWorkouts.length === 0) {
-    throw new NotFoundError(`No workouts found`);
-  }
-  res.status(StatusCodes.OK).json({ workouts });
+  res.status(StatusCodes.OK).json({ workouts, totalWorkouts, numberOfPages });
 };
 
 const getCurrentWorkout = async (req, res) => {

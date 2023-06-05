@@ -10,7 +10,6 @@ const getAllMesocycles = async (req, res) => {
   res.status(StatusCodes.OK).json({ mesocycles: user.mesocycles });
 };
 
-// DOES THIS NEED AUTHENTICATING???
 const createMeso = async (req, res) => {
   const {
     mesoName,
@@ -29,11 +28,11 @@ const createMeso = async (req, res) => {
   }
 
   if (setActive == true) {
-    const activeMesoIndex = user.mesocycles.findIndex(
-      (meso) => meso.status == 'Active'
-    );
-    if (activeMesoIndex != -1) {
-      user.mesocycles[activeMesoIndex].status = 'Completed';
+    const activeMeso = user.mesocycles.find((meso) => meso.status == 'Active');
+    if (activeMeso.sessions[0].status == 'Planned') {
+      activeMeso.status = 'Planned';
+    } else if (activeMeso.sessions[0].status != 'Planned') {
+      activeMeso.status = 'Incomplete';
     }
   }
 
@@ -88,8 +87,6 @@ const createMeso = async (req, res) => {
   user.mesocycles.push(newMesocycle);
   await user.save();
 
-  // const token = user.createJWT();
-
   res.status(StatusCodes.OK).json({
     user: userObject(user),
   });
@@ -114,46 +111,34 @@ const updateMeso = async (req, res) => {
 
   const user = await User.findById(userId);
 
-  const mesoIndex = user.mesocycles.findIndex(
-    (mesocycle) => mesocycle._id == mesoId
-  );
+  const meso = user.mesocycles.find((mesocycle) => mesocycle._id == mesoId);
 
-  user.mesocycles[mesoIndex].mesoName =
-    mesoName /*  || user.mesocycles[mesoIndex].mesoName */;
-  if (user.mesocycles[mesoIndex].status != 'Active' && setActive == true) {
-    const activeMesoIndex = user.mesocycles.findIndex(
-      (meso) => meso.status == 'Active'
-    );
-    if (activeMesoIndex != -1) {
-      user.mesocycles[activeMesoIndex].sessions[0].status == 'Planned'
-        ? (user.mesocycles[activeMesoIndex].status = 'Planned')
-        : (user.mesocycles[activeMesoIndex].status = 'Incomplete');
-    }
-    user.mesocycles[mesoIndex].status = 'Active';
-  } else if (
-    user.mesocycles[mesoIndex].status == 'Active' &&
-    setActive == false
-  ) {
-    user.mesocycles[mesoIndex].sessions[0].status == 'Planned'
-      ? (user.mesocycles[mesoIndex].status = 'Planned')
-      : (user.mesocycles[mesoIndex].status = 'Incomplete');
+  if (!meso) {
+    throw new BadRequestError('Mesocycle does not exist');
   }
-  user.mesocycles[mesoIndex].microcycles =
-    microcycles || '' /* user.mesocycles[mesoIndex].microcycles */;
-  user.mesocycles[mesoIndex].notes =
-    notes || '' /* user.mesocycles[mesoIndex].notes */;
-  user.mesocycles[mesoIndex].goal =
-    goal || '' /* user.mesocycles[mesoIndex].goal */;
-  user.mesocycles[mesoIndex].startDate =
-    startDate || '' /* user.mesocycles[mesoIndex].startDate */;
-  user.mesocycles[mesoIndex].startWeight =
-    startWeight || '' /* user.mesocycles[mesoIndex].startWeight */;
-  user.mesocycles[mesoIndex].endWeight =
-    endWeight || '' /* user.mesocycles[mesoIndex].endWeight */;
+
+  meso.mesoName = mesoName;
+  if (meso.status != 'Active' && setActive == true) {
+    const activeMeso = user.mesocycles.find((meso) => meso.status == 'Active');
+    if (activeMeso) {
+      activeMeso.sessions[0].status == 'Planned'
+        ? (activeMeso.status = 'Planned')
+        : (activeMeso.status = 'Incomplete');
+    }
+    meso.status = 'Active';
+  } else if (meso.status == 'Active' && setActive == false) {
+    meso.sessions[0].status == 'Planned'
+      ? (meso.status = 'Planned')
+      : (meso.status = 'Incomplete');
+  }
+  meso.microcycles = microcycles || '';
+  meso.notes = notes || '';
+  meso.goal = goal || '';
+  meso.startDate = startDate || '';
+  meso.startWeight = startWeight || '';
+  meso.endWeight = endWeight || '';
 
   await user.save();
-
-  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
@@ -168,18 +153,17 @@ const deleteMeso = async (req, res) => {
 
   const user = await User.findById(userId);
 
-  /* const mesoIndex = user.mesocycles.findIndex(
-    (mesocycle) => mesocycle._id == mesoId
-  ); */
   const meso = await user.mesocycles.find(
     (mesocycle) => mesocycle._id == mesoId
   );
 
+  if (!meso) {
+    throw new BadRequestError('Mesocycle does not exist');
+  }
+
   meso.remove();
 
   await user.save();
-
-  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),

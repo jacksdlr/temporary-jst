@@ -61,31 +61,7 @@ const login = async (req, res) => {
 
   const token = user.createJWT();
   res.status(StatusCodes.OK).json({
-    user: /* {
-      name: user.name,
-      email: user.email,
-      mesocycles: user.mesocycles,
-      // currentMeso: user.currentMeso,
-      exercises: user.customExercises,
-      data: {
-        height: user.height,
-        weight: user.weight,
-        age: user.age,
-        sex: user.sex,
-        activityLevel: user.activityLevel,
-      },
-      stats: {
-        completedWorkouts: user.mesocycles
-          .map(
-            (meso) =>
-              meso.sessions.filter((session) => session.status == 'Completed')
-                .length
-          )
-          .reduce((sum, next) => sum + next),
-        totalMesocycles: user.mesocycles.length,
-      },
-      token,
-    }, */ userObject(user),
+    user: userObject(user),
   });
 };
 
@@ -107,40 +83,13 @@ const updateUserDetails = async (req, res) => {
   const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
-    user: /* {
-      name: user.name,
-      email: user.email,
-      mesocycles: user.mesocycles,
-      // currentMeso: user.currentMeso,
-      exercises: user.customExercises,
-      data: {
-        height: user.height,
-        weight: user.weight,
-        age: user.age,
-        sex: user.sex,
-        activityLevel: user.activityLevel,
-      },
-      stats: {
-        completedWorkouts: user.mesocycles
-          .map(
-            (meso) =>
-              meso.sessions.filter((session) => session.status == 'Completed')
-                .length
-          )
-          .reduce((sum, next) => sum + next),
-        totalMesocycles: user.mesocycles.length,
-      },
-      token,
-    }, */ userObject(user),
+    user: userObject(user),
   });
 };
 
 // Update user height, weight, age, and activity level
 const updateUserData = async (req, res) => {
   const { height, weight, age, sex, activityLevel } = req.body;
-  /* if (!height && !weight && !age && !activityLevel) {
-    throw new BadRequestError('No values provided to update');
-  } */
   const user = await User.findOne({ _id: req.user.userId });
 
   user.height = height;
@@ -152,31 +101,7 @@ const updateUserData = async (req, res) => {
   await user.save();
 
   res.status(StatusCodes.OK).json({
-    user: /* {
-      name: user.name,
-      email: user.email,
-      mesocycles: user.mesocycles,
-      // currentMeso: user.currentMeso,
-      exercises: user.customExercises,
-      data: {
-        height: user.height,
-        weight: user.weight,
-        age: user.age,
-        sex: user.sex,
-        activityLevel: user.activityLevel,
-      },
-      stats: {
-        completedWorkouts: user.mesocycles
-          .map(
-            (meso) =>
-              meso.sessions.filter((session) => session.status == 'Completed')
-                .length
-          )
-          .reduce((sum, next) => sum + next),
-        totalMesocycles: user.mesocycles.length,
-      },
-      token,
-    }, */ userObject(user),
+    user: userObject(user),
   });
 };
 

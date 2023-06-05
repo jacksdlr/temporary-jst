@@ -33,6 +33,9 @@ const SessionSchema = new mongoose.Schema(
       default: 'Planned',
       enum: ['Completed', 'Planned', 'Incomplete'],
     },
+    dateCompleted: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );

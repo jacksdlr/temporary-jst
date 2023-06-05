@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   StatsContainer,
   // ChartsContainer,
@@ -31,22 +31,18 @@ const Home = () => {
         <Link to={'/create-meso'} className='btn btn-hero'>
           <h3>Create a mesocycle</h3>
           <AiOutlineArrowRight size={'3rem'} />
-        </Link> // these will be <Link>
+        </Link>
       ) : (
         <Link to={'/workout'} className='btn btn-hero'>
           <h3>Go to current workout: '{workout.sessionName}'</h3>
           <AiOutlineArrowRight size={'3rem'} />
-        </Link> // these will be <Link>
+        </Link>
       )}
       <StatsContainer />
     </Wrapper>
   );
 };
 export default Home;
-
-// go to current workout
-// workouts completed
-// mesocycles created
 
 // volume landmarks!!!! weekly volume in chart (will have to store dates for workouts)
 // ^ this is a feature for far in the future

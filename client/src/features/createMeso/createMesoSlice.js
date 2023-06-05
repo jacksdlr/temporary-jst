@@ -13,13 +13,7 @@ const initialState = {
   startDate: '',
   startWeight: getUserFromLocalStorage()?.data?.weight || '',
   setActive: false,
-  sessions: [
-    /* {
-      sessionName: 'Session 1',
-      sessionNumber: 1,
-      exercises: [{ muscleGroup: '', exerciseName: '', repRange: '' }],
-    }, */
-  ],
+  sessions: [],
   sessionsCount: 0,
   isEditing: false,
 };
@@ -28,19 +22,6 @@ export const createMeso = createAsyncThunk(
   'mesocycles/createMeso',
   async (mesocycle, thunkAPI) => {
     return createMesoThunk('/mesocycles', mesocycle, thunkAPI);
-    // try {
-    //   const response = await customFetch.post('/mesocycles', mesocycle, {
-    //     headers: {
-    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-    //     },
-    //   });
-    //   thunkAPI.dispatch(clearInputs());
-    //   return response.data;
-    // } catch (error) {
-    //   return thunkAPI.rejectWithValue(error.response.data.msg);
-
-    //   // return checkForUnauthorizedResponse(error, thunkAPI);
-    // }
   }
 );
 
@@ -48,17 +29,6 @@ export const editMeso = createAsyncThunk(
   'mesocycles/editMeso',
   async (mesocycle, thunkAPI) => {
     return editMesoThunk(`/mesocycles/${mesocycle._id}`, mesocycle, thunkAPI);
-    // try {
-    //   const response = await customFetch.patch(url, mesocycle, {
-    //     headers: {
-    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-    //     },
-    //   });
-    //   thunkAPI.dispatch(clearInputs());
-    //   return response.data;
-    // } catch (error) {
-    //   return thunkAPI.rejectWithValue(error.response.data.msg);
-    // }
   }
 );
 
@@ -80,9 +50,7 @@ const createMesoSlice = createSlice({
       state.sessions.push({
         sessionsCount: state.sessionsCount,
         sessionName: `Session ${state.sessionsCount}`,
-        exercises: [
-          /* { muscleGroup: '', exerciseName: '', repRange: '' } */
-        ],
+        exercises: [],
       });
     },
     deleteSession: (state, { payload: { sessionIndex } }) => {

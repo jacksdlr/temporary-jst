@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
+import { directory } from '../../utils/directory';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 import {
   getAllWorkoutsThunk,
@@ -10,12 +11,24 @@ import {
 } from './allWorkoutsThunk';
 
 const initialFilters = {
-  mesoName: '',
-  sessionName: '',
-  searchStatus: 'all',
-  searchType: 'all',
-  sort: 'last updated',
-  sortOptions: ['last updated', 'oldest', 'mesocycle', 'session'],
+  searchMesoId: '',
+  searchSessionName: '',
+  searchMicrocycle: '',
+  searchSession: '',
+  searchStatus: 'All',
+  statusOptions: ['Completed', 'Planned', 'Incomplete'],
+  searchMuscle: 'All',
+  muscleOptions: directory.map((item) => item.muscleGroup),
+  sort: 'Default',
+  sortOptions: [
+    '',
+    'Default',
+    'Last Updated',
+    'Oldest',
+    'Mesocycle No.',
+    'Microcycle No.',
+    'Session No.',
+  ],
 };
 
 const initialState = {
@@ -124,6 +137,16 @@ const allWorkoutsSlice = createSlice({
     setSearch: (state, { payload }) => {
       return { ...initialState, ...payload };
     },
+    handleChange: (state, { payload: { name, value } }) => {
+      state.page = 1;
+      state[name] = value;
+    },
+    clearFilters: (state) => {
+      return { ...state, ...initialFilters };
+    },
+    changePage: (state, { payload }) => {
+      state.page = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -131,9 +154,11 @@ const allWorkoutsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllWorkouts.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.isLoading = false;
-        state.workouts = payload;
-        state.totalWorkouts = payload.length;
+        state.workouts = payload.workouts;
+        state.totalWorkouts = payload.totalWorkouts;
+        state.numberOfPages = payload.numberOfPages;
       })
       .addCase(getAllWorkouts.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -153,6 +178,12 @@ const allWorkoutsSlice = createSlice({
   },
 });
 
-export const { showLoading, hideLoading, setSearch, clearState } =
-  allWorkoutsSlice.actions;
+export const {
+  showLoading,
+  hideLoading,
+  setSearch,
+  handleChange,
+  clearFilters,
+  changePage,
+} = allWorkoutsSlice.actions;
 export default allWorkoutsSlice.reducer;
