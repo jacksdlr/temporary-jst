@@ -29,20 +29,17 @@ const getAllWorkouts = async (req, res) => {
       ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
       : { $match: {} },
     microcycle != undefined
-      ? { $match: { 'mesocycles.sessions.microcycle': microcycle } }
+      ? { $match: { 'mesocycles.sessions.microcycle': Number(microcycle) } }
       : { $match: {} },
     session != undefined
-      ? { $match: { 'mesocycles.sessions.sessionNumber': session } }
+      ? { $match: { 'mesocycles.sessions.sessionNumber': Number(session) } }
       : { $match: {} },
     status != 'All'
       ? { $match: { 'mesocycles.sessions.status': status } }
       : { $match: {} },
-    /* { $unwind: '$mesocycles.sessions.musclesTrained' },*/
     muscle != 'All'
       ? { $match: { 'mesocycles.sessions.musclesTrained': muscle } }
       : { $match: {} },
-    /* page != undefined ? { $skip: (Number(page) - 1) * 10 } : { $skip: 0 },
-    { $limit: 10 }, */
   ]);
 
   let result = await User.aggregate([
@@ -58,20 +55,19 @@ const getAllWorkouts = async (req, res) => {
       ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
       : { $match: {} },
     microcycle != undefined
-      ? { $match: { 'mesocycles.sessions.microcycle': microcycle } }
+      ? { $match: { 'mesocycles.sessions.microcycle': Number(microcycle) } }
       : { $match: {} },
     session != undefined
-      ? { $match: { 'mesocycles.sessions.sessionNumber': session } }
+      ? { $match: { 'mesocycles.sessions.sessionNumber': Number(session) } }
       : { $match: {} },
     status != 'All'
       ? { $match: { 'mesocycles.sessions.status': status } }
       : { $match: {} },
-    /* { $unwind: '$mesocycles.sessions.musclesTrained' },*/
     muscle != 'All'
       ? { $match: { 'mesocycles.sessions.musclesTrained': muscle } }
       : { $match: {} },
-    page != undefined ? { $skip: (Number(page) - 1) * 10 } : { $skip: 0 },
-    { $limit: 10 },
+    page != undefined ? { $skip: (Number(page) - 1) * 8 } : { $skip: 0 },
+    { $limit: 8 },
   ]);
 
   if (!user) {
@@ -79,7 +75,7 @@ const getAllWorkouts = async (req, res) => {
   }
 
   const totalWorkouts = user.length;
-  const numberOfPages = Math.ceil(totalWorkouts / 10);
+  const numberOfPages = Math.ceil(totalWorkouts / 8);
 
   // const page = Number(req.query.page) || 1;
   // const skip = (page - 1) * 10;

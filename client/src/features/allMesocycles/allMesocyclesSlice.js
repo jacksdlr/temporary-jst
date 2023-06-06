@@ -7,10 +7,13 @@ import { getAllMesocyclesThunk, deleteMesoThunk } from './allMesocyclesThunk';
 
 const initialFilters = {
   search: '',
-  searchStatus: 'all',
-  searchType: 'all',
-  sort: 'last updated',
-  sortOptions: ['last updated', 'oldest', 'mesocycle'],
+  searchStatus: 'All',
+  statusOptions: ['Completed', 'Planned', 'Active', 'Incomplete'],
+  searchGoal: 'All',
+  goalOptions: ['Bulk', 'Cut', 'Maintenance'],
+  searchMicrocycles: '',
+  sort: 'Default',
+  sortOptions: ['', 'Default', 'Last Updated', 'Oldest'],
 };
 
 const initialState = {
@@ -39,38 +42,12 @@ const initialState = {
 export const getAllMesocycles = createAsyncThunk(
   'mesocycles/getMesocycles',
   getAllMesocyclesThunk
-  /* async (_, thunkAPI) => {
-    return getAllMesocyclesThunk('/mesocycles', thunkAPI);
-    // try {
-    //   const response = await customFetch.get('/mesocycles', {
-    //     headers: {
-    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-    //     },
-    //   });
-    //   return response.data;
-    // } catch (error) {
-    //   return thunkAPI.rejectWithValue(error.response.data.msg);
-    // }
-  } */
 );
 
 export const deleteMeso = createAsyncThunk(
   'mesocycles/deleteMeso',
   async (mesoId, thunkAPI) => {
     return deleteMesoThunk(`/mesocycles/${mesoId}`, thunkAPI);
-    // thunkAPI.dispatch(showLoading());
-    // try {
-    //   const response = await customFetch.delete(`/mesocycles/${mesoId}`, {
-    //     headers: {
-    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-    //     },
-    //   });
-    //   thunkAPI.dispatch(getAllMesocycles());
-    //   return response.data;
-    // } catch (error) {
-    //   thunkAPI.dispatch(hideLoading());
-    //   return thunkAPI.rejectWithValue(error.response.data.msg);
-    // }
   }
 );
 
@@ -84,6 +61,17 @@ const allMesocyclesSlice = createSlice({
     hideLoading: (state) => {
       state.isLoading = false;
     },
+    handleChange: (state, { payload: { name, value } }) => {
+      state.page = 1;
+      state[name] = value;
+    },
+    clearFilters: (state) => {
+      return { ...state, ...initialFilters };
+    },
+    changePage: (state, { payload }) => {
+      state.page = payload;
+    },
+    clearAllMesocyclesState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -91,10 +79,10 @@ const allMesocyclesSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllMesocycles.fulfilled, (state, { payload }) => {
-        const { mesocycles } = payload;
         state.isLoading = false;
-        state.mesocycles = mesocycles;
-        state.totalMesocycles = mesocycles.length;
+        state.mesocycles = payload.mesocycles;
+        state.totalMesocycles = payload.totalMesocycles;
+        state.numberOfPages = payload.numberOfPages;
       })
       .addCase(getAllMesocycles.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -114,5 +102,12 @@ const allMesocyclesSlice = createSlice({
   },
 });
 
-export const { showLoading, hideLoading } = allMesocyclesSlice.actions;
+export const {
+  showLoading,
+  hideLoading,
+  handleChange,
+  clearFilters,
+  changePage,
+  clearAllMesocyclesState,
+} = allMesocyclesSlice.actions;
 export default allMesocyclesSlice.reducer;

@@ -74,53 +74,12 @@ const initialState = {
 export const getAllWorkouts = createAsyncThunk(
   'workouts/getAllWorkouts',
   getAllWorkoutsThunk
-  /* async (_, thunkAPI) => {
-    return getAllWorkoutsThunk('/workouts', thunkAPI);
-    // const { searchStatus, mesoName, sessionName } =
-    //   thunkAPI.getState().allWorkouts;
-
-    // let url = `/workouts?status=${searchStatus}`;
-
-    // if (mesoName) {
-    //   url = url + `&mesoName=${mesoName}`;
-    // }
-    // if (sessionName) {
-    //   url = url + `&sessionName=${sessionName}`;
-    // }
-
-    // try {
-    //   const response = await customFetch.get(url, {
-    //     headers: {
-    //       authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-    //     },
-    //   });
-    //   return response.data.workouts;
-    // } catch (error) {
-    //   return thunkAPI.rejectWithValue(error.response.data.msg);
-    // }
-  } */
 );
 
 export const deleteWorkout = createAsyncThunk(
   'workouts/deleteWorkout',
   async ({ mesoId, workoutId }, thunkAPI) => {
     return deleteWorkoutThunk(`/workouts/${mesoId}/${workoutId}`, thunkAPI);
-    // thunkAPI.dispatch(showLoading());
-    // try {
-    //   const response = await customFetch.delete(
-    //     `/workouts/${mesoId}/${workoutId}`,
-    //     {
-    //       headers: {
-    //         authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-    //       },
-    //     }
-    //   );
-    //   thunkAPI.dispatch(getAllWorkouts());
-    //   return response.data;
-    // } catch (error) {
-    //   thunkAPI.dispatch(hideLoading());
-    //   return thunkAPI.rejectWithValue(error.response.data.msg);
-    // }
   }
 );
 
@@ -147,6 +106,7 @@ const allWorkoutsSlice = createSlice({
     changePage: (state, { payload }) => {
       state.page = payload;
     },
+    clearAllWorkoutsState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -154,7 +114,6 @@ const allWorkoutsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllWorkouts.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.isLoading = false;
         state.workouts = payload.workouts;
         state.totalWorkouts = payload.totalWorkouts;
@@ -185,5 +144,6 @@ export const {
   handleChange,
   clearFilters,
   changePage,
+  clearAllWorkoutsState,
 } = allWorkoutsSlice.actions;
 export default allWorkoutsSlice.reducer;

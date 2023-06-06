@@ -4,7 +4,7 @@ import Workout from './Workout';
 import Loading from './Loading';
 import Wrapper from '../assets/css-wrappers/WorkoutsContainer';
 import { getAllWorkouts } from '../features/allWorkouts/allWorkoutsSlice';
-import PageButtonContainer from './PageButtonContainer';
+import PageButtonContainer from './WorkoutsPageButtons';
 
 const WorkoutsContainer = () => {
   const dispatch = useDispatch();

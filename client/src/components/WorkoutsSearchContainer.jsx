@@ -39,14 +39,14 @@ const WorkoutsSearchContainer = () => {
           <FormRow
             type='number'
             labelText='Microcycle'
-            name='microcycle'
+            name='searchMicrocycle'
             value={searchMicrocycle}
             handleChange={handleSearch}
           />
           <FormRow
             type='number'
             labelText='Session'
-            name='session'
+            name='searchSession'
             value={searchSession}
             handleChange={handleSearch}
           />

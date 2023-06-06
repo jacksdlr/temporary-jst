@@ -4,17 +4,27 @@ import Mesocycle from './Mesocycle';
 import Loading from './Loading';
 import Wrapper from '../assets/css-wrappers/MesocyclesContainer';
 import { getAllMesocycles } from '../features/allMesocycles/allMesocyclesSlice';
+import PageButtonContainer from './MesocyclesPageButtons';
 
 const MesocyclesContainer = () => {
   const dispatch = useDispatch();
 
-  const { mesocycles, isLoading } = useSelector((store) => store.allMesocycles);
+  const {
+    mesocycles,
+    isLoading,
+    page,
+    numberOfPages,
+    totalMesocycles,
+    search,
+    searchStatus,
+    searchGoal,
+    searchMicrocycles,
+    sort,
+  } = useSelector((store) => store.allMesocycles);
 
   useEffect(() => {
     dispatch(getAllMesocycles());
-  }, []);
-
-  // const workouts = user.mesocycles.map((mesocycle) => mesocycle.sessions);
+  }, [page, search, searchStatus, searchGoal, searchMicrocycles, sort]);
 
   if (isLoading) {
     return (
@@ -35,12 +45,15 @@ const MesocyclesContainer = () => {
 
   return (
     <Wrapper>
-      <h5>Mesocycles Info</h5>
-      <div className='workouts'>
+      <h5>
+        {totalMesocycles} mesocycle{totalMesocycles > 1 && 's'} found
+      </h5>
+      <div className='mesocycles'>
         {mesocycles.map((mesocycle, index) => {
           return <Mesocycle key={index} {...mesocycle} />;
         })}
       </div>
+      {numberOfPages > 1 && <PageButtonContainer />}
     </Wrapper>
   );
 };

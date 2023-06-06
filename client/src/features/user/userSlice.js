@@ -10,6 +10,7 @@ import {
   loginUserThunk,
   updateUserDetailsThunk,
   updateUserDataThunk,
+  clearAllStoresThunk,
 } from './userThunk';
 import { createMeso, editMeso } from '../createMeso/createMesoSlice';
 import { deleteWorkout } from '../allWorkouts/allWorkoutsSlice';
@@ -48,13 +49,18 @@ export const updateUserData = createAsyncThunk(
   }
 );
 
+export const clearStore = createAsyncThunk(
+  'user/clearStore',
+  clearAllStoresThunk
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    logoutUser: (state) => {
+    logoutUser: (state, { payload }) => {
       state.user = null;
-      toast.success('Logout successful');
+      toast.success(payload);
       removeUserFromLocalStorage();
     },
   },
@@ -140,9 +146,12 @@ const userSlice = createSlice({
         const { user } = payload;
         state.user = user;
         addUserToLocalStorage(user);
+      })
+      .addCase(clearStore.rejected, () => {
+        toast.error('There was an error');
       });
   },
 });
 
-export const { logoutUser, updateUser } = userSlice.actions;
+export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;

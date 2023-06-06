@@ -10,8 +10,9 @@ import {
   AiFillCaretDown,
   AiFillCaretUp,
 } from 'react-icons/ai';
-import { logoutUser } from '../features/user/userSlice';
+import { clearStore, logoutUser } from '../features/user/userSlice';
 import { toggleSidebar } from '../features/navbar/navbarSlice';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
@@ -41,7 +42,9 @@ const Navbar = () => {
           )}
         </button>
         <div>
-          <Logo />
+          <Link to='/'>
+            <Logo />
+          </Link>
           <h3 className='logo-text'>Dashboard</h3>
         </div>
         <div className='btn-container'>
@@ -57,7 +60,9 @@ const Navbar = () => {
           <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
             <button
               className='dropdown-btn'
-              onClick={() => dispatch(logoutUser('Logging out...'))}
+              onClick={() =>
+                dispatch(clearStore('Logout successful! Come back soon!'))
+              }
             >
               logout
             </button>

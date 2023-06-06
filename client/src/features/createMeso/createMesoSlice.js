@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { updateUser } from '../user/userSlice';
 import { toast } from 'react-toastify';
-import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 import { createMesoThunk, editMesoThunk } from './createMesoThunk';
 
@@ -80,14 +78,14 @@ const createMesoSlice = createSlice({
             notes: '',
           });
     },
-    clearInputs: () => {
+    clearInputs: () => initialState /* {
       return {
         ...initialState,
         mesoName: `Meso ${
           getUserFromLocalStorage()?.mesocycles?.length + 1 || 1
         }`,
       };
-    },
+    }*/,
     setEditing: (state, { payload }) => {
       return { ...initialState, ...payload, isEditing: true };
     },

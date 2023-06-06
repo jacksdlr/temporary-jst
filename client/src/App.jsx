@@ -37,7 +37,7 @@ function App() {
         <Route path='*' element={<Error />} />
       </Routes>
       <ToastContainer
-        position='top-center'
+        position={window.innerWidth < 992 ? 'bottom-center' : 'top-center'}
         autoClose='2500'
         pauseOnFocusLoss={false} /* theme='dark' */
       />

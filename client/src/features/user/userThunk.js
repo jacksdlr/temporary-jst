@@ -1,6 +1,9 @@
 import customFetch from '../../utils/axios';
 import { logoutUser } from './userSlice';
-// import { authHeader } from '../../utils/authHeader';
+import { clearAllWorkoutsState } from '../allWorkouts/allWorkoutsSlice';
+import { clearAllMesocyclesState } from '../allMesocycles/allMesocyclesSlice';
+import { clearInputs } from '../createMeso/createMesoSlice';
+import { clearWorkoutState } from '../currentWorkout/currentWorkoutSlice';
 
 export const registerUserThunk = async (url, user, thunkAPI) => {
   try {
@@ -53,5 +56,18 @@ export const updateUserDataThunk = async (url, user, thunkAPI) => {
       );
     }
     return thunkAPI.rejectWithValue(error.response.data.msg);
+  }
+};
+
+export const clearAllStoresThunk = async (message, thunkAPI) => {
+  try {
+    thunkAPI.dispatch(logoutUser(message));
+    thunkAPI.dispatch(clearAllMesocyclesState);
+    thunkAPI.dispatch(clearAllWorkoutsState);
+    thunkAPI.dispatch(clearInputs);
+    thunkAPI.dispatch(clearWorkoutState);
+    return Promise.resolve();
+  } catch (error) {
+    return Promise.reject();
   }
 };

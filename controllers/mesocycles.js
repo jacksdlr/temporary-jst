@@ -5,9 +5,64 @@ const { User, Mesocycle, Session, Exercise, Set } = require('../models');
 const { userObject } = require('./user');
 
 const getAllMesocycles = async (req, res) => {
-  const user = await User.findById(req.user.userId);
+  const { mesoName, status, goal, microcycles, sort, page } = req.query;
 
-  res.status(StatusCodes.OK).json({ mesocycles: user.mesocycles });
+  let user = await User.aggregate([
+    { $match: { _id: ObjectId(req.user.userId) } },
+    {
+      $unwind: '$mesocycles',
+    },
+    mesoName != undefined
+      ? {
+          $match: {
+            'mesocycles.mesoName': { $regex: mesoName, $options: 'i' },
+          },
+        }
+      : { $match: {} },
+    microcycles != undefined
+      ? { $match: { 'mesocycles.microcycles': Number(microcycles) } }
+      : { $match: {} },
+    status != 'All'
+      ? { $match: { 'mesocycles.status': status } }
+      : { $match: {} },
+    goal != 'All' ? { $match: { 'mesocycles.goal': goal } } : { $match: {} },
+  ]);
+
+  let result = await User.aggregate([
+    { $match: { _id: ObjectId(req.user.userId) } },
+    {
+      $unwind: '$mesocycles',
+    },
+    mesoName != undefined
+      ? {
+          $match: {
+            'mesocycles.mesoName': { $regex: mesoName, $options: 'i' },
+          },
+        }
+      : { $match: {} },
+    microcycles != undefined
+      ? { $match: { 'mesocycles.microcycles': Number(microcycles) } }
+      : { $match: {} },
+    status != 'All'
+      ? { $match: { 'mesocycles.status': status } }
+      : { $match: {} },
+    goal != 'All' ? { $match: { 'mesocycles.goal': goal } } : { $match: {} },
+    page != undefined ? { $skip: (Number(page) - 1) * 8 } : { $skip: 0 },
+    { $limit: 8 },
+  ]);
+
+  if (!user) {
+    throw new NotFoundError(`No mesocycles found`);
+  }
+
+  const totalMesocycles = user.length;
+  const numberOfPages = Math.ceil(totalMesocycles / 8);
+
+  res.status(StatusCodes.OK).json({
+    mesocycles: result.map((item) => item.mesocycles),
+    totalMesocycles,
+    numberOfPages,
+  });
 };
 
 const createMeso = async (req, res) => {

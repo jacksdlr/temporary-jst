@@ -22,6 +22,7 @@ const currentWorkoutSlice = createSlice({
     hideLoading: (state) => {
       state.isLoading = false;
     },
+    clearWorkoutState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -39,5 +40,6 @@ const currentWorkoutSlice = createSlice({
   },
 });
 
-export const { showLoading, hideLoading } = currentWorkoutSlice.actions;
+export const { showLoading, hideLoading, clearWorkoutState } =
+  currentWorkoutSlice.actions;
 export default currentWorkoutSlice.reducer;
