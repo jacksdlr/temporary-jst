@@ -142,6 +142,8 @@ const createMeso = async (req, res) => {
   user.mesocycles.push(newMesocycle);
   await user.save();
 
+  // const token = user.createJWT();
+
   res.status(StatusCodes.OK).json({
     user: userObject(user),
   });
@@ -195,6 +197,8 @@ const updateMeso = async (req, res) => {
 
   await user.save();
 
+  // const token = user.createJWT();
+
   res.status(StatusCodes.OK).json({
     user: userObject(user),
   });
@@ -219,6 +223,8 @@ const deleteMeso = async (req, res) => {
   meso.remove();
 
   await user.save();
+
+  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),

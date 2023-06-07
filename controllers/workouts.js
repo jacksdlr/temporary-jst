@@ -193,6 +193,7 @@ const deleteWorkout = async (req, res) => {
   // if (!workout) {
   //   throw new NotFoundError(`No workout with id ${workoutId}`);
   // }
+  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),

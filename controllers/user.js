@@ -8,17 +8,19 @@ const userObject = (user) => {
     completedWorkouts: 0,
     totalMesocycles: 0,
   };
+  let completedWorkouts = [];
   if (user.mesocycles.length > 0) {
-    return (stats = {
-      completedWorkouts: user.mesocycles
-        .map(
-          (meso) =>
-            meso.sessions.filter((session) => session.status == 'Completed')
-              .length
-        )
-        .reduce((sum, next) => sum + next),
-      totalMesocycles: user.mesocycles.length,
-    });
+    user.mesocycles.map((meso) =>
+      completedWorkouts.push(
+        meso.sessions.filter((session) => session.status == 'Completed').length
+      )
+    );
+    if (completedWorkouts.length > 0) {
+      stats = {
+        completedWorkouts: completedWorkouts.reduce((sum, next) => sum + next),
+        totalMesocycles: user.mesocycles.length,
+      };
+    }
   }
   return {
     name: user.name,
@@ -66,7 +68,7 @@ const login = async (req, res) => {
     throw new UnauthenticatedError('Invalid Credentials');
   }
 
-  const token = user.createJWT();
+  // const token = user.createJWT();
   res.status(StatusCodes.OK).json({
     user: userObject(user),
   });
@@ -87,7 +89,7 @@ const updateUserDetails = async (req, res) => {
 
   await user.save();
 
-  const token = user.createJWT();
+  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
@@ -106,6 +108,8 @@ const updateUserData = async (req, res) => {
   user.activityLevel = activityLevel;
 
   await user.save();
+
+  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
