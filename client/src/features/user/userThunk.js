@@ -1,4 +1,4 @@
-import customFetch from '../../utils/axios';
+import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
 import { logoutUser } from './userSlice';
 import { clearAllWorkoutsState } from '../allWorkouts/allWorkoutsSlice';
 import { clearAllMesocyclesState } from '../allMesocycles/allMesocyclesSlice';
@@ -31,13 +31,14 @@ export const updateUserDetailsThunk = async (url, user, thunkAPI) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    return checkForUnauthorizedResponse(error, thunkAPI);
+    /* if (error.response.status === 401) {
       thunkAPI.dispatch(logoutUser());
       return thunkAPI.rejectWithValue(
         'User token does not match! Logging out...'
       );
     }
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return thunkAPI.rejectWithValue(error.response.data.msg); */
   }
 };
 
@@ -49,13 +50,14 @@ export const updateUserDataThunk = async (url, user, thunkAPI) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    return checkForUnauthorizedResponse(error, thunkAPI);
+    /* if (error.response.status === 401) {
       thunkAPI.dispatch(logoutUser());
       return thunkAPI.rejectWithValue(
         'User token does not match! Logging out...'
       );
     }
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return thunkAPI.rejectWithValue(error.response.data.msg); */
   }
 };
 

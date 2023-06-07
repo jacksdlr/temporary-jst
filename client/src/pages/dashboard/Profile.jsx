@@ -137,6 +137,7 @@ const Profile = () => {
               name='height'
               labelText='Height (cm)'
               value={userData.height}
+              step={0.1}
               handleChange={handleDataChange}
             />
             <FormRow
@@ -151,6 +152,7 @@ const Profile = () => {
               name='age'
               labelText='Age'
               value={userData.age}
+              step={1}
               handleChange={handleDataChange}
             />
             <FormRowSelect
@@ -182,10 +184,10 @@ const Profile = () => {
         <hr />
         <div className='calories-container'>
           <p>{calculateCalories()}</p>
-          <AiOutlineQuestionCircle
+          {/* <AiOutlineQuestionCircle
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
-          />
+          /> */}
         </div>
         {/*         <p className={isShown ? 'info show-calories' : 'info'}>
           This is calculated using bla bla formula and should be used as an

@@ -1,4 +1,4 @@
-import customFetch from '../../utils/axios';
+import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
 import { showLoading, hideLoading, getAllWorkouts } from './allWorkoutsSlice';
 
 export const getAllWorkoutsThunk = async (_, thunkAPI) => {
@@ -31,7 +31,8 @@ export const getAllWorkoutsThunk = async (_, thunkAPI) => {
     const response = await customFetch.get(url);
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return checkForUnauthorizedResponse(error, thunkAPI);
+    // return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };
 
@@ -43,7 +44,8 @@ export const deleteWorkoutThunk = async (url, thunkAPI) => {
     return response.data;
   } catch (error) {
     thunkAPI.dispatch(hideLoading());
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return checkForUnauthorizedResponse(error, thunkAPI);
+    // return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };
 
@@ -52,6 +54,6 @@ export const getCurrentWorkoutThunk = async (_, thunkAPI) => {
     const response = await customFetch.get('/workouts/currentWorkout');
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return checkForUnauthorizedResponse(error, thunkAPI);
   }
 };

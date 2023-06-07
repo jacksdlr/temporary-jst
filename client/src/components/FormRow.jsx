@@ -6,6 +6,8 @@ const FormRow = ({
   handleChange,
   labelText,
   placeholder,
+  min,
+  step,
 }) => {
   return (
     <div className={`form-row ${type == 'checkbox' && 'checkbox'}`}>
@@ -17,6 +19,8 @@ const FormRow = ({
         type={type}
         name={name}
         value={value}
+        min={min}
+        step={step}
         checked={checked}
         placeholder={placeholder}
         onChange={handleChange}

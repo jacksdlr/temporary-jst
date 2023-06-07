@@ -40,6 +40,8 @@ const WorkoutsSearchContainer = () => {
             type='number'
             labelText='Microcycle'
             name='searchMicrocycle'
+            min={1}
+            step={1}
             value={searchMicrocycle}
             handleChange={handleSearch}
           />
@@ -47,6 +49,8 @@ const WorkoutsSearchContainer = () => {
             type='number'
             labelText='Session'
             name='searchSession'
+            min={1}
+            step={1}
             value={searchSession}
             handleChange={handleSearch}
           />

@@ -5,6 +5,7 @@ import {
   handleChange,
   clearFilters,
 } from '../features/allMesocycles/allMesocyclesSlice';
+import { useState, useMemo } from 'react';
 
 const MesocyclesSearchContainer = () => {
   const dispatch = useDispatch();
@@ -21,13 +22,28 @@ const MesocyclesSearchContainer = () => {
     sortOptions,
   } = useSelector((store) => store.allMesocycles);
 
+  const [localSearch, setLocalSearch] = useState('');
+
+  const debounce = () => {
+    let timeoutID;
+    return (e) => {
+      setLocalSearch(e.target.value);
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(() => {
+        dispatch(handleChange({ name: e.target.name, value: e.target.value }));
+      }, 500);
+    };
+  };
+
+  const optimizedDebounce = useMemo(() => debounce(), []);
+
   const handleSearch = (e) => {
-    if (isLoading) return;
     dispatch(handleChange({ name: e.target.name, value: e.target.value }));
   };
 
   const handleClear = (e) => {
     e.preventDefault();
+    setLocalSearch('');
     dispatch(clearFilters());
   };
 
@@ -40,14 +56,16 @@ const MesocyclesSearchContainer = () => {
             type='text'
             labelText='Mesocycle name'
             name='search'
-            value={search}
-            handleChange={handleSearch}
+            value={localSearch}
+            handleChange={optimizedDebounce}
           />
           <FormRow
             type='number'
             labelText='No. of microcycles'
             name='searchMicrocycles'
             value={searchMicrocycles}
+            min={1}
+            step={1}
             handleChange={handleSearch}
           />
           {/* search by status */}

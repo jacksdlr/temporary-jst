@@ -1,4 +1,4 @@
-import customFetch from '../../utils/axios';
+import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
 import {
   showLoading,
   hideLoading,
@@ -23,7 +23,7 @@ export const getAllMesocyclesThunk = async (_, thunkAPI) => {
     const response = await customFetch.get(url);
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return checkForUnauthorizedResponse(error, thunkAPI);
   }
 };
 
@@ -35,6 +35,6 @@ export const deleteMesoThunk = async (url, thunkAPI) => {
     return response.data;
   } catch (error) {
     thunkAPI.dispatch(hideLoading());
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return checkForUnauthorizedResponse(error, thunkAPI);
   }
 };
