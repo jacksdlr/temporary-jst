@@ -1,5 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const errorHandlerMiddleware = (err, req, res, next) => {
+  console.log('am i here?');
   let customError = {
     // set default
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
@@ -28,6 +29,8 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     customError.msg = `No item found with id: ${err.value}`;
     customError.statusCode = 404;
   }
+
+  console.log(customError);
 
   return res.status(customError.statusCode).json({ msg: customError.msg });
 };

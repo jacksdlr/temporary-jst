@@ -29,10 +29,6 @@ const MesocycleSchema = new mongoose.Schema(
       type: Number,
     },
     sessions: [SessionSchema],
-    currentSession: {
-      type: String,
-      ref: 'Session',
-    },
     status: {
       type: String,
       required: true,

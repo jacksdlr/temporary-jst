@@ -10,11 +10,11 @@ const userObject = (user) => {
   };
   let completedWorkouts = [];
   if (user.mesocycles.length > 0) {
-    user.mesocycles.map((meso) =>
+    user.mesocycles.map((meso) => {
       completedWorkouts.push(
         meso.sessions.filter((session) => session.status == 'Completed').length
-      )
-    );
+      );
+    });
     if (completedWorkouts.length > 0) {
       stats = {
         completedWorkouts: completedWorkouts.reduce((sum, next) => sum + next),

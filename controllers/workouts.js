@@ -120,7 +120,10 @@ const getCurrentWorkout = async (req, res) => {
   );
 
   if (!activeMeso) {
-    res.status(StatusCodes.OK).send();
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: `You do not have an active mesocycle` });
+
     // throw new NotFoundError(`You do not have an active mesocycle`);
   }
 

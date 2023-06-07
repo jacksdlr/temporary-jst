@@ -55,10 +55,6 @@ const UserSchema = new mongoose.Schema(
       default: [],
     },
     mesocycles: [MesocycleSchema],
-    currentMeso: {
-      type: String,
-      ref: 'Mesocycle',
-    },
   },
   { timestamps: true }
 );

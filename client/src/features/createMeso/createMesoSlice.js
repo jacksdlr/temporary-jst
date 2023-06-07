@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
+import { deleteMeso } from '../allMesocycles/allMesocyclesSlice';
 import { createMesoThunk, editMesoThunk } from './createMesoThunk';
 
 const initialState = {
   isLoading: false,
-  mesoName: `Meso ${getUserFromLocalStorage()?.mesocycles?.length + 1 || 1}`,
+  mesoName: `Meso ${getUserFromLocalStorage()?.stats.totalMesocycles + 1}`,
   microcycles: '',
   goal: '',
   startDate: '',
@@ -78,14 +79,14 @@ const createMesoSlice = createSlice({
             notes: '',
           });
     },
-    clearInputs: () => initialState /* {
+    clearInputs: () => {
       return {
         ...initialState,
         mesoName: `Meso ${
           getUserFromLocalStorage()?.mesocycles?.length + 1 || 1
         }`,
       };
-    }*/,
+    },
     setEditing: (state, { payload }) => {
       return { ...initialState, ...payload, isEditing: true };
     },
@@ -97,6 +98,9 @@ const createMesoSlice = createSlice({
       })
       .addCase(createMeso.fulfilled, (state) => {
         state.isLoading = false;
+        state.mesoName = `Meso ${
+          getUserFromLocalStorage()?.stats.totalMesocycles + 1
+        }`;
         toast.success('Created mesocycle!');
       })
       .addCase(createMeso.rejected, (state, { payload }) => {
@@ -108,11 +112,19 @@ const createMesoSlice = createSlice({
       })
       .addCase(editMeso.fulfilled, (state) => {
         state.isLoading = false;
+        state.mesoName = `Meso ${
+          getUserFromLocalStorage()?.stats.totalMesocycles + 1
+        }`;
         toast.success('Saved changes!');
       })
       .addCase(editMeso.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      })
+      .addCase(deleteMeso.fulfilled, (state) => {
+        state.mesoName = `Meso ${
+          getUserFromLocalStorage()?.stats.totalMesocycles + 1
+        }`;
       });
   },
 });

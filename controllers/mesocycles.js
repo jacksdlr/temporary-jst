@@ -76,6 +76,8 @@ const createMeso = async (req, res) => {
     sessions,
   } = req.body;
 
+  console.log(setActive);
+
   const user = await User.findById(req.user.userId);
 
   if (user.mesocycles.find((meso) => meso.mesoName == mesoName)) {
@@ -84,9 +86,9 @@ const createMeso = async (req, res) => {
 
   if (setActive == true) {
     const activeMeso = user.mesocycles.find((meso) => meso.status == 'Active');
-    if (activeMeso.sessions[0].status == 'Planned') {
+    if (activeMeso && activeMeso.sessions[0].status == 'Planned') {
       activeMeso.status = 'Planned';
-    } else if (activeMeso.sessions[0].status != 'Planned') {
+    } else if (activeMeso && activeMeso.sessions[0].status != 'Planned') {
       activeMeso.status = 'Incomplete';
     }
   }

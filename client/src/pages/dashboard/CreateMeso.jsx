@@ -1,6 +1,5 @@
 import CreateSessions from './../../components/CreateSessions';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FormRow, FormRowSelect } from '../../components';
 import {
