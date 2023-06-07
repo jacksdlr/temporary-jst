@@ -17,9 +17,6 @@ export const getAllWorkoutsThunk = async (_, thunkAPI) => {
   if (searchMesoId) {
     url = url + `&mesoId=${searchMesoId}`;
   }
-  if (searchSessionName) {
-    url = url + `&sessionName=${searchSessionName}`;
-  }
   if (searchMicrocycle) {
     url = url + `&microcycle=${searchMicrocycle}`;
   }

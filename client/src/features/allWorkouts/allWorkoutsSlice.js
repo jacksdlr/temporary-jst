@@ -12,7 +12,6 @@ import {
 
 const initialFilters = {
   searchMesoId: '',
-  searchSessionName: '',
   searchMicrocycle: '',
   searchSession: '',
   searchStatus: 'All',

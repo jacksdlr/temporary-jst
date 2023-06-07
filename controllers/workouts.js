@@ -25,9 +25,9 @@ const getAllWorkouts = async (req, res) => {
       ? { $match: { 'mesocycles._id': ObjectId(mesoId) } }
       : { $match: {} },
     { $unwind: '$mesocycles.sessions' },
-    sessionName != undefined
+    /* sessionName != undefined
       ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
-      : { $match: {} },
+      : { $match: {} }, */
     microcycle != undefined
       ? { $match: { 'mesocycles.sessions.microcycle': Number(microcycle) } }
       : { $match: {} },
@@ -51,9 +51,9 @@ const getAllWorkouts = async (req, res) => {
       ? { $match: { 'mesocycles._id': ObjectId(mesoId) } }
       : { $match: {} },
     { $unwind: '$mesocycles.sessions' },
-    sessionName != undefined
+    /* sessionName != undefined
       ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
-      : { $match: {} },
+      : { $match: {} }, */
     microcycle != undefined
       ? { $match: { 'mesocycles.sessions.microcycle': Number(microcycle) } }
       : { $match: {} },

@@ -33,10 +33,9 @@ const Mesocycle = ({
 }) => {
   const dispatch = useDispatch();
 
-  let sessionNames = [];
-  sessions.map((session) => {
-    if (!sessionNames.find((name) => name == session.sessionName)) {
-      sessionNames.push(session.sessionName);
+  sessions = sessions.map((session) => {
+    if (!sessions.find((name) => name == session.sessionName)) {
+      return session;
     }
   });
 
@@ -70,7 +69,7 @@ const Mesocycle = ({
           {endWeight && <p>End weight: {endWeight}kg</p>}
         </div>
         <div className='sessions'>
-          {sessionNames.map((sessionName, index) => (
+          {sessions.map((session, index) => (
             <Link
               key={index}
               to={`/all-workouts`}
@@ -78,12 +77,12 @@ const Mesocycle = ({
                 dispatch(
                   setSearch({
                     searchMesoId: _id,
-                    searchSessionName: sessionName,
+                    searchSession: session.sessionNumber,
                   })
                 )
               }
             >
-              <p className='session'>{sessionName}</p>
+              <p className='session'>{session.sessionName}</p>
             </Link>
           ))}
         </div>
