@@ -76,8 +76,6 @@ const createMeso = async (req, res) => {
     sessions,
   } = req.body;
 
-  console.log(setActive);
-
   const user = await User.findById(req.user.userId);
 
   if (user.mesocycles.find((meso) => meso.mesoName == mesoName)) {

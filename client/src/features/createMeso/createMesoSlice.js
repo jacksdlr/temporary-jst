@@ -6,7 +6,7 @@ import { createMesoThunk, editMesoThunk } from './createMesoThunk';
 
 const initialState = {
   isLoading: false,
-  mesoName: `Meso ${getUserFromLocalStorage()?.stats.totalMesocycles + 1}`,
+  mesoName: `Meso ${getUserFromLocalStorage()?.stats.totalMesocycles + 1 || 1}`,
   microcycles: '',
   goal: '',
   startDate: '',
