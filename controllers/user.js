@@ -4,6 +4,22 @@ const { BadRequestError, UnauthenticatedError } = require('../errors');
 
 const userObject = (user) => {
   const token = user.createJWT();
+  let stats = {
+    completedWorkouts: 0,
+    totalMesocycles: 0,
+  };
+  if (user.mesocycles.length > 0) {
+    return (stats = {
+      completedWorkouts: user.mesocycles
+        .map(
+          (meso) =>
+            meso.sessions.filter((session) => session.status == 'Completed')
+              .length
+        )
+        .reduce((sum, next) => sum + next),
+      totalMesocycles: user.mesocycles.length,
+    });
+  }
   return {
     name: user.name,
     email: user.email,
@@ -16,16 +32,7 @@ const userObject = (user) => {
       sex: user.sex,
       activityLevel: user.activityLevel,
     },
-    stats: {
-      completedWorkouts: user.mesocycles
-        .map(
-          (meso) =>
-            meso.sessions.filter((session) => session.status == 'Completed')
-              .length
-        )
-        .reduce((sum, next) => sum + next),
-      totalMesocycles: user.mesocycles.length,
-    },
+    stats,
     token,
   };
 };

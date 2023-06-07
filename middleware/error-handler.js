@@ -18,10 +18,10 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   }
   if (err.code && err.code === 11000) {
     console.log(err);
-    customError.msg = 'Email is already in use';
-    /* `Duplicate value entered for ${Object.keys(
+    // customError.msg = 'Email is already in use';
+    `Duplicate value entered for ${Object.keys(
       err.keyValue
-    )} field, please choose another value`; */
+    )} field, please choose another value`;
     customError.statusCode = 400;
   }
   if (err.name === 'CastError') {

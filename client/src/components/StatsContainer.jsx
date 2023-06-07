@@ -20,7 +20,7 @@ const StatsContainer = () => {
     },
     {
       title: 'completed workouts',
-      count: stats.completedWorkouts || 0,
+      count: stats?.completedWorkouts || 0,
       icon: <AiOutlineCalendar />,
       color: '#647acb',
       background: '#e0e8f9',
@@ -28,7 +28,7 @@ const StatsContainer = () => {
     },
     {
       title: 'total mesocycles',
-      count: stats.totalMesocycles || 0,
+      count: stats?.totalMesocycles || 0,
       icon: <AiOutlineFolderOpen />,
       color: '#e9b949',
       background: '#fcefc7',

@@ -118,13 +118,15 @@ const getCurrentWorkout = async (req, res) => {
   const activeMeso = await user.mesocycles.find(
     (meso) => meso.status == 'Active'
   );
+
+  if (!activeMeso) {
+    res.status(StatusCodes.OK).send();
+    // throw new NotFoundError(`You do not have an active mesocycle`);
+  }
+
   const workout = await activeMeso.sessions.find(
     (session) => session.status == 'Planned'
   );
-
-  if (!activeMeso) {
-    throw new NotFoundError(`You do not have an active mesocycle`);
-  }
 
   res.status(StatusCodes.OK).json({ workout });
 };
