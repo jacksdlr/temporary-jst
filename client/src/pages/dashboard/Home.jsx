@@ -5,7 +5,7 @@ import {
   Loading,
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentWorkout } from '../../features/currentWorkout/currentWorkoutSlice';
+import { getNextWorkout } from '../../features/workout/workoutSlice';
 import { Link } from 'react-router-dom';
 import Wrapper from '../../assets/css-wrappers/HomePage';
 import { AiOutlineArrowRight } from 'react-icons/ai';
@@ -15,10 +15,10 @@ const Home = () => {
 
   const { user } = useSelector((store) => store.user);
 
-  const { isLoading, workout } = useSelector((store) => store.currentWorkout);
+  const { isLoading, workout } = useSelector((store) => store.workout);
 
   useEffect(() => {
-    dispatch(getCurrentWorkout());
+    dispatch(getNextWorkout());
   }, [user]);
 
   if (isLoading) {
@@ -34,7 +34,7 @@ const Home = () => {
         </Link>
       ) : (
         <Link to={'/workout'} className='btn btn-hero'>
-          <h3>Go to current workout: '{workout.sessionName}'</h3>
+          <h3>Go to next workout: '{workout.sessionName}'</h3>
           <AiOutlineArrowRight size={'3rem'} />
         </Link>
       )}

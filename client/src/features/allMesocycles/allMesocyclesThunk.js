@@ -4,7 +4,6 @@ import {
   hideLoading,
   getAllMesocycles,
 } from './allMesocyclesSlice';
-// import { authHeader } from '../../utils/authHeader';
 
 export const getAllMesocyclesThunk = async (_, thunkAPI) => {
   const { search, searchStatus, searchGoal, searchMicrocycles, sort, page } =

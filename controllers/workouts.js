@@ -5,16 +5,7 @@ const { BadRequestError, NotFoundError } = require('../errors');
 const { userObject } = require('./user');
 
 const getAllWorkouts = async (req, res) => {
-  const {
-    mesoId,
-    sessionName,
-    microcycle,
-    session,
-    status,
-    muscle,
-    sort,
-    page,
-  } = req.query;
+  const { mesoId, microcycle, session, status, muscle, sort, page } = req.query;
 
   let user = await User.aggregate([
     { $match: { _id: ObjectId(req.user.userId) } },
@@ -25,9 +16,6 @@ const getAllWorkouts = async (req, res) => {
       ? { $match: { 'mesocycles._id': ObjectId(mesoId) } }
       : { $match: {} },
     { $unwind: '$mesocycles.sessions' },
-    /* sessionName != undefined
-      ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
-      : { $match: {} }, */
     microcycle != undefined
       ? { $match: { 'mesocycles.sessions.microcycle': Number(microcycle) } }
       : { $match: {} },
@@ -51,9 +39,6 @@ const getAllWorkouts = async (req, res) => {
       ? { $match: { 'mesocycles._id': ObjectId(mesoId) } }
       : { $match: {} },
     { $unwind: '$mesocycles.sessions' },
-    /* sessionName != undefined
-      ? { $match: { 'mesocycles.sessions.sessionName': sessionName } }
-      : { $match: {} }, */
     microcycle != undefined
       ? { $match: { 'mesocycles.sessions.microcycle': Number(microcycle) } }
       : { $match: {} },
@@ -66,6 +51,11 @@ const getAllWorkouts = async (req, res) => {
     muscle != 'All'
       ? { $match: { 'mesocycles.sessions.musclesTrained': muscle } }
       : { $match: {} },
+    sort == 'Last Updated'
+      ? { $sort: { 'mesocycles.sessions.updatedAt': -1 } }
+      : sort == 'Oldest'
+      ? { $sort: { 'mesocycles.sessions.updatedAt': 1 } }
+      : { $match: {} },
     page != undefined ? { $skip: (Number(page) - 1) * 8 } : { $skip: 0 },
     { $limit: 8 },
   ]);
@@ -77,11 +67,6 @@ const getAllWorkouts = async (req, res) => {
   const totalWorkouts = user.length;
   const numberOfPages = Math.ceil(totalWorkouts / 8);
 
-  // const page = Number(req.query.page) || 1;
-  // const skip = (page - 1) * 10;
-
-  // user = user.skip(skip).limit(10);
-
   const workouts = [];
   result.forEach((item) => {
     return workouts.push({
@@ -90,28 +75,11 @@ const getAllWorkouts = async (req, res) => {
       ...item.mesocycles.sessions,
     });
   });
-  /* if (workouts.length === 0) {
-    throw new NotFoundError(`No workouts found`);
-  } */
-
-  /*
-
-  user.mesocycles.map((meso) =>
-    meso.sessions.map((session) => {
-      return allWorkouts.push({
-        mesoName: meso.mesoName,
-        ...session,
-      });
-    })
-  );
-*/
-
-  // this will be where they get filtered
 
   res.status(StatusCodes.OK).json({ workouts, totalWorkouts, numberOfPages });
 };
 
-const getCurrentWorkout = async (req, res) => {
+const getNextWorkout = async (req, res) => {
   const { userId } = req.user;
 
   const user = await User.findById(userId);
@@ -123,8 +91,6 @@ const getCurrentWorkout = async (req, res) => {
     return res
       .status(StatusCodes.OK)
       .json({ msg: `You do not have an active mesocycle` });
-
-    // throw new NotFoundError(`You do not have an active mesocycle`);
   }
 
   const workout = await activeMeso.sessions.find(
@@ -138,17 +104,25 @@ const getCurrentWorkout = async (req, res) => {
 const getWorkout = async (req, res) => {
   const {
     user: { userId },
-    params: { id: workoutId },
+    params: { mesoId, workoutId },
   } = req;
 
   const user = await User.findById(userId);
-  const workout = await user.mesocycles.map((mesocycle) =>
+  /* const workout = await user.mesocycles.map((mesocycle) =>
     mesocycle.sessions.find((session) => session._id === workoutId)
-  );
+  ); */
+  const meso = user.mesocycles.find((mesocycle) => mesocycle._id == mesoId);
+
+  const workout = meso.sessions.find((session) => session._id == workoutId);
+
   if (!workout) {
     throw new NotFoundError(`No workout with id ${workoutId}`);
   }
   res.status(StatusCodes.OK).json({ workout });
+};
+
+const updateWorkout = async (req, res) => {
+  console.log('update workout');
 };
 
 const deleteWorkout = async (req, res) => {
@@ -159,96 +133,22 @@ const deleteWorkout = async (req, res) => {
 
   const user = await User.findById(userId);
 
-  /* const workout = (
-    await User.aggregate([
-      { $match: { _id: ObjectId(userId) } },
-      {
-        $unwind: '$mesocycles',
-      },
-      { $unwind: '$mesocycles.sessions' },
+  const meso = user.mesocycles.find((mesocycle) => mesocycle._id == mesoId);
 
-      { $match: { 'mesocycles.sessions._id': ObjectId(workoutId) } },
-    ])
-  )[0];
+  const session = meso.sessions.find((session) => session._id == workoutId);
 
-  const mesoId = workout.mesocycles._id.toString();
-  const sessionId = workout.mesocycles.sessions._id.toString(); */
-
-  const mesoIndex = user.mesocycles.findIndex(
-    (mesocycle) => mesocycle._id == mesoId
-  );
-
-  const sessionIndex = user.mesocycles[mesoIndex].sessions.findIndex(
-    (session) => session._id == workoutId
-  );
-
-  user.mesocycles[mesoIndex].sessions.length == 1
-    ? user.mesocycles[mesoIndex].remove()
-    : user.mesocycles[mesoIndex].sessions[sessionIndex].remove();
+  session.length == 1 ? meso.remove() : session.remove();
   await user.save();
-
-  // const token = user.createJWT();
-
-  // console.log(workout);
-  /* workout.mesocycles.sessions.remove();
-  workout.save();
- */
-  // if (!workout) {
-  //   throw new NotFoundError(`No workout with id ${workoutId}`);
-  // }
-  // const token = user.createJWT();
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
   });
 };
 
-/* const createJob = async (req, res) => {
-  req.body.createdBy = req.user.userId;
-  const job = await Job.create(req.body);
-  res.status(StatusCodes.CREATED).json({ job });
-};
-
-const updateJob = async (req, res) => {
-  const {
-    body: { company, position },
-    user: { userId },
-    params: { id: jobId },
-  } = req;
-
-  if (company === '' || position === '') {
-    throw new BadRequestError('Company or Position fields cannot be empty');
-  }
-  const job = await Job.findByIdAndUpdate(
-    { _id: jobId, createdBy: userId },
-    req.body,
-    { new: true, runValidators: true }
-  );
-  if (!job) {
-    throw new NotFoundError(`No job with id ${jobId}`);
-  }
-  res.status(StatusCodes.OK).json({ job });
-};
-
-const deleteJob = async (req, res) => {
-  const {
-    user: { userId },
-    params: { id: jobId },
-  } = req;
-
-  const job = await Job.findByIdAndRemove({
-    _id: jobId,
-    createdBy: userId,
-  });
-  if (!job) {
-    throw new NotFoundError(`No job with id ${jobId}`);
-  }
-  res.status(StatusCodes.OK).send();
-}; */
-
 module.exports = {
   getAllWorkouts,
-  getCurrentWorkout,
+  getNextWorkout,
   getWorkout,
+  updateWorkout,
   deleteWorkout,
 };

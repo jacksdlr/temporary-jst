@@ -47,6 +47,11 @@ const getAllMesocycles = async (req, res) => {
       ? { $match: { 'mesocycles.status': status } }
       : { $match: {} },
     goal != 'All' ? { $match: { 'mesocycles.goal': goal } } : { $match: {} },
+    sort == 'Last Updated'
+      ? { $sort: { 'mesocycles.updatedAt': -1 } }
+      : sort == 'Oldest'
+      ? { $sort: { 'mesocycles.updatedAt': 1 } }
+      : { $match: {} },
     page != undefined ? { $skip: (Number(page) - 1) * 8 } : { $skip: 0 },
     { $limit: 8 },
   ]);

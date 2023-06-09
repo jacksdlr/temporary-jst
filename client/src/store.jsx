@@ -4,14 +4,14 @@ import userSlice from './features/user/userSlice';
 import createMesoSlice from './features/createMeso/createMesoSlice';
 import allWorkoutsSlice from './features/allWorkouts/allWorkoutsSlice';
 import allMesocyclesSlice from './features/allMesocycles/allMesocyclesSlice';
-import currentWorkoutSlice from './features/currentWorkout/currentWorkoutSlice';
+import workoutSlice from './features/workout/workoutSlice';
 
 export const store = configureStore({
   reducer: {
     user: userSlice,
     createMeso: createMesoSlice,
     allWorkouts: allWorkoutsSlice,
-    currentWorkout: currentWorkoutSlice,
+    workout: workoutSlice,
     allMesocycles: allMesocyclesSlice,
     navbar: navbarSlice,
   },

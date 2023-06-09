@@ -8,6 +8,7 @@ import {
   AiOutlineClockCircle,
 } from 'react-icons/ai';
 import { deleteWorkout } from '../features/allWorkouts/allWorkoutsSlice';
+import { getWorkout } from '../features/workout/workoutSlice';
 
 const Workout = ({
   mesoName,
@@ -69,7 +70,11 @@ const Workout = ({
       </div>
       <footer>
         <div className='actions'>
-          <Link to={`/workout/${_id}`} className='btn edit-btn'>
+          <Link
+            to={`/workout`}
+            onClick={() => dispatch(getWorkout({ mesoId, workoutId: _id }))}
+            className='btn edit-btn'
+          >
             view / edit
           </Link>
           <button

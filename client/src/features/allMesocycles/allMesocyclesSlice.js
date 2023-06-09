@@ -26,19 +26,6 @@ const initialState = {
   ...initialFilters,
 };
 
-// for front end dev
-/* export const getAllMesocycles = createAsyncThunk(
-  'allMesocycles/getMesocycles',
-  async (_, thunkAPI) => {
-    try {
-      return getUserFromLocalStorage()?.mesocycles
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-); */
-
-// complete
 export const getAllMesocycles = createAsyncThunk(
   'mesocycles/getMesocycles',
   getAllMesocyclesThunk
@@ -93,6 +80,7 @@ const allMesocyclesSlice = createSlice({
       })
       .addCase(deleteMeso.fulfilled, (state) => {
         state.isLoading = false;
+        state.page = 1;
         toast.success('Deleted mesocycle');
       })
       .addCase(deleteMeso.rejected, (state, { payload }) => {

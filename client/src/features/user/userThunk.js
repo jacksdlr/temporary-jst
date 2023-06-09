@@ -3,7 +3,7 @@ import { logoutUser } from './userSlice';
 import { clearAllWorkoutsState } from '../allWorkouts/allWorkoutsSlice';
 import { clearAllMesocyclesState } from '../allMesocycles/allMesocyclesSlice';
 import { clearInputs } from '../createMeso/createMesoSlice';
-import { clearWorkoutState } from '../currentWorkout/currentWorkoutSlice';
+import { clearWorkoutState } from '../workout/workoutSlice';
 
 export const registerUserThunk = async (url, user, thunkAPI) => {
   try {
