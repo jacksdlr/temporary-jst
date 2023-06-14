@@ -11,40 +11,38 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: column;
   }
-  .title {
+  .info {
     display: flex;
+    /* padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--grey-100); */
     justify-content: space-between;
+  }
+  .info p {
+    padding: 0.2rem 0.6rem;
+    margin: 0;
+    margin-right: 1rem;
+    border-radius: var(--borderRadius);
+  }
+  .links {
+    display: flex;
+    gap: 10px;
     align-items: center;
-    text-align: left;
   }
   .options:hover {
     cursor: pointer;
     color: var(--primary-500);
   }
   h4 {
+    padding: 0.3rem 0 0 0.3rem;
     margin: 0;
-    font-size: 1.3rem;
   }
-  .number {
-    font-size: 1.5rem;
+  .equipment {
+    font-size: 1rem;
+    color: var(--grey-300);
   }
   p {
     margin: 0;
-  }
-  .muscles {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    row-gap: 0.5rem;
-    padding-top: 1rem;
-    margin-top: 0.5rem;
-    border-top: 1px solid var(--grey-100);
-  }
-  .muscles p {
-    padding: 0.2rem 0.6rem;
-    margin: 0;
-    margin-right: 1rem;
-    border-radius: var(--borderRadius);
   }
   .form {
     margin: 0;
@@ -83,26 +81,6 @@ const Wrapper = styled.section`
   .clear-btn:hover {
     background: var(--black);
   }
-  .calories-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .calories-container svg:hover {
-    color: var(--primary-500);
-  }
-  /*   .info {
-    max-height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    padding: 0;
-    border-radius: var(--borderRadius);
-    background-color: var(--primary-100);
-    transition: var(--slow-transition);
-  }
-  .show-calories {
-    max-height: 500px;
-  } */
   @media (min-width: 992px) {
     h4 {
       font-size: 1.563rem;

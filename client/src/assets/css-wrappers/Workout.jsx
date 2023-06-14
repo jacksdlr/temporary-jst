@@ -67,8 +67,6 @@ const Wrapper = styled.article`
     flex-wrap: wrap;
     width: 100%;
     row-gap: 0.5rem;
-  }
-  .muscles {
     padding-bottom: 1rem;
     margin-bottom: 0.5rem;
     border-bottom: 1px solid var(--grey-100);
