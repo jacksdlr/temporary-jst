@@ -44,6 +44,27 @@ const Wrapper = styled.section`
   p {
     margin: 0;
   }
+  .sets {
+    padding: 1rem 0.3rem;
+    padding-bottom: 0;
+  }
+  .sets-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .sets-header p {
+    width: 25%;
+    text-align: center;
+  }
+  .set {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem;
+  }
+  .set input {
+    width: 25%;
+    height: 2rem;
+  }
   .form {
     margin: 0;
     border-radius: 0;
