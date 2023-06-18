@@ -51,6 +51,7 @@ const Wrapper = styled.section`
   .sets-header {
     display: flex;
     justify-content: space-between;
+    margin: 0 0.5rem;
   }
   .sets-header p {
     width: 25%;
@@ -61,9 +62,18 @@ const Wrapper = styled.section`
     justify-content: space-between;
     margin: 0.5rem;
   }
-  .set input {
+  .set input,
+  select {
     width: 25%;
     height: 2rem;
+    text-align: center;
+  }
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);
+    background-position: 100%;
+    background-repeat: no-repeat;
   }
   .form {
     margin: 0;

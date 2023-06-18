@@ -16,6 +16,15 @@ const Exercise = ({ name, sets, notes }) => {
     })
     .filter((item) => item)[0];
 
+  let repsOptions = [];
+  for (let i = 0; i <= 100; i++) {
+    repsOptions.push(i);
+  }
+  let repsInReserveOptions = [];
+  for (let i = 0; i <= 10; i++) {
+    repsInReserveOptions.push(i);
+  }
+
   return (
     <Wrapper>
       <div className='container'>
@@ -53,23 +62,55 @@ const Exercise = ({ name, sets, notes }) => {
             } = set;
             return (
               <div className='set'>
-                <input type='number' name='weight' step='0.01' min='0' />
                 <input
+                  className='form-input'
+                  type='number'
+                  name='weight'
+                  step='0.01'
+                  min='0'
+                />
+                {/* <input
                   type='number'
                   name='repetitions'
                   placeholder={targetReps}
                   step='1'
                   min='0'
                   max='100'
-                />
-                <input
+                /> */}
+                {/* <input
                   type='number'
                   name='repsInReserve'
                   placeholder={targetRIR}
                   step='1'
                   min='0'
                   max='10'
-                />
+                /> */}
+                <select className='form-select' name='repetitions'>
+                  <option disabled selected>
+                    {targetReps}
+                  </option>
+                  {repsOptions.map((reps) => (
+                    <option
+                      value={reps}
+                      /* selected={reps == targetReps ? true : false} */
+                    >
+                      {reps}
+                    </option>
+                  ))}
+                </select>
+                <select className='form-select' name='repsInReserve'>
+                  <option disabled selected>
+                    {targetRIR}
+                  </option>
+                  {repsInReserveOptions.map((reps) => (
+                    <option
+                      value={reps}
+                      /* selected={reps == targetRIR ? true : false} */
+                    >
+                      {reps}
+                    </option>
+                  ))}
+                </select>
               </div>
             );
           })}
