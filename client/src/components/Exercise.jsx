@@ -1,5 +1,5 @@
 import { directory } from '../utils/directory';
-import { AiOutlineMore, AiOutlineYoutube } from 'react-icons/ai';
+import { AiOutlineMore, AiOutlineYoutube, AiOutlineAim } from 'react-icons/ai';
 import Wrapper from '../assets/css-wrappers/Exercise';
 
 const Exercise = ({ name, sets, notes }) => {
@@ -52,6 +52,7 @@ const Exercise = ({ name, sets, notes }) => {
             <p>Reps</p>
             <p>RIR</p>
           </div>
+          <div className='notes'></div>
           {sets.map((set, index) => {
             const {
               weight,
@@ -69,24 +70,8 @@ const Exercise = ({ name, sets, notes }) => {
                   step='0.01'
                   min='0'
                 />
-                {/* <input
-                  type='number'
-                  name='repetitions'
-                  placeholder={targetReps}
-                  step='1'
-                  min='0'
-                  max='100'
-                /> */}
-                {/* <input
-                  type='number'
-                  name='repsInReserve'
-                  placeholder={targetRIR}
-                  step='1'
-                  min='0'
-                  max='10'
-                /> */}
-                <select className='form-select' name='repetitions'>
-                  <option disabled selected>
+                <select className='form-select' name='repetitions' required>
+                  <option value='' disabled selected hidden>
                     {targetReps}
                   </option>
                   {repsOptions.map((reps) => (
@@ -98,8 +83,8 @@ const Exercise = ({ name, sets, notes }) => {
                     </option>
                   ))}
                 </select>
-                <select className='form-select' name='repsInReserve'>
-                  <option disabled selected>
+                <select className='form-select' name='repsInReserve' required>
+                  <option value='' disabled selected hidden>
                     {targetRIR}
                   </option>
                   {repsInReserveOptions.map((reps) => (
