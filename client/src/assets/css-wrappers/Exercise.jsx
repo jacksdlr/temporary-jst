@@ -124,6 +124,9 @@ const Wrapper = styled.section`
     .number {
       font-size: 1.953rem;
     }
+    .sets-header p:first-of-type {
+      padding-right: 1rem;
+    }
     .form-center {
       grid-template-columns: 1fr 1fr;
       align-items: center;
