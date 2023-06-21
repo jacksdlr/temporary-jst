@@ -1,10 +1,6 @@
 import { directory } from '../utils/directory';
-import {
-  AiOutlineMore,
-  AiOutlineYoutube,
-  AiOutlineAim,
-  AiOutlineFile,
-} from 'react-icons/ai';
+import { AiOutlineMore, AiOutlineYoutube, AiOutlineFile } from 'react-icons/ai';
+import { TbTargetArrow } from 'react-icons/tb';
 import Wrapper from '../assets/css-wrappers/Exercise';
 import { useDispatch } from 'react-redux';
 import { handleSetChange } from '../features/workout/workoutSlice';
@@ -118,7 +114,7 @@ const Exercise = ({ name, sets, notes, exerciseIndex }) => {
                       </option>
                     ))}
                   </select>
-                  {!repetitions && <AiOutlineAim className={'target'} />}
+                  {!repetitions && <TbTargetArrow className={'target'} />}
                 </div>
                 <div className='select-container'>
                   {/* {!repsInReserve && <AiOutlineAim className={'target'} />} */}
@@ -141,7 +137,7 @@ const Exercise = ({ name, sets, notes, exerciseIndex }) => {
                       </option>
                     ))}
                   </select>
-                  {!repsInReserve && <AiOutlineAim className={'target'} />}
+                  {!repsInReserve && <TbTargetArrow className={'target'} />}
                 </div>
               </div>
             );
