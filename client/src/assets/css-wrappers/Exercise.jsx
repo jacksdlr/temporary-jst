@@ -33,9 +33,12 @@ const Wrapper = styled.section`
     cursor: pointer;
     color: var(--primary-500);
   }
-  h4 {
+  .exercise-title {
     padding: 0.3rem 0 0 0.3rem;
     margin: 0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--grey-100);
   }
   .equipment {
     font-size: 1rem;
@@ -44,9 +47,28 @@ const Wrapper = styled.section`
   p {
     margin: 0;
   }
+  .notes {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    row-gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .note {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background: #fcfbc7;
+  }
+  .note p {
+    flex: 1 0 20%;
+    margin: 0;
+    line-height: 1rem;
+  }
   .sets {
-    padding: 1rem 0.3rem;
-    padding-bottom: 0;
+    padding: 0 0.3rem;
   }
   .sets-header {
     display: flex;
@@ -66,9 +88,22 @@ const Wrapper = styled.section`
     justify-content: space-between;
     margin: 0.5rem;
   }
-  .set input,
-  select {
+  .select-container {
     width: 25%;
+  }
+  .target {
+    position: absolute;
+    height: 2rem;
+    margin-left: 0.15rem;
+    color: var(--primary-500);
+  }
+  input {
+    width: 25%;
+    height: 2rem;
+    text-align: center;
+  }
+  select {
+    width: 100%;
     height: 2rem;
     text-align: center;
   }
@@ -76,6 +111,14 @@ const Wrapper = styled.section`
     color: var(--grey-300);
     /* -webkit-appearance: none;
     appearance: none; */
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /* margin: 0; */
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
   option {
     color: black;
@@ -123,9 +166,6 @@ const Wrapper = styled.section`
     }
     .number {
       font-size: 1.953rem;
-    }
-    .sets-header p:first-of-type {
-      padding-right: 1rem;
     }
     .form-center {
       grid-template-columns: 1fr 1fr;

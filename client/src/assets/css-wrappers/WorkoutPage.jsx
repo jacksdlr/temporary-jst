@@ -40,11 +40,35 @@ const Wrapper = styled.section`
     margin-top: 0.5rem;
     border-top: 1px solid var(--grey-100);
   }
+  .border-bottom {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--grey-100);
+  }
   .muscles p {
     padding: 0.2rem 0.6rem;
     margin: 0;
     margin-right: 1rem;
     border-radius: var(--borderRadius);
+  }
+  .notes {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    row-gap: 0.5rem;
+  }
+  .note {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background: #fcfbc7;
+  }
+  .note p {
+    flex: 1 0 20%;
+    margin: 0;
+    line-height: 1rem;
   }
   .form {
     margin: 0;
@@ -76,6 +100,13 @@ const Wrapper = styled.section`
     button {
       height: 35px;
     }
+  }
+  .submit-btn {
+    width: 100%;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    letter-spacing: 2px;
   }
   .clear-btn {
     background: var(--grey-500);

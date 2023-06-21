@@ -29,6 +29,12 @@ const workoutSlice = createSlice({
     hideLoading: (state) => {
       state.isLoading = false;
     },
+    handleSetChange: (
+      state,
+      { payload: { input, value, exerciseIndex, setIndex } }
+    ) => {
+      state.workout.exercises[exerciseIndex].sets[setIndex][input] = value;
+    },
     clearWorkoutState: () => initialState,
   },
   extraReducers: (builder) => {
@@ -58,6 +64,6 @@ const workoutSlice = createSlice({
   },
 });
 
-export const { showLoading, hideLoading, clearWorkoutState } =
+export const { showLoading, hideLoading, handleSetChange, clearWorkoutState } =
   workoutSlice.actions;
 export default workoutSlice.reducer;

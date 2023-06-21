@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getNextWorkout } from '../../features/workout/workoutSlice';
 import Loading from '../../components/Loading';
 import Wrapper from '../../assets/css-wrappers/WorkoutPage';
-import { AiOutlineMore } from 'react-icons/ai';
+import { AiOutlineMore, AiOutlineFile } from 'react-icons/ai';
 import Exercise from '../../components/Exercise';
 
 const Workout = () => {
@@ -52,22 +52,43 @@ const Workout = () => {
             onClick={() => console.log('open menu')}
           />
         </div>
-        <div className='muscles'>
+        <div
+          className={`muscles ${workout.notes.length != 0 && 'border-bottom'}`}
+        >
           {workout.musclesTrained.map((muscle, index) => (
             <p key={index} className={muscle}>
               {muscle}
             </p>
           ))}
         </div>
+        {workout.notes.length != 0 && (
+          <div className='notes'>
+            {workout.notes.map((note) => (
+              <div className='note'>
+                <AiOutlineFile />
+                <p>{note}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {/* notes container */}
-      {workout.exercises.map((exercise) => (
-        <Exercise
-          name={exercise.exerciseName}
-          sets={exercise.sets}
-          notes={exercise.notes}
-        />
-      ))}
+      <form className='workout-form'>
+        {workout.exercises.map((exercise, index) => (
+          <Exercise
+            name={exercise.exerciseName}
+            sets={exercise.sets}
+            notes={exercise.notes}
+            exerciseIndex={index}
+          />
+        ))}
+        <button
+          className='btn submit-btn'
+          onClick={() => console.log('submit workout')}
+        >
+          Complete Workout
+        </button>
+      </form>
     </Wrapper>
   );
 };
