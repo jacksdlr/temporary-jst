@@ -93,16 +93,13 @@ const Wrapper = styled.section`
   }
   .btn-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 1rem;
-    align-self: flex-end;
-    margin-top: 0.5rem;
-    button {
-      height: 35px;
-    }
+    width: 100%;
   }
   .submit-btn {
+    box-shadow: var(--shadow-2);
+    margin: 0 auto;
     width: 100%;
+    max-width: var(--max-width);
     height: 3rem;
     font-size: 1.25rem;
     font-weight: bold;

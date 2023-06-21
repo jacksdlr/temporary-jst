@@ -82,12 +82,14 @@ const Workout = () => {
             exerciseIndex={index}
           />
         ))}
-        <button
-          className='btn submit-btn'
-          onClick={() => console.log('submit workout')}
-        >
-          Complete Workout
-        </button>
+        <div className='btn-container'>
+          <button
+            className='btn submit-btn'
+            onClick={() => console.log('submit workout')}
+          >
+            Complete Workout
+          </button>
+        </div>
       </form>
     </Wrapper>
   );
