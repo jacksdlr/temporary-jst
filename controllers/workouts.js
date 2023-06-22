@@ -97,7 +97,7 @@ const getNextWorkout = async (req, res) => {
     (session) => session.status == 'Planned'
   );
 
-  res.status(StatusCodes.OK).json({ workout });
+  res.status(StatusCodes.OK).json({ workout, mesoId: activeMeso._id });
 };
 
 // This is for individual workout route (like current workout, when user clicks to view/edit in all-workouts it brings them to workout page)
@@ -118,11 +118,34 @@ const getWorkout = async (req, res) => {
   if (!workout) {
     throw new NotFoundError(`No workout with id ${workoutId}`);
   }
-  res.status(StatusCodes.OK).json({ workout });
+  res.status(StatusCodes.OK).json({ workout, mesoId });
 };
 
 const updateWorkout = async (req, res) => {
-  console.log('update workout');
+  const {
+    user: { userId },
+    params: { mesoId, workoutId },
+  } = req;
+
+  const user = await User.findById(userId);
+
+  const meso = user.mesocycles.find((mesocycle) => mesocycle._id == mesoId);
+
+  let workout = meso.sessions.find((session) => session._id == workoutId);
+
+  if (!workout) {
+    throw new NotFoundError(`No workout with id ${workoutId}`);
+  }
+
+  workout.exercises = req.body.exercises;
+
+  // THIS WORKS ^^^^^ PAGBOUNCE
+
+  await user.save();
+
+  res.status(StatusCodes.OK).json({
+    user: userObject(user),
+  });
 };
 
 const deleteWorkout = async (req, res) => {

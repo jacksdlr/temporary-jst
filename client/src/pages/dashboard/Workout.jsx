@@ -1,21 +1,44 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNextWorkout } from '../../features/workout/workoutSlice';
+import {
+  getNextWorkout,
+  updateWorkout,
+} from '../../features/workout/workoutSlice';
 import Loading from '../../components/Loading';
 import Wrapper from '../../assets/css-wrappers/WorkoutPage';
 import { AiOutlineMore, AiOutlineFile } from 'react-icons/ai';
 import Exercise from '../../components/Exercise';
+import { toast } from 'react-toastify';
 
 const Workout = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, workout } = useSelector((store) => store.workout);
+  const { isLoading, workout, mesoId } = useSelector((store) => store.workout);
 
   useEffect(() => {
     if (!workout) {
       dispatch(getNextWorkout());
     }
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    for (let i = 0; i < workout.exercises.length; i++) {
+      for (let j = 0; j < workout.exercises[i].sets.length; j++) {
+        if (
+          !workout.exercises[i].sets[j].weight ||
+          !workout.exercises[i].sets[j].repetitions ||
+          !workout.exercises[i].sets[j].repsInReserve
+        ) {
+          toast.error('One or more exercise details are incomplete');
+          return;
+        }
+      }
+    }
+
+    dispatch(updateWorkout({ workout, mesoId }));
+  };
 
   if (isLoading) {
     return (
@@ -85,7 +108,8 @@ const Workout = () => {
         <div className='btn-container'>
           <button
             className='btn submit-btn'
-            onClick={() => console.log('submit workout')}
+            onClick={handleSubmit}
+            disabled={isLoading}
           >
             Complete Workout
           </button>

@@ -120,6 +120,10 @@ const Wrapper = styled.section`
   input[type='number'] {
     -moz-appearance: textfield;
   }
+  input:focus,
+  select:focus {
+    border: 1px solid var(--primary-500);
+  }
   option {
     color: black;
   }

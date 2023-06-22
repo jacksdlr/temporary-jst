@@ -17,3 +17,12 @@ export const getWorkoutThunk = async (url, thunkAPI) => {
     return checkForUnauthorizedResponse(error, thunkAPI);
   }
 };
+
+export const updateWorkoutThunk = async (url, workout, thunkAPI) => {
+  try {
+    const response = await customFetch.patch(url, workout);
+    return response.data;
+  } catch (error) {
+    return checkForUnauthorizedResponse(error, thunkAPI);
+  }
+};
