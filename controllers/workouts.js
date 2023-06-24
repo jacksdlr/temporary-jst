@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Session, Exercise, Set } = require('../models');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, NotFoundError } = require('../errors');
@@ -125,21 +125,110 @@ const updateWorkout = async (req, res) => {
   const {
     user: { userId },
     params: { mesoId, workoutId },
+    body: {
+      musclesTrained,
+      notes,
+      microcycle,
+      sessionName,
+      sessionNumber,
+      exercises,
+    },
   } = req;
 
   const user = await User.findById(userId);
 
   const meso = user.mesocycles.find((mesocycle) => mesocycle._id == mesoId);
 
-  let workout = meso.sessions.find((session) => session._id == workoutId);
+  const workout = meso.sessions.find((session) => session._id == workoutId);
 
   if (!workout) {
     throw new NotFoundError(`No workout with id ${workoutId}`);
   }
 
-  workout.exercises = req.body.exercises;
+  workout.exercises = exercises;
 
-  // THIS WORKS ^^^^^ PAGBOUNCE
+  if (workout.status == 'Planned') {
+    // workout.status = 'Completed';
+
+    let setsCount = 0;
+    let setsToFailure = 0;
+
+    for (let i = 0; i < exercises.length; i++) {
+      for (let j = 0; j < exercises[i].sets.length; j++) {
+        setsCount++;
+        if (exercises[i].sets[j].repsInReserve == 0) {
+          setsToFailure++;
+        }
+      }
+    }
+    console.log(setsCount, setsToFailure);
+
+    const newSession = new Session({
+      microcycle: microcycle + 1,
+      sessionName,
+      sessionNumber,
+      musclesTrained,
+      exercises: exercises.map((exercise) => {
+        const { notes, exerciseName, repRange, sets } = exercise;
+
+        const repRangeLower = Number(repRange.match(/^\d+/)[0]);
+        const repRangeUpper = Number(repRange.match(/\d+$/)[0]);
+
+        let lessThanMinRepsSets = 0;
+        for (let i = 0; i < sets.length; i++) {
+          if (sets[i].repetitions < repRangeLower) {
+            lessThanMinRepsSets++;
+          }
+        }
+
+        let changeWeight;
+        for (let i = 0; i < sets.length; i++) {
+          if (
+            sets[i].repetitions >= repRangeUpper &&
+            lessThanMinRepsSets == 0
+          ) {
+            changeWeight = 'Increase';
+          } else if (sets[i].repetitions < 5) {
+            changeWeight = 'Decrease';
+          } /*  else if (sets[i].repsInReserve <= sets[i].targetRIR - 2) {
+          changeWeight = 'Decrease';
+        } */
+        }
+        // maybe change this
+        if (lessThanMinRepsSets == sets.length) {
+          changeWeight = 'Decrease';
+        }
+
+        const newExercise = new Exercise({
+          notes,
+          exerciseName,
+          repRange,
+          changeWeight,
+          sets: sets.map((set) => {
+            const { weight, repetitions, repsInReserve, targetRIR } = set;
+            // add more sets based on rir
+            const newSet = new Set({
+              weight,
+              targetReps:
+                changeWeight == 'Increase'
+                  ? repetitions
+                  : changeWeight == 'Decrease' && repetitions > repRangeLower
+                  ? repetitions
+                  : changeWeight == 'Decrease'
+                  ? repRangeLower
+                  : repetitions + 1,
+              targetRIR: repsInReserve != 0 && targetRIR - 1, // come back to this, not happy
+            });
+            return newSet;
+          }),
+        });
+        return newExercise;
+      }),
+      notes,
+    });
+
+    meso.sessions.push(newSession);
+  }
 
   await user.save();
 

@@ -24,7 +24,7 @@ router.route('/nextWorkout', authenticateUser).get(getNextWorkout);
 router
   .route('/:mesoId/:workoutId', authenticateUser)
   .get(getWorkout)
-  .patch(testUser, updateWorkout);
-//.delete(testUser, deleteWorkout);
+  .patch(testUser, updateWorkout)
+  .delete(testUser, deleteWorkout);
 
 module.exports = router;

@@ -14,6 +14,13 @@ const ExerciseSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+  repRange: {
+    type: String,
+  },
+  changeWeight: {
+    type: String,
+    enum: ['None', 'Increase', 'Decrease'],
+  },
 });
 
 const Exercise = mongoose.model('Exercise', ExerciseSchema);

@@ -27,9 +27,9 @@ const Workout = () => {
     for (let i = 0; i < workout.exercises.length; i++) {
       for (let j = 0; j < workout.exercises[i].sets.length; j++) {
         if (
-          !workout.exercises[i].sets[j].weight ||
-          !workout.exercises[i].sets[j].repetitions ||
-          !workout.exercises[i].sets[j].repsInReserve
+          workout.exercises[i].sets[j].weight == undefined ||
+          workout.exercises[i].sets[j].repetitions == undefined ||
+          workout.exercises[i].sets[j].repsInReserve == undefined
         ) {
           toast.error('One or more exercise details are incomplete');
           return;
@@ -101,6 +101,7 @@ const Workout = () => {
           <Exercise
             name={exercise.exerciseName}
             sets={exercise.sets}
+            changeWeight={exercise.changeWeight}
             notes={exercise.notes}
             exerciseIndex={index}
           />

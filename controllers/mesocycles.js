@@ -123,6 +123,7 @@ const createMeso = async (req, res) => {
 
           const newExercise = new Exercise({
             exerciseName,
+            repRange,
             sets: [
               new Set({
                 targetReps: repRange.match(/^\d+/)[0],

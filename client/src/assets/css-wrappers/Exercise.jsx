@@ -88,17 +88,35 @@ const Wrapper = styled.section`
     justify-content: space-between;
     margin: 0.5rem;
   }
-  .select-container {
+  .input-container {
     width: 25%;
   }
   .target {
-    position: absolute;
     height: 2rem;
-    margin-left: 0.15rem;
     color: var(--primary-500);
   }
+  .increase,
+  .decrease {
+    height: 1rem;
+    margin: 0.5rem 0;
+    border-radius: var(--borderRadius);
+  }
+  .increase {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+  }
+  .decrease {
+    background-color: var(--red-light);
+    color: var(--red-dark);
+  }
+  .target,
+  .increase,
+  .decrease {
+    position: absolute;
+    margin-left: 0.15rem;
+  }
   input {
-    width: 25%;
+    width: 100%;
     height: 2rem;
     text-align: center;
   }

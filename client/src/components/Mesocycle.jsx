@@ -33,11 +33,26 @@ const Mesocycle = ({
 }) => {
   const dispatch = useDispatch();
 
-  sessions = sessions.map((session) => {
-    if (!sessions.find((name) => name == session.sessionName)) {
+  /* sessions = sessions.map((session) => {
+    if (
+      !sessions.find((item) => {
+        item.sessionName == session.sessionName;
+      })
+    ) {
       return session;
     }
-  });
+  }); */
+
+  let uniqueSessions = [];
+  for (let i = 0; i < sessions.length; i++) {
+    if (
+      !uniqueSessions.find(
+        (session) => session.sessionName == sessions[i].sessionName
+      )
+    ) {
+      uniqueSessions.push(sessions[i]);
+    }
+  }
 
   return (
     <Wrapper>
@@ -69,7 +84,7 @@ const Mesocycle = ({
           {endWeight && <p>End weight: {endWeight}kg</p>}
         </div>
         <div className='sessions'>
-          {sessions.map((session, index) => (
+          {uniqueSessions.map((session, index) => (
             <Link
               key={index}
               to={`/all-workouts`}

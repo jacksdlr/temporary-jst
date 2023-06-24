@@ -18,10 +18,14 @@ const SetSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  notes: {
+  /* notes: {
     type: Array,
     default: [],
-  },
+  }, */
+  /* changeWeight: {
+    type: String,
+    enum: ['None', 'Increase', 'Decrease'],
+  }, */
 });
 
 const Set = mongoose.model('Set', SetSchema);

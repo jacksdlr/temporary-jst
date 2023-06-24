@@ -1,11 +1,18 @@
 import { directory } from '../utils/directory';
-import { AiOutlineMore, AiOutlineYoutube, AiOutlineFile } from 'react-icons/ai';
+import {
+  AiOutlineMore,
+  AiOutlineYoutube,
+  AiOutlineFile,
+  AiOutlineRise,
+  AiOutlineFall,
+} from 'react-icons/ai';
 import { TbTargetArrow } from 'react-icons/tb';
 import Wrapper from '../assets/css-wrappers/Exercise';
 import { useDispatch } from 'react-redux';
 import { handleSetChange } from '../features/workout/workoutSlice';
+import { useState } from 'react';
 
-const Exercise = ({ name, sets, notes, exerciseIndex }) => {
+const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
   const exerciseInfo = directory
     .map((item) => {
       if (item.exercises) {
@@ -75,26 +82,38 @@ const Exercise = ({ name, sets, notes, exerciseIndex }) => {
             <p>RIR</p>
           </div>
           {sets.map((set, setIndex) => {
-            const {
-              weight,
-              repetitions,
-              repsInReserve,
-              targetReps,
-              targetRIR,
-            } = set;
+            let { weight, repetitions, repsInReserve, targetReps, targetRIR } =
+              set;
+            const [prevWeight] = useState(weight);
+
+            if (
+              weight > prevWeight &&
+              targetReps > 5 &&
+              changeWeight != 'Increase'
+            ) {
+              targetReps--;
+            }
             return (
               <div className='set'>
-                <input
-                  className='form-input'
-                  type='number'
-                  name='weight'
-                  step='0.01'
-                  min='0'
-                  value={weight}
-                  onChange={(e) => handleChange(e, exerciseIndex, setIndex)}
-                />
-                <div className='select-container'>
-                  {/* {!repetitions && <AiOutlineAim className={'target'} />} */}
+                <div className='input-container'>
+                  <input
+                    className='form-input'
+                    type='number'
+                    name='weight'
+                    step='0.01'
+                    min='0'
+                    value={weight}
+                    onChange={(e) => handleChange(e, exerciseIndex, setIndex)}
+                  />
+                  {/* add hover information to these */}
+                  {changeWeight == 'Increase' && weight <= prevWeight && (
+                    <AiOutlineRise className={'increase'} />
+                  )}
+                  {changeWeight == 'Decrease' && weight >= prevWeight && (
+                    <AiOutlineFall className={'decrease'} />
+                  )}
+                </div>
+                <div className='input-container'>
                   <select
                     className='form-select'
                     name='repetitions'
@@ -106,18 +125,14 @@ const Exercise = ({ name, sets, notes, exerciseIndex }) => {
                       {targetReps}
                     </option>
                     {repsOptions.map((reps) => (
-                      <option
-                        value={reps}
-                        /* selected={reps == targetReps ? true : false} */
-                      >
-                        {reps}
-                      </option>
+                      <option value={reps}>{reps}</option>
                     ))}
                   </select>
-                  {!repetitions && <TbTargetArrow className={'target'} />}
+                  {repetitions == undefined && (
+                    <TbTargetArrow className={'target'} />
+                  )}
                 </div>
-                <div className='select-container'>
-                  {/* {!repsInReserve && <AiOutlineAim className={'target'} />} */}
+                <div className='input-container'>
                   <select
                     className='form-select'
                     name='repsInReserve'
@@ -129,15 +144,12 @@ const Exercise = ({ name, sets, notes, exerciseIndex }) => {
                       {targetRIR}
                     </option>
                     {repsInReserveOptions.map((reps) => (
-                      <option
-                        value={reps}
-                        /* selected={reps == targetRIR ? true : false} */
-                      >
-                        {reps}
-                      </option>
+                      <option value={reps}>{reps}</option>
                     ))}
                   </select>
-                  {!repsInReserve && <TbTargetArrow className={'target'} />}
+                  {repsInReserve == undefined && (
+                    <TbTargetArrow className={'target'} />
+                  )}
                 </div>
               </div>
             );
