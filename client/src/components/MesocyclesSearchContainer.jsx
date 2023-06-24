@@ -66,7 +66,7 @@ const MesocyclesSearchContainer = () => {
             value={searchMicrocycles}
             min={1}
             step={1}
-            handleChange={handleSearch}
+            handleChange={handleSearch} /* this might need to be debounce? */
           />
           {/* search by status */}
           <FormRowSelect

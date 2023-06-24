@@ -58,6 +58,23 @@ const Workout = () => {
     );
   }
 
+  if (workout.microcycle != 1 && workout.status == 'Planned') {
+    console.log(
+      `Please answer the following questions regarding this session from your microcyle: 
+      How quickly did you recover? [for each muscle group] 
+      ${workout.musclesTrained.map(
+        (muscle) =>
+          muscle + 'still sore, recovered just in time, recovered in advance'
+      )}
+      How much of a pump did you get? [for each muscle group]
+      ${workout.musclesTrained.map(
+        (muscle) => muscle + 'no pump, decent pump, incredible pump'
+      )}
+      `
+    );
+  }
+  // working on set progression. need to make an actual modal
+
   return (
     <Wrapper>
       <div className='container'>

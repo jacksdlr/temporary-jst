@@ -49,7 +49,17 @@ const workoutSlice = createSlice({
       state,
       { payload: { input, value, exerciseIndex, setIndex } }
     ) => {
-      state.workout.exercises[exerciseIndex].sets[setIndex][input] = value;
+      if (input == 'weight') {
+        for (
+          let i = setIndex;
+          i < state.workout.exercises[exerciseIndex].sets.length;
+          i++
+        ) {
+          state.workout.exercises[exerciseIndex].sets[i][input] = value;
+        }
+      } else {
+        state.workout.exercises[exerciseIndex].sets[setIndex][input] = value;
+      }
     },
     clearWorkoutState: () => initialState,
     getCurrentExercise: (state) => {

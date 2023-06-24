@@ -216,8 +216,10 @@ const updateWorkout = async (req, res) => {
                   ? repetitions
                   : changeWeight == 'Decrease'
                   ? repRangeLower
-                  : repetitions + 1,
-              targetRIR: repsInReserve != 0 && targetRIR - 1, // come back to this, not happy
+                  : /* repetitions <= repRangeUpper
+                  ? repetitions
+                  : */ Number(repetitions + 1),
+              targetRIR: repsInReserve != 0 ? targetRIR - 1 : 0, // come back to this, not happy
             });
             return newSet;
           }),

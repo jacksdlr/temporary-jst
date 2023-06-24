@@ -44,6 +44,10 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
     dispatch(handleSetChange({ input, value, exerciseIndex, setIndex }));
   };
 
+  const showTargetInfo = (e) => {
+    console.log('show info here');
+  };
+
   return (
     <Wrapper>
       <div className='container'>
@@ -129,7 +133,10 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
                     ))}
                   </select>
                   {repetitions == undefined && (
-                    <TbTargetArrow className={'target'} />
+                    <TbTargetArrow
+                      className={'target'}
+                      onMouseOver={showTargetInfo}
+                    />
                   )}
                 </div>
                 <div className='input-container'>

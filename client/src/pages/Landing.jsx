@@ -10,7 +10,7 @@ const Landing = () => {
       <nav>{<Logo />}</nav>
       <div className='container page'>
         <div className='info'>
-          <h1>Workout Tracking App</h1>
+          <h1>Hypertrophy Workout Training App</h1>
           <p>
             Get <span>J</span>acked, <span>S</span>tacked, and <span>T</span>
             racked by creating your next custom training plan with
