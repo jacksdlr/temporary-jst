@@ -206,6 +206,7 @@ const updateWorkout = async (req, res) => {
           changeWeight,
           sets: sets.map((set) => {
             const { weight, repetitions, repsInReserve, targetRIR } = set;
+
             // add more sets based on rir
             const newSet = new Set({
               weight,
@@ -216,9 +217,9 @@ const updateWorkout = async (req, res) => {
                   ? repetitions
                   : changeWeight == 'Decrease'
                   ? repRangeLower
-                  : /* repetitions <= repRangeUpper
+                  : repetitions <= repRangeUpper
                   ? repetitions
-                  : */ Number(repetitions + 1),
+                  : Number(repetitions) + 1,
               targetRIR: repsInReserve != 0 ? targetRIR - 1 : 0, // come back to this, not happy
             });
             return newSet;
