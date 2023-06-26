@@ -67,6 +67,10 @@ const Wrapper = styled.nav`
     display: none;
     margin: 0;
   }
+  .toggle-btn,
+  .btn-container {
+    min-width: 10%;
+  }
   @media (min-width: 992px) {
     position: sticky;
     top: 0;

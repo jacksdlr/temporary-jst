@@ -124,7 +124,6 @@ const Workout = () => {
           </div>
         )}
       </div>
-      {/* notes container */}
       <form className='workout-form'>
         {workout.exercises.map((exercise, index) => (
           <Exercise
@@ -135,15 +134,13 @@ const Workout = () => {
             exerciseIndex={index}
           />
         ))}
-        <div className='btn-container'>
-          <button
-            className='btn submit-btn'
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            Complete Workout
-          </button>
-        </div>
+        <button
+          className='btn submit-btn'
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
+          Complete Workout
+        </button>
       </form>
     </Wrapper>
   );

@@ -92,6 +92,18 @@ const Wrapper = styled.section`
     height: 35px;
     margin-top: 1rem;
   }
+  .submit-btn {
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width);
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   // Modal stuff
   .modal-container {
     position: fixed;
@@ -126,7 +138,7 @@ const Wrapper = styled.section`
     text-transform: none;
   }
   .muscle-container .muscle {
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
     margin-bottom: 1rem;
     text-align: center;
@@ -143,6 +155,7 @@ const Wrapper = styled.section`
     color: var(--primary-500);
     margin: 0 auto;
     flex: 1;
+    width: 100%;
     text-transform: none;
   }
   .answer-btn:hover {
@@ -152,17 +165,6 @@ const Wrapper = styled.section`
   .selected-btn {
     background: var(--primary-500);
     color: var(--white);
-  }
-
-  // what is this?
-  .submit-btn {
-    margin: 0 auto;
-    width: 100%;
-    max-width: var(--max-width);
-    height: 3rem;
-    font-size: 1.25rem;
-    font-weight: bold;
-    letter-spacing: 2px;
   }
   .close-buttons {
     display: flex;
@@ -208,6 +210,7 @@ const Wrapper = styled.section`
   @media (max-width: 992px) {
     .modal {
       justify-content: flex-start;
+      width: 90vw;
       height: 80vh;
     }
     .muscle {
