@@ -113,17 +113,22 @@ const Wrapper = styled.section`
     max-width: 800px;
     border-radius: var(--borderRadius);
     padding: 2rem;
-    text-align: center;
+    text-align: left;
     justify-content: center;
     text-transform: none;
     overflow: auto;
   }
-  .muscle-container {
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+  h5 {
+    text-transform: none;
   }
   .muscle-container .muscle {
     width: 50%;
     margin: 0 auto;
     margin-bottom: 1rem;
+    text-align: center;
   }
   .btn-container {
     display: flex;
@@ -132,7 +137,6 @@ const Wrapper = styled.section`
     width: 100%;
   }
   .answer-btn {
-    box-shadow: var(--shadow-2);
     background: var(--white);
     border: 1px solid var(--primary-500);
     color: var(--primary-500);
@@ -145,7 +149,6 @@ const Wrapper = styled.section`
     color: var(--white);
   }
   .submit-btn {
-    box-shadow: var(--shadow-2);
     margin: 0 auto;
     width: 100%;
     max-width: var(--max-width);
@@ -154,19 +157,34 @@ const Wrapper = styled.section`
     font-weight: bold;
     letter-spacing: 2px;
   }
-  .clear-btn {
-    background: var(--grey-500);
-  }
-  .clear-btn:hover {
-    background: var(--black);
-  }
-  .calories-container {
+  .close-buttons {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    width: 100%;
+    height: 3rem;
+    gap: 1rem;
+    justify-content: space-between;
   }
-  .calories-container svg:hover {
-    color: var(--primary-500);
+  .confirm-btn,
+  .exit-btn {
+    height: 100%;
+    width: 50%;
+    flex: 1;
+  }
+  .confirm-btn {
+    background: var(--white);
+    color: var(--green-dark);
+    border: 1px solid var(--green-dark);
+  }
+  .confirm-btn:hover {
+    background: var(--green-light);
+  }
+  .exit-btn {
+    background: var(--white);
+    color: var(--red-dark);
+    border: 1px solid var(--red-dark);
+  }
+  .exit-btn:hover {
+    background: var(--red-light);
   }
   /*   .info {
     max-height: 0;
@@ -208,6 +226,10 @@ const Wrapper = styled.section`
     }
     .btn-container {
       margin-top: 0;
+    }
+    .confirm-btn,
+    .exit-btn {
+      width: 25%;
     }
   }
   @media (min-width: 1120px) {

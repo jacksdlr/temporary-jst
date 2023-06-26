@@ -1,11 +1,18 @@
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
+
 const Modal = ({ musclesTrained }) => {
   return (
     <aside className='modal-container'>
       <div className='modal'>
-        <h4 className='border-bottom'>
-          How well did each muscle group recover from this workout last time
-          before being trained again?
-        </h4>
+        <h3>Soreness Feedback</h3>
+        <h5 className='border-bottom'>
+          Before being trained again, how well did each muscle group recover
+          from this workout last time?{' '}
+          <AiOutlineQuestionCircle
+          /* onMouseEnter={() => setIsShown(true)}
+            onMouseLeave={() => setIsShown(false)} */
+          />
+        </h5>
         {musclesTrained.map((muscle) => (
           <div className='muscle-container border-bottom'>
             <h5 className={`muscle ${muscle}`}>{muscle}</h5>
@@ -23,7 +30,7 @@ const Modal = ({ musclesTrained }) => {
             </div>
           </div>
         ))}
-        <div className='btn-container'>
+        <div className='close-buttons'>
           <button className='btn exit-btn'>Close</button>
           <button className='btn confirm-btn'>Confirm</button>
         </div>
