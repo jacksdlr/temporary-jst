@@ -112,7 +112,7 @@ const Wrapper = styled.section`
     width: 80vw;
     max-width: 800px;
     border-radius: var(--borderRadius);
-    padding: 2rem;
+    padding: 2rem 1rem;
     text-align: left;
     justify-content: center;
     text-transform: none;
@@ -120,6 +120,7 @@ const Wrapper = styled.section`
   }
   h3 {
     margin-bottom: 0.5rem;
+    font-weight: bold;
   }
   h5 {
     text-transform: none;
@@ -148,6 +149,12 @@ const Wrapper = styled.section`
     background: var(--primary-500);
     color: var(--white);
   }
+  .selected-btn {
+    background: var(--primary-500);
+    color: var(--white);
+  }
+
+  // what is this?
   .submit-btn {
     margin: 0 auto;
     width: 100%;
@@ -226,6 +233,9 @@ const Wrapper = styled.section`
     }
     .btn-container {
       margin-top: 0;
+    }
+    .modal {
+      padding: 2rem;
     }
     .confirm-btn,
     .exit-btn {

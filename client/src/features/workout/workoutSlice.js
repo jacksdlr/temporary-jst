@@ -10,6 +10,9 @@ const initialState = {
   isLoading: false,
   workout: null,
   mesoId: null,
+  recoveryModal: {
+    isOpen: true,
+  },
 };
 
 export const getNextWorkout = createAsyncThunk(
@@ -80,6 +83,15 @@ const workoutSlice = createSlice({
         }
       });
     },
+    openRecoveryModal: (state) => {
+      state.recoveryModal.isOpen = true;
+    },
+    closeRecoveryModal: (state) => {
+      state.recoveryModal.isOpen = false;
+    },
+    setRecoveryScore: (state, { payload: { muscle, score } }) => {
+      state.recoveryModal[muscle] = score;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -128,5 +140,9 @@ export const {
   handleSetChange,
   clearWorkoutState,
   getCurrentExercise,
+  openRecoveryModal,
+  closeRecoveryModal,
+  setRecoveryScore,
 } = workoutSlice.actions;
+
 export default workoutSlice.reducer;

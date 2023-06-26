@@ -14,7 +14,9 @@ import Modal from '../../components/Modal';
 const Workout = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, workout, mesoId } = useSelector((store) => store.workout);
+  const { isLoading, workout, mesoId, recoveryModal } = useSelector(
+    (store) => store.workout
+  );
 
   useEffect(() => {
     if (!workout) {
@@ -77,10 +79,16 @@ const Workout = () => {
 
   return (
     <Wrapper>
-      {workout.microcycle != 1 && workout.status == 'Planned' && (
+      {/* add a user profile setting to enable/disable automatic set additions */}
+      {workout.microcycle != 1 &&
+        workout.status == 'Planned' &&
+        recoveryModal.isOpen && (
+          <Modal musclesTrained={workout.musclesTrained} />
+        )}
+      {recoveryModal.isOpen && (
         <Modal musclesTrained={workout.musclesTrained} />
       )}
-      <Modal musclesTrained={workout.musclesTrained} /> {/* temporary */}
+      {/* temporary */}
       <div className='container'>
         <div className='title'>
           <h4>
