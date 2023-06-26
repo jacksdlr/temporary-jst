@@ -24,6 +24,7 @@ const Wrapper = styled.section`
   h4 {
     margin: 0;
     font-size: 1.3rem;
+    text-transform: none;
   }
   .number {
     font-size: 1.5rem;
@@ -45,7 +46,7 @@ const Wrapper = styled.section`
     margin-bottom: 1rem;
     border-bottom: 1px solid var(--grey-100);
   }
-  .muscles p {
+  .muscle {
     padding: 0.2rem 0.6rem;
     margin: 0;
     margin-right: 1rem;
@@ -91,9 +92,57 @@ const Wrapper = styled.section`
     height: 35px;
     margin-top: 1rem;
   }
-  .btn-container {
-    display: grid;
+  // Modal stuff
+  .modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    width: 80vw;
+    max-width: 800px;
+    border-radius: var(--borderRadius);
+    padding: 2rem;
+    text-align: center;
+    justify-content: center;
+    text-transform: none;
+    overflow: auto;
+  }
+  .muscle-container {
+  }
+  .muscle-container .muscle {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+  }
+  .btn-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  .answer-btn {
+    box-shadow: var(--shadow-2);
+    background: var(--white);
+    border: 1px solid var(--primary-500);
+    color: var(--primary-500);
+    margin: 0 auto;
+    flex: 1;
+    text-transform: none;
+  }
+  .answer-btn:hover {
+    background: var(--primary-500);
+    color: var(--white);
   }
   .submit-btn {
     box-shadow: var(--shadow-2);
@@ -131,6 +180,20 @@ const Wrapper = styled.section`
   .show-calories {
     max-height: 500px;
   } */
+  @media (max-width: 992px) {
+    .modal {
+      justify-content: flex-start;
+      height: 80vh;
+    }
+    .muscle {
+      font-size: 1rem;
+    }
+    .btn-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      font-size: 0.8rem;
+    }
+  }
   @media (min-width: 992px) {
     h4 {
       font-size: 1.563rem;

@@ -9,6 +9,7 @@ import Wrapper from '../../assets/css-wrappers/WorkoutPage';
 import { AiOutlineMore, AiOutlineFile } from 'react-icons/ai';
 import Exercise from '../../components/Exercise';
 import { toast } from 'react-toastify';
+import Modal from '../../components/Modal';
 
 const Workout = () => {
   const dispatch = useDispatch();
@@ -76,6 +77,10 @@ const Workout = () => {
 
   return (
     <Wrapper>
+      {workout.microcycle != 1 && workout.status == 'Planned' && (
+        <Modal musclesTrained={workout.musclesTrained} />
+      )}
+      <Modal musclesTrained={workout.musclesTrained} /> {/* temporary */}
       <div className='container'>
         <div className='title'>
           <h4>
@@ -95,7 +100,7 @@ const Workout = () => {
           className={`muscles ${workout.notes.length != 0 && 'border-bottom'}`}
         >
           {workout.musclesTrained.map((muscle, index) => (
-            <p key={index} className={muscle}>
+            <p key={index} className={`muscle ${muscle}`}>
               {muscle}
             </p>
           ))}

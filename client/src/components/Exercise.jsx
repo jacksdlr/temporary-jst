@@ -52,7 +52,9 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
     <Wrapper>
       <div className='container'>
         <div className='info'>
-          <p className={exerciseInfo.muscle}>{exerciseInfo.muscle}</p>
+          <p className={`muscle ${exerciseInfo.muscle}`}>
+            {exerciseInfo.muscle}
+          </p>
           <div className='links'>
             <AiOutlineYoutube
               className='options'
