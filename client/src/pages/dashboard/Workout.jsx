@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  openRecoveryModal,
   getNextWorkout,
   updateWorkout,
 } from '../../features/workout/workoutSlice';
@@ -18,23 +19,16 @@ const Workout = () => {
     (store) => store.workout
   );
 
+  const { user } = useSelector((store) => store.user);
+
+  /* const mesoStatus = user.mesocycles.find(
+        (meso) => mesoId == meso._id
+      ).status;
+      if (mesoStatus == 'Active') {} */
+
   useEffect(() => {
     if (!workout) {
       dispatch(getNextWorkout());
-    } else if (workout.microcycle != 1 && workout.status == 'Planned') {
-      console.log(
-        `Please answer the following questions regarding this session from your microcyle: 
-      How quickly did you recover? [for each muscle group] 
-      ${workout.musclesTrained.map(
-        (muscle) =>
-          muscle + 'still sore, recovered just in time, recovered in advance'
-      )}
-      How much of a pump did you get? [for each muscle group]
-      ${workout.musclesTrained.map(
-        (muscle) => muscle + 'no pump, decent pump, incredible pump'
-      )}
-      `
-      );
     }
   }, []);
 

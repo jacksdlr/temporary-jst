@@ -99,6 +99,9 @@ const workoutSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getNextWorkout.fulfilled, (state, { payload }) => {
+        state.recoveryModal = {
+          isOpen: true,
+        };
         state.isLoading = false;
         state.workout = payload.workout;
         state.mesoId = payload.mesoId;
@@ -111,6 +114,9 @@ const workoutSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getWorkout.fulfilled, (state, { payload }) => {
+        state.recoveryModal = {
+          isOpen: false,
+        };
         state.isLoading = false;
         state.workout = payload.workout;
         state.mesoId = payload.mesoId;

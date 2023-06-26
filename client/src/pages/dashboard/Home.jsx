@@ -5,7 +5,10 @@ import {
   Loading,
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNextWorkout } from '../../features/workout/workoutSlice';
+import {
+  getNextWorkout,
+  openRecoveryModal,
+} from '../../features/workout/workoutSlice';
 import { Link } from 'react-router-dom';
 import Wrapper from '../../assets/css-wrappers/HomePage';
 import { AiOutlineArrowRight } from 'react-icons/ai';
@@ -33,7 +36,13 @@ const Home = () => {
           <AiOutlineArrowRight size={'3rem'} />
         </Link>
       ) : (
-        <Link to={'/workout'} className='btn btn-hero'>
+        <Link
+          to={'/workout'}
+          className='btn btn-hero'
+          onClick={() => {
+            dispatch(openRecoveryModal());
+          }}
+        >
           <h3>Go to next workout: '{workout.sessionName}'</h3>
           <AiOutlineArrowRight size={'3rem'} />
         </Link>
