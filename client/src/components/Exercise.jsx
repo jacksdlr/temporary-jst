@@ -120,7 +120,7 @@ const Exercise = ({
             let { weight, repetitions, repsInReserve, targetReps, targetRIR } =
               set;
 
-            let prevWeight = prevState[prevState.length].weight;
+            let prevWeight = prevState[prevState.length - 1].weight;
             if (prevState[setIndex]) {
               prevWeight = prevState[setIndex].weight;
             }
