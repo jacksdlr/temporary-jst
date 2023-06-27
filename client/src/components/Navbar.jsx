@@ -42,7 +42,12 @@ const Navbar = () => {
           )}
         </button>
         <div>
-          <Link to='/'>
+          <Link
+            to='/'
+            onClick={() => {
+              isSidebarOpen && dispatch(toggleSidebar());
+            }}
+          >
             <Logo />
           </Link>
           <h3 className='logo-text'>Dashboard</h3>

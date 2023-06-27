@@ -124,7 +124,7 @@ const Wrapper = styled.section`
     width: 80vw;
     max-width: 800px;
     border-radius: var(--borderRadius);
-    padding: 2rem 1rem;
+    padding: 1rem;
     text-align: left;
     justify-content: center;
     text-transform: none;
@@ -142,6 +142,7 @@ const Wrapper = styled.section`
     margin: 0 auto;
     margin-bottom: 1rem;
     text-align: center;
+    border: 1px solid var(--grey-100);
   }
   .btn-container {
     display: flex;
@@ -212,14 +213,27 @@ const Wrapper = styled.section`
       justify-content: flex-start;
       width: 90vw;
       height: 80vh;
+      border-top: 10px solid white;
+      border-bottom: 10px solid white;
     }
     .muscle {
       font-size: 1rem;
+    }
+    .muscle-container .muscle {
+      margin-bottom: 0.5rem;
+    }
+    .border-bottom {
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
     }
     .btn-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       font-size: 0.8rem;
+      gap: 0.5rem;
+    }
+    h5 {
+      font-size: 1rem;
     }
   }
   @media (min-width: 992px) {

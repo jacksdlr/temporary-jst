@@ -35,7 +35,6 @@ const Modal = ({ musclesTrained }) => {
                   recoveryModal[muscle] == 1 && 'selected-btn'
                 }`}
                 onClick={() => {
-                  console.log(muscle);
                   dispatch(setRecoveryScore({ muscle, score: 1 }));
                 }}
               >
