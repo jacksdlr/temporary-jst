@@ -8,11 +8,25 @@ import {
 } from 'react-icons/ai';
 import { TbTargetArrow } from 'react-icons/tb';
 import Wrapper from '../assets/css-wrappers/Exercise';
-import { useDispatch } from 'react-redux';
-import { handleSetChange } from '../features/workout/workoutSlice';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleSetChange, addSet } from '../features/workout/workoutSlice';
+import { useEffect, useState } from 'react';
 
-const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
+const Exercise = ({
+  name,
+  sets,
+  repRange,
+  changeWeight,
+  notes,
+  exerciseIndex,
+  // prevState,
+}) => {
+  const dispatch = useDispatch();
+
+  const [prevState, setPrevState] = useState(sets);
+
+  const { recoveryModal } = useSelector((store) => store.workout);
+
   const exerciseInfo = directory
     .map((item) => {
       if (item.exercises) {
@@ -26,6 +40,23 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
     })
     .filter((item) => item)[0];
 
+  // let additionalSets = [];
+  // /* useEffect(() => { */
+  // if (recoveryModal[exerciseInfo.muscle] < 3) {
+  //   const newSet = {
+  //     weight: sets[sets.length - 1].weight,
+  //     targetReps: repRange.match(/^\d+/)[0],
+  //     targetRIR: sets[sets.length - 1].targetRIR,
+  //   };
+  //   dispatch(addSet({ newSet, exerciseIndex }));
+  //   /* sets.push({
+  //     weight: sets[sets.length - 1].weight,
+  //     targetReps: repRange.match(/^\d+/)[0],
+  //     targetRIR: sets[sets.length - 1].targetRIR,
+  //   }); */
+  // }
+  // /* }, []); */
+
   let repsOptions = [];
   for (let i = 0; i <= 100; i++) {
     repsOptions.push(i);
@@ -34,8 +65,6 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
   for (let i = 0; i <= 10; i++) {
     repsInReserveOptions.push(i);
   }
-
-  const dispatch = useDispatch();
 
   const handleChange = (e, exerciseIndex, setIndex) => {
     const input = e.target.name;
@@ -90,7 +119,11 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
           {sets.map((set, setIndex) => {
             let { weight, repetitions, repsInReserve, targetReps, targetRIR } =
               set;
-            const [prevWeight] = useState(weight);
+
+            let prevWeight = prevState[prevState.length].weight;
+            if (prevState[setIndex]) {
+              prevWeight = prevState[setIndex].weight;
+            }
 
             if (
               weight > prevWeight &&
@@ -100,7 +133,7 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
               targetReps--;
             }
             return (
-              <div className='set'>
+              <div key={set._id} className='set'>
                 <div className='input-container'>
                   <input
                     className='form-input'
@@ -123,15 +156,17 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
                   <select
                     className='form-select'
                     name='repetitions'
-                    value={repetitions}
+                    value={repetitions || ''}
                     onChange={(e) => handleChange(e, exerciseIndex, setIndex)}
                     required
                   >
-                    <option value='' disabled selected hidden>
+                    <option value='' disabled hidden>
                       {targetReps}
                     </option>
                     {repsOptions.map((reps) => (
-                      <option value={reps}>{reps}</option>
+                      <option key={reps} value={reps}>
+                        {reps}
+                      </option>
                     ))}
                   </select>
                   {repetitions == undefined && (
@@ -145,15 +180,17 @@ const Exercise = ({ name, sets, changeWeight, notes, exerciseIndex }) => {
                   <select
                     className='form-select'
                     name='repsInReserve'
-                    value={repsInReserve}
+                    value={repsInReserve || ''}
                     onChange={(e) => handleChange(e, exerciseIndex, setIndex)}
                     required
                   >
-                    <option value='' disabled selected hidden>
+                    <option value='' disabled hidden>
                       {targetRIR}
                     </option>
                     {repsInReserveOptions.map((reps) => (
-                      <option value={reps}>{reps}</option>
+                      <option key={reps} value={reps}>
+                        {reps}
+                      </option>
                     ))}
                   </select>
                   {repsInReserve == undefined && (

@@ -213,13 +213,13 @@ const updateWorkout = async (req, res) => {
               targetReps:
                 changeWeight == 'Increase'
                   ? repetitions
-                  : changeWeight == 'Decrease' && repetitions > repRangeLower
+                  : changeWeight == 'Decrease' && repetitions >= repRangeLower
                   ? repetitions
                   : changeWeight == 'Decrease'
                   ? repRangeLower
                   : repetitions <= repRangeUpper
-                  ? repetitions
-                  : Number(repetitions) + 1,
+                  ? Number(repetitions) + 1
+                  : repetitions,
               targetRIR: repsInReserve != 0 ? targetRIR - 1 : 0, // come back to this, not happy
             });
             return newSet;

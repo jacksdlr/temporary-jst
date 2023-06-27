@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   openRecoveryModal,
@@ -69,8 +69,6 @@ const Workout = () => {
     );
   }
 
-  // working on set progression. need to make an actual modal
-
   return (
     <Wrapper>
       {/* add a user profile setting to enable/disable automatic set additions */}
@@ -109,8 +107,8 @@ const Workout = () => {
         </div>
         {workout.notes.length != 0 && (
           <div className='notes'>
-            {workout.notes.map((note) => (
-              <div className='note'>
+            {workout.notes.map((note, index) => (
+              <div key={index} className='note'>
                 <AiOutlineFile />
                 <p>{note}</p>
               </div>
@@ -121,11 +119,14 @@ const Workout = () => {
       <form className='workout-form'>
         {workout.exercises.map((exercise, index) => (
           <Exercise
+            key={exercise._id}
             name={exercise.exerciseName}
+            repRange={exercise.repRange}
             sets={exercise.sets}
             changeWeight={exercise.changeWeight}
             notes={exercise.notes}
             exerciseIndex={index}
+            // prevState={prevState.exercises[index]}
           />
         ))}
         <button

@@ -64,6 +64,9 @@ const workoutSlice = createSlice({
         state.workout.exercises[exerciseIndex].sets[setIndex][input] = value;
       }
     },
+    addSet: (state, { payload: { newSet, exerciseIndex } }) => {
+      state.workout.exercises[exerciseIndex].sets.push(newSet);
+    },
     clearWorkoutState: () => initialState,
     getCurrentExercise: (state) => {
       state.workout.exercises.map((exercise, index) => {
@@ -82,6 +85,16 @@ const workoutSlice = createSlice({
           return;
         }
       });
+    },
+    setPrevWeights: (state) => {
+      for (let i = 0; i < state.workout.exercises; i++) {
+        if (state.workout.exercises[i].changeWeight) {
+          for (let j = 0; j < state.workout.exercises[i].sets; j++) {
+            state.workout.exercises[i].sets[j].prevWeight =
+              state.workout.exercises[i].sets[j].weight;
+          }
+        }
+      }
     },
     openRecoveryModal: (state) => {
       state.recoveryModal.isOpen = true;
@@ -144,8 +157,10 @@ export const {
   showLoading,
   hideLoading,
   handleSetChange,
+  addSet,
   clearWorkoutState,
   getCurrentExercise,
+  setPrevWeights,
   openRecoveryModal,
   closeRecoveryModal,
   setRecoveryScore,

@@ -212,7 +212,7 @@ const Wrapper = styled.section`
     .modal {
       justify-content: flex-start;
       width: 90vw;
-      height: 80vh;
+      max-height: 80vh;
       border-top: 10px solid white;
       border-bottom: 10px solid white;
     }

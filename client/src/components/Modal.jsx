@@ -1,15 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { AiOutlineQuestionCircle } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineQuestionCircle } from 'react-icons/ai';
 import {
   closeRecoveryModal,
   setRecoveryScore,
+  addSet,
 } from '../features/workout/workoutSlice';
+import { directory } from '../utils/directory';
 
 const Modal = ({ musclesTrained }) => {
   const dispatch = useDispatch();
 
-  const { recoveryModal } = useSelector((store) => store.workout);
+  const { workout, recoveryModal } = useSelector((store) => store.workout);
 
   return (
     <aside className='modal-container'>
@@ -24,7 +26,7 @@ const Modal = ({ musclesTrained }) => {
           /> */}
         </h5>
         {musclesTrained.map((muscle) => (
-          <div className='muscle-container border-bottom'>
+          <div key={muscle} className='muscle-container border-bottom'>
             <h5 className={`muscle ${muscle}`}>{muscle}</h5>
 
             {/* check if they are allowed to have sets added */}
@@ -89,6 +91,38 @@ const Modal = ({ musclesTrained }) => {
                 if (!recoveryModal[musclesTrained[i]]) {
                   toast.error(`No recovery score for ${musclesTrained[i]}`);
                   return;
+                }
+              }
+              for (let i = 0; i < workout.exercises.length; i++) {
+                if (
+                  recoveryModal[
+                    directory
+                      .map((item) => {
+                        if (item.exercises) {
+                          const exercise = item.exercises.find(
+                            (exercise) =>
+                              exercise.name == workout.exercises[i].exerciseName
+                          );
+                          if (exercise) {
+                            return item.muscleGroup;
+                          }
+                        }
+                      })
+                      .filter((item) => item)[0]
+                  ] < 3
+                ) {
+                  const newSet = {
+                    weight:
+                      workout.exercises[i].sets[
+                        workout.exercises[i].sets.length - 1
+                      ].weight,
+                    targetReps: workout.exercises[i].repRange.match(/^\d+/)[0],
+                    targetRIR:
+                      workout.exercises[i].sets[
+                        workout.exercises[i].sets.length - 1
+                      ].targetRIR,
+                  };
+                  dispatch(addSet({ newSet, exerciseIndex: i }));
                 }
               }
               dispatch(closeRecoveryModal());
