@@ -194,9 +194,39 @@ const updateWorkout = async (req, res) => {
           changeWeight = 'Decrease';
         } */
         }
-        // maybe change this
+
+        let prevPerformanceScore = 0;
+
         if (lessThanMinRepsSets == sets.length) {
           changeWeight = 'Decrease';
+        } else {
+          sets.map((set) => {
+            const { repetitions, targetReps, repsInReserve, targetRIR } = set;
+
+            // Depending on repetitions achieved and reps in reserve, a performance score is allocated
+            // At the moment they are very strict, a single set bring the score down
+
+            if (
+              ((repetitions > targetReps + 1 && repsInReserve >= targetRIR) ||
+                (repetitions >= targetReps && repsInReserve > targetRIR + 1)) &&
+              prevPerformanceScore != 4
+            ) {
+              prevPerformanceScore = 1;
+            } else if (
+              ((repetitions == targetReps + 1 && repsInReserve == targetRIR) ||
+                (repetitions == targetReps && repsInReserve == targetRIR + 1) ||
+                (repetitions == targetReps && repsInReserve == targetRIR)) &&
+              prevPerformanceScore != 4
+            ) {
+              prevPerformanceScore = 2;
+            } else if (repetitions == targetReps && repsInReserve < targetRIR) {
+              if (prevPerformanceScore != 4) {
+                prevPerformanceScore = 3;
+              }
+            } else if (repetitions < targetReps) {
+              prevPerformanceScore = 4;
+            }
+          });
         }
 
         const newExercise = new Exercise({

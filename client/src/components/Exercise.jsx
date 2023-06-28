@@ -131,7 +131,14 @@ const Exercise = ({
               changeWeight != 'Increase'
             ) {
               targetReps--;
+            } else if (
+              weight <= prevWeight &&
+              targetReps > 5 &&
+              changeWeight == 'Increase'
+            ) {
+              targetReps++;
             }
+
             return (
               <div key={set._id} className='set'>
                 <div className='input-container'>
