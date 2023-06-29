@@ -125,18 +125,20 @@ const Exercise = ({
               prevWeight = prevState[setIndex].weight;
             }
 
-            if (
-              weight > prevWeight &&
-              targetReps > 5 &&
-              changeWeight != 'Increase'
-            ) {
-              targetReps--;
-            } else if (
-              weight <= prevWeight &&
-              targetReps > 5 &&
-              changeWeight == 'Increase'
-            ) {
-              targetReps++;
+            if (!set.newSet) {
+              if (
+                weight > prevWeight &&
+                targetReps > 5 &&
+                changeWeight != 'Increase'
+              ) {
+                targetReps--;
+              } else if (
+                weight <= prevWeight &&
+                targetReps > 5 &&
+                changeWeight == 'Increase'
+              ) {
+                targetReps++;
+              }
             }
 
             return (

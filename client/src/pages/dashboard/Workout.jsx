@@ -78,9 +78,9 @@ const Workout = () => {
         recoveryModal.isOpen && (
           <Modal musclesTrained={workout.musclesTrained} />
         )}
-      {recoveryModal.isOpen && (
+      {/* {recoveryModal.isOpen && (
         <Modal musclesTrained={workout.musclesTrained} />
-      )}
+      )} */}
       {/* temporary */}
       <div className='container'>
         <div className='title'>
