@@ -4,6 +4,7 @@ import {
   openRecoveryModal,
   getNextWorkout,
   updateWorkout,
+  // calculateScores,
 } from '../../features/workout/workoutSlice';
 import Loading from '../../components/Loading';
 import Wrapper from '../../assets/css-wrappers/WorkoutPage';
@@ -35,18 +36,18 @@ const Workout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    for (let i = 0; i < workout.exercises.length; i++) {
-      for (let j = 0; j < workout.exercises[i].sets.length; j++) {
+    workout.exercises.map((exercise) => {
+      exercise.sets.map((set) => {
         if (
-          workout.exercises[i].sets[j].weight == undefined ||
-          workout.exercises[i].sets[j].repetitions == undefined ||
-          workout.exercises[i].sets[j].repsInReserve == undefined
+          set.weight == undefined ||
+          set.repetitions == undefined ||
+          set.repsInReserve == undefined
         ) {
           toast.error('One or more exercise details are incomplete');
           return;
         }
-      }
-    }
+      });
+    });
 
     dispatch(updateWorkout({ workout, mesoId }));
   };

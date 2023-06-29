@@ -69,17 +69,14 @@ const workoutSlice = createSlice({
     },
     clearWorkoutState: () => initialState,
     getCurrentExercise: (state) => {
+      // abandoned?
       state.workout.exercises.map((exercise, index) => {
         let count = 0;
-        for (let i = 0; i < exercise.sets.length; i++) {
-          if (
-            !exercise.sets[i].weight ||
-            !exercise.sets[i].repetitions ||
-            !exercise.sets[i].repsInReserve
-          ) {
+        exercise.sets.map((set) => {
+          if (set.weight || set.repetitions || set.repsInReserve) {
             count++;
           }
-        }
+        });
         if (count == exercise.sets.length) {
           state.currentExerciseIndex = index;
           return;
@@ -87,14 +84,13 @@ const workoutSlice = createSlice({
       });
     },
     setPrevWeights: (state) => {
-      for (let i = 0; i < state.workout.exercises; i++) {
-        if (state.workout.exercises[i].changeWeight) {
-          for (let j = 0; j < state.workout.exercises[i].sets; j++) {
-            state.workout.exercises[i].sets[j].prevWeight =
-              state.workout.exercises[i].sets[j].weight;
-          }
+      state.workout.exercises.map((exercise) => {
+        if (exercise.changeWeight) {
+          exercise.sets.map((set) => {
+            set.prevWeight = set.weight;
+          });
         }
-      }
+      });
     },
     openRecoveryModal: (state) => {
       state.recoveryModal.isOpen = true;
@@ -105,6 +101,70 @@ const workoutSlice = createSlice({
     setRecoveryScore: (state, { payload: { muscle, score } }) => {
       state.recoveryModal[muscle] = score;
     },
+    // THIS IS BACKEND FOR NOW, UNSURE HOW TO MAKE IT DISPATCH ON FORM SUBMIT BUT BEFORE SENDING DATA
+    // calculateScores: (state) => {
+    //   state.workout.exercises.map((exercise, index) => {
+    //     const repRangeLower = Number(exercise.repRange.match(/^\d+/)[0]);
+    //     const repRangeUpper = Number(exercise.repRange.match(/\d+$/)[0]);
+
+    //     state.workout.exercises[index].performanceScore = 0;
+
+    //     state.workout.exercises[index].lessThanMinRepsSets = 0;
+
+    //     exercise.sets.map((set) => {
+    //       if (set.repetitions < repRangeLower) {
+    //         state.workout.exercises[index].lessThanMinRepsSets++;
+    //       }
+    //     });
+    //     exercise.sets.map((set, setIndex) => {
+    //       if (
+    //         set.repetitions >= repRangeUpper &&
+    //         exercise.lessThanMinRepsSets == 0
+    //       ) {
+    //         state.workout.exercises[index].changeWeight = 'Increase';
+    //       } else if (set.repetitions < 5) {
+    //         state.workout.exercises[index].changeWeight = 'Decrease';
+    //       } /*  else if (sets[i].repsInReserve <= sets[i].targetRIR - 2) {
+    //       changeWeight = 'Decrease';
+    //     } */
+    //     });
+
+    //     if (exercise.lessThanMinRepsSets == exercise.sets.length) {
+    //       state.workout.exercises[index].changeWeight = 'Decrease';
+    //     } else {
+    //       exercise.sets.map((set, setIndex) => {
+    //         const { repetitions, targetReps, repsInReserve, targetRIR } = set;
+
+    //         // Depending on repetitions achieved and reps in reserve, a performance score is allocated
+    //         // At the moment they are very strict, a single set bring the score down
+
+    //         if (
+    //           ((repetitions > targetReps + 1 && repsInReserve >= targetRIR) ||
+    //             (repetitions >= targetReps && repsInReserve > targetRIR + 1)) &&
+    //           state.workout.exercises[index].performanceScore != 4
+    //         ) {
+    //           state.workout.exercises[index].performanceScore = 1;
+    //         } else if (
+    //           ((repetitions == targetReps + 1 && repsInReserve == targetRIR) ||
+    //             (repetitions == targetReps && repsInReserve == targetRIR + 1) ||
+    //             (repetitions == targetReps && repsInReserve == targetRIR)) &&
+    //           state.workout.exercises[index].performanceScore != 4
+    //         ) {
+    //           state.workout.exercises[index].performanceScore = 2;
+    //         } else if (
+    //           repetitions == targetReps &&
+    //           repsInReserve < targetRIR &&
+    //           state.workout.exercises[index].performanceScore != 4
+    //         ) {
+    //           state.workout.exercises[index].performanceScore = 3;
+    //         } else if (repetitions < targetReps) {
+    //           // too strict for first week
+    //           state.workout.exercises[index].performanceScore = 4;
+    //         }
+    //       });
+    //     }
+    //   });
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -164,6 +224,7 @@ export const {
   openRecoveryModal,
   closeRecoveryModal,
   setRecoveryScore,
+  // calculateScores,
 } = workoutSlice.actions;
 
 export default workoutSlice.reducer;

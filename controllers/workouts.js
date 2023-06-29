@@ -2,7 +2,7 @@ const { User, Session, Exercise, Set } = require('../models');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, NotFoundError } = require('../errors');
-const { userObject } = require('./user');
+const { userObject, login } = require('./user');
 
 const getAllWorkouts = async (req, res) => {
   const { mesoId, microcycle, session, status, muscle, sort, page } = req.query;
@@ -125,15 +125,21 @@ const updateWorkout = async (req, res) => {
   const {
     user: { userId },
     params: { mesoId, workoutId },
-    body: {
-      musclesTrained,
-      notes,
-      microcycle,
-      sessionName,
-      sessionNumber,
-      exercises,
-    },
+    body: { musclesTrained, notes, microcycle, sessionName, sessionNumber },
   } = req;
+
+  console.log(req.body.exercises);
+
+  const exercises = req.body.exercises.map((exercise) => {
+    const { notes, _id, exerciseName, repRange, sets } = exercise;
+    return {
+      notes,
+      _id,
+      exerciseName,
+      repRange,
+      sets,
+    };
+  });
 
   const user = await User.findById(userId);
 
@@ -145,6 +151,8 @@ const updateWorkout = async (req, res) => {
     throw new NotFoundError(`No workout with id ${workoutId}`);
   }
 
+  workout.musclesTrained = musclesTrained;
+  workout.notes = notes;
   workout.exercises = exercises;
 
   if (workout.status == 'Planned') {
@@ -174,14 +182,18 @@ const updateWorkout = async (req, res) => {
         const repRangeLower = Number(repRange.match(/^\d+/)[0]);
         const repRangeUpper = Number(repRange.match(/\d+$/)[0]);
 
+        let performanceScore = 0;
+
         let lessThanMinRepsSets = 0;
+
+        let changeWeight;
+
         for (let i = 0; i < sets.length; i++) {
           if (sets[i].repetitions < repRangeLower) {
             lessThanMinRepsSets++;
           }
         }
 
-        let changeWeight;
         for (let i = 0; i < sets.length; i++) {
           if (
             sets[i].repetitions >= repRangeUpper &&
@@ -195,37 +207,86 @@ const updateWorkout = async (req, res) => {
         } */
         }
 
-        let prevPerformanceScore = 0;
-
         if (lessThanMinRepsSets == sets.length) {
           changeWeight = 'Decrease';
         } else {
-          sets.map((set) => {
+          let hardSets = 0;
+
+          sets.map((set, index) => {
             const { repetitions, targetReps, repsInReserve, targetRIR } = set;
 
             // Depending on repetitions achieved and reps in reserve, a performance score is allocated
             // At the moment they are very strict, a single set bring the score down
 
-            if (
-              ((repetitions > targetReps + 1 && repsInReserve >= targetRIR) ||
-                (repetitions >= targetReps && repsInReserve > targetRIR + 1)) &&
-              prevPerformanceScore != 4
-            ) {
-              prevPerformanceScore = 1;
-            } else if (
-              ((repetitions == targetReps + 1 && repsInReserve == targetRIR) ||
-                (repetitions == targetReps && repsInReserve == targetRIR + 1) ||
-                (repetitions == targetReps && repsInReserve == targetRIR)) &&
-              prevPerformanceScore != 4
-            ) {
-              prevPerformanceScore = 2;
-            } else if (repetitions == targetReps && repsInReserve < targetRIR) {
-              if (prevPerformanceScore != 4) {
-                prevPerformanceScore = 3;
+            const calculatedReps =
+              repetitions - targetReps + (repsInReserve - targetRIR);
+
+            // very tricky to get right
+
+            if (microcycle != 1) {
+              if (calculatedReps >= 2 && performanceScore < 3 && index != 0) {
+                performanceScore = 1;
+              } else if (calculatedReps >= 0 && performanceScore != 4) {
+                performanceScore = 2;
+              } else if (
+                repetitions == targetReps &&
+                repsInReserve >= targetRIR - 1 &&
+                index != 0 &&
+                performanceScore < 3
+              ) {
+                hardSets++;
+                if (hardSets < Math.ceil(sets.length / hardSets)) {
+                  performanceScore = 2;
+                } else {
+                  performanceScore = 3;
+                }
+              } else if (repetitions < targetReps) {
+                performanceScore = 4;
+              } else if (performanceScore != 4) {
+                performanceScore = 3;
               }
-            } else if (repetitions < targetReps) {
-              prevPerformanceScore = 4;
+            } else {
+              if (calculatedReps >= 2 && performanceScore != 4) {
+                performanceScore = 1;
+              } else if (calculatedReps >= -1 && performanceScore != 4) {
+                performanceScore = 2;
+              } else if (calculatedReps >= 0) {
+                performanceScore = 2;
+              } else if (repetitions < 5) {
+                performanceScore = 4;
+                changeWeight = 'Decrease';
+              } else if (performanceScore != 4) {
+                performanceScore = 3;
+              }
             }
+
+            // first idea
+            // if (
+            //   ((repetitions > targetReps + 1 && repsInReserve >= targetRIR) ||
+            //     (repetitions >= targetReps && repsInReserve > targetRIR + 1)) &&
+            //   performanceScore != 4
+            // ) {
+            //   performanceScore = 1;
+            // } else if (
+            //   ((repetitions == targetReps + 1 &&
+            //     repsInReserve >= targetRIR - 1) ||
+            //     (repetitions == targetReps && repsInReserve == targetRIR + 1) ||
+            //     (repetitions == targetReps && repsInReserve == targetRIR)) &&
+            //   performanceScore != 4
+            // ) {
+            //   performanceScore = 2;
+            // } else if (
+            //   repetitions == targetReps &&
+            //   repsInReserve < targetRIR &&
+            //   performanceScore != 4
+            // ) {
+            //   performanceScore = 3;
+            // } else if (repetitions < targetReps) {
+            //   // too strict for first week
+            //   performanceScore = 4;
+            // } else if (repsInReserve < targetRIR - 1 && performanceScore != 4) {
+            //   performanceScore = 3;
+            // }
           });
         }
 
@@ -234,10 +295,10 @@ const updateWorkout = async (req, res) => {
           exerciseName,
           repRange,
           changeWeight,
+          performanceScore,
           sets: sets.map((set) => {
             const { weight, repetitions, repsInReserve, targetRIR } = set;
 
-            // add more sets based on rir
             const newSet = new Set({
               weight,
               targetReps:

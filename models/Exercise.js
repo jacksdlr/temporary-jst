@@ -21,6 +21,11 @@ const ExerciseSchema = new mongoose.Schema({
     type: String,
     enum: ['None', 'Increase', 'Decrease'],
   },
+  performanceScore: {
+    type: Number,
+    min: 1,
+    max: 4,
+  },
 });
 
 const Exercise = mongoose.model('Exercise', ExerciseSchema);
