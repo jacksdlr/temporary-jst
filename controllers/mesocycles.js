@@ -119,11 +119,12 @@ const createMeso = async (req, res) => {
         sessionNumber: index + 1,
         musclesTrained,
         exercises: exercises.map((exercise) => {
-          const { exerciseName, repRange, notes } = exercise;
+          const { exerciseName, repRange, notes, muscleGroup } = exercise;
 
           const newExercise = new Exercise({
             exerciseName,
             repRange,
+            muscleGroup,
             sets: [
               new Set({
                 targetReps: repRange.match(/^\d+/)[0],

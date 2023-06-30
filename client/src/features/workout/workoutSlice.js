@@ -64,8 +64,13 @@ const workoutSlice = createSlice({
         state.workout.exercises[exerciseIndex].sets[setIndex][input] = value;
       }
     },
-    addSet: (state, { payload: { newSet, exerciseIndex } }) => {
-      state.workout.exercises[exerciseIndex].sets.push(newSet);
+    addSet: (state, { payload: { newSet, id } }) => {
+      const exercise = state.workout.exercises.find(
+        (exercise) => exercise._id == id
+      );
+      // state.workout.exercises[exerciseIndex].sets.push(newSet);
+      exercise.sets.push(newSet);
+      // exercise.performanceScore++;
     },
     clearWorkoutState: () => initialState,
     getCurrentExercise: (state) => {
@@ -98,8 +103,8 @@ const workoutSlice = createSlice({
     closeRecoveryModal: (state) => {
       state.recoveryModal.isOpen = false;
     },
-    setRecoveryScore: (state, { payload: { muscle, score } }) => {
-      state.recoveryModal[muscle] = score;
+    setRecoveryScore: (state, { payload: { muscleGroup, recoveryScore } }) => {
+      state.recoveryModal[muscleGroup] = recoveryScore;
     },
     // THIS IS BACKEND FOR NOW, UNSURE HOW TO MAKE IT DISPATCH ON FORM SUBMIT BUT BEFORE SENDING DATA
     // calculateScores: (state) => {

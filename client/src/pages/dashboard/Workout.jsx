@@ -4,7 +4,6 @@ import {
   openRecoveryModal,
   getNextWorkout,
   updateWorkout,
-  // calculateScores,
 } from '../../features/workout/workoutSlice';
 import Loading from '../../components/Loading';
 import Wrapper from '../../assets/css-wrappers/WorkoutPage';
@@ -19,13 +18,6 @@ const Workout = () => {
   const { isLoading, workout, mesoId, recoveryModal } = useSelector(
     (store) => store.workout
   );
-
-  const { user } = useSelector((store) => store.user);
-
-  /* const mesoStatus = user.mesocycles.find(
-        (meso) => mesoId == meso._id
-      ).status;
-      if (mesoStatus == 'Active') {} */
 
   useEffect(() => {
     if (!workout) {
@@ -75,9 +67,7 @@ const Workout = () => {
       {/* add a user profile setting to enable/disable automatic set additions */}
       {workout.microcycle != 1 &&
         workout.status == 'Planned' &&
-        recoveryModal.isOpen && (
-          <Modal musclesTrained={workout.musclesTrained} />
-        )}
+        recoveryModal.isOpen && <Modal />}
       {/* {recoveryModal.isOpen && (
         <Modal musclesTrained={workout.musclesTrained} />
       )} */}

@@ -62,24 +62,23 @@ const MesoDetails = () => {
       return;
     }
 
-    for (let i = 0; i < sessions.length; i++) {
-      if (sessions[i].exercises.length === 0) {
+    sessions.map((session) => {
+      if (session.exercises.length === 0) {
         toast.error(
-          `Session "${sessions[i].sessionName}" does not have any exercises`
+          `Session "${session.sessionName}" does not have any exercises`
         );
         return;
       }
-      for (let j = 0; j < sessions[i].exercises.length; j++) {
-        const { muscleGroup, exerciseName, repRange } =
-          sessions[i].exercises[j];
+      session.exercises.map((exercise) => {
+        const { muscleGroup, exerciseName, repRange } = exercise;
         if (!muscleGroup || !exerciseName || !repRange) {
           toast.error(
-            `Session "${sessions[i].sessionName}" has incomplete details`
+            `Session "${session.sessionName}" has incomplete details`
           );
           return;
         }
-      }
-    }
+      });
+    });
 
     // toast.success('submitted');
     dispatch(

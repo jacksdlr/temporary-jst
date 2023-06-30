@@ -33,26 +33,16 @@ const Mesocycle = ({
 }) => {
   const dispatch = useDispatch();
 
-  /* sessions = sessions.map((session) => {
-    if (
-      !sessions.find((item) => {
-        item.sessionName == session.sessionName;
-      })
-    ) {
-      return session;
-    }
-  }); */
-
   let uniqueSessions = [];
-  for (let i = 0; i < sessions.length; i++) {
+  sessions.map((session) => {
     if (
       !uniqueSessions.find(
-        (session) => session.sessionName == sessions[i].sessionName
+        (session) => session.sessionName == session.sessionName
       )
     ) {
-      uniqueSessions.push(sessions[i]);
+      uniqueSessions.push(session);
     }
-  }
+  });
 
   return (
     <Wrapper>

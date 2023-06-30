@@ -161,15 +161,14 @@ const updateWorkout = async (req, res) => {
     let setsCount = 0;
     let setsToFailure = 0;
 
-    for (let i = 0; i < exercises.length; i++) {
-      for (let j = 0; j < exercises[i].sets.length; j++) {
+    exercises.map((exercise) => {
+      exercise.sets.map((set) => {
         setsCount++;
-        if (exercises[i].sets[j].repsInReserve == 0) {
+        if (set.repsInReserve == 0) {
           setsToFailure++;
         }
-      }
-    }
-    console.log(setsCount, setsToFailure);
+      });
+    });
 
     const newSession = new Session({
       microcycle: microcycle + 1,
@@ -188,24 +187,21 @@ const updateWorkout = async (req, res) => {
 
         let changeWeight;
 
-        for (let i = 0; i < sets.length; i++) {
-          if (sets[i].repetitions < repRangeLower) {
-            lessThanMinRepsSets++;
-          }
-        }
-
-        for (let i = 0; i < sets.length; i++) {
-          if (
-            sets[i].repetitions >= repRangeUpper &&
-            lessThanMinRepsSets == 0
-          ) {
-            changeWeight = 'Increase';
-          } else if (sets[i].repetitions < 5) {
-            changeWeight = 'Decrease';
-          } /*  else if (sets[i].repsInReserve <= sets[i].targetRIR - 2) {
-          changeWeight = 'Decrease';
-        } */
-        }
+        sets
+          .map((set) => {
+            if (set.repetitions < repRangeLower) {
+              lessThanMinRepsSets++;
+            }
+          })
+          .map((set) => {
+            if (set.repetitions >= repRangeUpper && lessThanMinRepsSets == 0) {
+              changeWeight = 'Increase';
+            } else if (set.repetitions < 5) {
+              changeWeight = 'Decrease';
+            } /* else if (sets[i].repsInReserve <= sets[i].targetRIR - 2) {
+              changeWeight = 'Decrease';
+            } */
+          });
 
         if (lessThanMinRepsSets == sets.length) {
           changeWeight = 'Decrease';

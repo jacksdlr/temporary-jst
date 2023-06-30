@@ -26,6 +26,9 @@ const ExerciseSchema = new mongoose.Schema({
     min: 1,
     max: 4,
   },
+  muscleGroup: {
+    type: String,
+  },
 });
 
 const Exercise = mongoose.model('Exercise', ExerciseSchema);
