@@ -8,14 +8,19 @@ const FormRow = ({
   placeholder,
   min,
   step,
+  className,
 }) => {
   return (
-    <div className={`form-row ${type == 'checkbox' && 'checkbox'}`}>
-      <label htmlFor={name} className='form-label'>
-        {labelText}
-      </label>
+    <div
+      className={`form-row ${type == 'checkbox' && 'checkbox'} ${className}`}
+    >
+      {labelText && (
+        <label htmlFor={name} className='form-label'>
+          {labelText}
+        </label>
+      )}
       <input
-        className='form-input'
+        className={`form-input`}
         type={type}
         name={name}
         value={value}

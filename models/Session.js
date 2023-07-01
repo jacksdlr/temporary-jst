@@ -9,6 +9,7 @@ const SessionSchema = new mongoose.Schema(
     },
     sessionName: {
       type: String,
+      required: true,
     },
     sessionNumber: {
       type: Number,

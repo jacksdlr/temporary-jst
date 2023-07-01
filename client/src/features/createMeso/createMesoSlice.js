@@ -14,6 +14,7 @@ const initialState = {
   setActive: false,
   sessions: [],
   sessionsCount: 0,
+  mesoNotes: '',
   isEditing: false,
 };
 
@@ -50,6 +51,7 @@ const createMesoSlice = createSlice({
         sessionsCount: state.sessionsCount,
         sessionName: `Session ${state.sessionsCount}`,
         exercises: [],
+        sessionNotes: '',
       });
     },
     deleteSession: (state, { payload: { sessionIndex } }) => {
@@ -67,6 +69,8 @@ const createMesoSlice = createSlice({
         muscleGroup: '',
         exerciseName: '',
         repRange: '',
+        sets: 2,
+        exerciseNotes: '',
       });
     },
     deleteExercise: (state, { payload: { sessionIndex, exerciseIndex } }) => {
@@ -76,7 +80,8 @@ const createMesoSlice = createSlice({
             muscleGroup: '',
             exerciseName: '',
             repRange: '',
-            notes: '',
+            sets: 2,
+            exerciseNotes: '',
           });
     },
     clearInputs: () => {

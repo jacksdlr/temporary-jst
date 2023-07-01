@@ -28,18 +28,28 @@ const Workout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    workout.exercises.map((exercise) => {
+    for (let i = 0; i < workout.exercises.length; i++) {
+      for (let j = 0; j < workout.exercises[i].sets.length; j++) {
+        if (
+          workout.exercises[i].sets[j].weight == undefined ||
+          workout.exercises[i].sets[j].repetitions == undefined ||
+          workout.exercises[i].sets[j].repsInReserve == undefined
+        ) {
+          return toast.error('One or more exercise details are incomplete');
+        }
+      }
+    }
+    /* workout.exercises.map((exercise) => {
       exercise.sets.map((set) => {
         if (
           set.weight == undefined ||
           set.repetitions == undefined ||
           set.repsInReserve == undefined
         ) {
-          toast.error('One or more exercise details are incomplete');
-          return;
+          return toast.error('One or more exercise details are incomplete');
         }
       });
-    });
+    }); */
 
     dispatch(updateWorkout({ workout, mesoId }));
   };

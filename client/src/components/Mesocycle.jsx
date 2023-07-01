@@ -33,16 +33,35 @@ const Mesocycle = ({
 }) => {
   const dispatch = useDispatch();
 
+  /* sessions = sessions.map((session) => {
+    if (
+      !sessions.find((item) => {
+        item.sessionName == session.sessionName;
+      })
+    ) {
+      return session;
+    }
+  }); */
+
   let uniqueSessions = [];
   sessions.map((session) => {
     if (
       !uniqueSessions.find(
-        (session) => session.sessionName == session.sessionName
+        (uniqueSession) => uniqueSession.sessionName == session.sessionName
       )
     ) {
       uniqueSessions.push(session);
     }
   });
+  /* for (let i = 0; i < sessions.length; i++) {
+    if (
+      !uniqueSessions.find(
+        (session) => session.sessionName == sessions[i].sessionName
+      )
+    ) {
+      uniqueSessions.push(sessions[i]);
+    }
+  } */
 
   return (
     <Wrapper>
@@ -68,11 +87,13 @@ const Mesocycle = ({
         </h5>
       </header>
       <div className='content'>
-        <div className='stats'>
-          {goal && <p>{goal}</p>}
-          {startWeight && <p>Start weight: {startWeight}kg</p>}
-          {endWeight && <p>End weight: {endWeight}kg</p>}
-        </div>
+        {(goal || startWeight || endWeight) && (
+          <div className='stats'>
+            {goal && <p>{goal}</p>}
+            {startWeight && <p>Start weight: {startWeight}kg</p>}
+            {endWeight && <p>End weight: {endWeight}kg</p>}
+          </div>
+        )}
         <div className='sessions'>
           {uniqueSessions.map((session, index) => (
             <Link
@@ -91,14 +112,16 @@ const Mesocycle = ({
             </Link>
           ))}
         </div>
-        <div className='notes'>
-          {notes.map((note, index) => (
-            <div key={index} className='note'>
-              <AiOutlineFile />
-              <p>{note}</p>
-            </div>
-          ))}
-        </div>
+        {notes.length > 0 && (
+          <div className='notes'>
+            {notes.map((note, index) => (
+              <div key={index} className='note'>
+                <AiOutlineFile />
+                <p>{note}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <footer>
         <div className='actions'>

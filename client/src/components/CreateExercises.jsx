@@ -41,10 +41,10 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
       className={
         !exercise.muscleGroup
           ? 'form'
-          : `form exercise-container ${exercise.muscleGroup}`
+          : `form border-bottom exercise-container ${exercise.muscleGroup}`
       }
     >
-      <div className='label'>
+      <div className='label border-bottom'>
         <h5>{exercise.muscleGroup || 'Exercise'}</h5>
         {exercise.muscleGroup ? (
           <AiOutlineRollback
@@ -101,12 +101,13 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
                 ]
           }
           handleChange={(e) => handleChange(e, sessionIndex, exerciseIndex)}
+          className='select-exercise'
         />
         {exercise.exerciseName && (
           <>
             <FormRowSelect
               name='repRange'
-              labelText=''
+              labelText='Rep range: '
               value={exercise.repRange}
               list={[
                 'Select a rep range',
@@ -124,16 +125,29 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
                 '25-30',
               ]}
               handleChange={(e) => handleChange(e, sessionIndex, exerciseIndex)}
+              className='select-reps'
             />
             <FormRow
-              type='text'
-              name='notes'
+              type='number'
+              name='sets'
+              labelText='Sets (first week): '
+              // placeholder='Select sets for first week'
+              value={exercise.sets}
+              handleChange={(e) => handleChange(e, sessionIndex, exerciseIndex)}
+              className='select-sets'
+              step='1'
+              min='1'
+            />
+            <FormRow
+              type='textarea'
+              name='exerciseNotes'
               labelText=''
-              value={exercise.notes}
+              value={exercise.exerciseNotes}
               placeholder='Additional notes'
               handleChange={(e) => {
                 handleChange(e, sessionIndex, exerciseIndex);
               }}
+              className='exercise-notes'
             />
           </>
         )}

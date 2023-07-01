@@ -128,14 +128,13 @@ const updateWorkout = async (req, res) => {
     body: { musclesTrained, notes, microcycle, sessionName, sessionNumber },
   } = req;
 
-  console.log(req.body.exercises);
-
   const exercises = req.body.exercises.map((exercise) => {
-    const { notes, _id, exerciseName, repRange, sets } = exercise;
+    const { notes, _id, exerciseName, repRange, sets, muscleGroup } = exercise;
     return {
       notes,
       _id,
       exerciseName,
+      muscleGroup,
       repRange,
       sets,
     };
@@ -156,7 +155,7 @@ const updateWorkout = async (req, res) => {
   workout.exercises = exercises;
 
   if (workout.status == 'Planned') {
-    // workout.status = 'Completed';
+    workout.status = 'Completed';
 
     let setsCount = 0;
     let setsToFailure = 0;
@@ -170,13 +169,17 @@ const updateWorkout = async (req, res) => {
       });
     });
 
+    if (meso.microcycles < microcycle + 1) {
+      meso.microcycles = microcycle + 1;
+    }
+
     const newSession = new Session({
       microcycle: microcycle + 1,
       sessionName,
       sessionNumber,
       musclesTrained,
       exercises: exercises.map((exercise) => {
-        const { notes, exerciseName, repRange, sets } = exercise;
+        const { notes, exerciseName, repRange, sets, muscleGroup } = exercise;
 
         const repRangeLower = Number(repRange.match(/^\d+/)[0]);
         const repRangeUpper = Number(repRange.match(/\d+$/)[0]);
@@ -187,108 +190,107 @@ const updateWorkout = async (req, res) => {
 
         let changeWeight;
 
-        sets
-          .map((set) => {
-            if (set.repetitions < repRangeLower) {
-              lessThanMinRepsSets++;
-            }
-          })
-          .map((set) => {
-            if (set.repetitions >= repRangeUpper && lessThanMinRepsSets == 0) {
-              changeWeight = 'Increase';
-            } else if (set.repetitions < 5) {
-              changeWeight = 'Decrease';
-            } /* else if (sets[i].repsInReserve <= sets[i].targetRIR - 2) {
+        sets.map((set) => {
+          if (set.repetitions < repRangeLower) {
+            lessThanMinRepsSets++;
+          }
+        });
+
+        sets.map((set) => {
+          if (set.repetitions >= repRangeUpper && lessThanMinRepsSets == 0) {
+            changeWeight = 'Increase';
+          } else if (set.repetitions < 5) {
+            changeWeight = 'Decrease';
+          } /* else if (sets[i].repsInReserve <= sets[i].targetRIR - 2) {
               changeWeight = 'Decrease';
             } */
-          });
-
+        });
         if (lessThanMinRepsSets == sets.length) {
           changeWeight = 'Decrease';
-        } else {
-          let hardSets = 0;
-
-          sets.map((set, index) => {
-            const { repetitions, targetReps, repsInReserve, targetRIR } = set;
-
-            // Depending on repetitions achieved and reps in reserve, a performance score is allocated
-            // At the moment they are very strict, a single set bring the score down
-
-            const calculatedReps =
-              repetitions - targetReps + (repsInReserve - targetRIR);
-
-            // very tricky to get right
-
-            if (microcycle != 1) {
-              if (calculatedReps >= 2 && performanceScore < 3 && index != 0) {
-                performanceScore = 1;
-              } else if (calculatedReps >= 0 && performanceScore != 4) {
-                performanceScore = 2;
-              } else if (
-                repetitions == targetReps &&
-                repsInReserve >= targetRIR - 1 &&
-                index != 0 &&
-                performanceScore < 3
-              ) {
-                hardSets++;
-                if (hardSets < Math.ceil(sets.length / hardSets)) {
-                  performanceScore = 2;
-                } else {
-                  performanceScore = 3;
-                }
-              } else if (repetitions < targetReps) {
-                performanceScore = 4;
-              } else if (performanceScore != 4) {
-                performanceScore = 3;
-              }
-            } else {
-              if (calculatedReps >= 2 && performanceScore != 4) {
-                performanceScore = 1;
-              } else if (calculatedReps >= -1 && performanceScore != 4) {
-                performanceScore = 2;
-              } else if (calculatedReps >= 0) {
-                performanceScore = 2;
-              } else if (repetitions < 5) {
-                performanceScore = 4;
-                changeWeight = 'Decrease';
-              } else if (performanceScore != 4) {
-                performanceScore = 3;
-              }
-            }
-
-            // first idea
-            // if (
-            //   ((repetitions > targetReps + 1 && repsInReserve >= targetRIR) ||
-            //     (repetitions >= targetReps && repsInReserve > targetRIR + 1)) &&
-            //   performanceScore != 4
-            // ) {
-            //   performanceScore = 1;
-            // } else if (
-            //   ((repetitions == targetReps + 1 &&
-            //     repsInReserve >= targetRIR - 1) ||
-            //     (repetitions == targetReps && repsInReserve == targetRIR + 1) ||
-            //     (repetitions == targetReps && repsInReserve == targetRIR)) &&
-            //   performanceScore != 4
-            // ) {
-            //   performanceScore = 2;
-            // } else if (
-            //   repetitions == targetReps &&
-            //   repsInReserve < targetRIR &&
-            //   performanceScore != 4
-            // ) {
-            //   performanceScore = 3;
-            // } else if (repetitions < targetReps) {
-            //   // too strict for first week
-            //   performanceScore = 4;
-            // } else if (repsInReserve < targetRIR - 1 && performanceScore != 4) {
-            //   performanceScore = 3;
-            // }
-          });
         }
 
+        let hardSets = 0;
+
+        sets.map((set, index) => {
+          const { repetitions, targetReps, repsInReserve, targetRIR } = set;
+
+          // Depending on repetitions achieved and reps in reserve, a performance score is allocated
+          // At the moment they are very strict, a single set bring the score down
+
+          const calculatedReps =
+            repetitions - targetReps + (repsInReserve - targetRIR);
+
+          // very tricky to get right
+
+          if (microcycle != 1) {
+            if (calculatedReps >= 2 && performanceScore < 3 && index != 0) {
+              performanceScore = 1;
+            } else if (calculatedReps >= 0 && performanceScore != 4) {
+              performanceScore = 2;
+            } else if (
+              repetitions == targetReps &&
+              repsInReserve >= targetRIR - 1 &&
+              index != 0 &&
+              performanceScore < 3
+            ) {
+              hardSets++;
+              if (hardSets < Math.ceil(sets.length / hardSets)) {
+                performanceScore = 2;
+              } else {
+                performanceScore = 3;
+              }
+            } else if (repetitions < targetReps) {
+              performanceScore = 4;
+            } else if (performanceScore != 4) {
+              performanceScore = 3;
+            }
+          } else {
+            if (calculatedReps >= 2 && performanceScore != 4) {
+              performanceScore = 1;
+            } else if (calculatedReps >= -1 && performanceScore != 4) {
+              performanceScore = 2;
+            } else if (calculatedReps >= 0) {
+              performanceScore = 2;
+            } else if (repetitions < 5) {
+              performanceScore = 4;
+              changeWeight = 'Decrease';
+            } else if (performanceScore != 4) {
+              performanceScore = 3;
+            }
+          }
+
+          // first idea
+          // if (
+          //   ((repetitions > targetReps + 1 && repsInReserve >= targetRIR) ||
+          //     (repetitions >= targetReps && repsInReserve > targetRIR + 1)) &&
+          //   performanceScore != 4
+          // ) {
+          //   performanceScore = 1;
+          // } else if (
+          //   ((repetitions == targetReps + 1 &&
+          //     repsInReserve >= targetRIR - 1) ||
+          //     (repetitions == targetReps && repsInReserve == targetRIR + 1) ||
+          //     (repetitions == targetReps && repsInReserve == targetRIR)) &&
+          //   performanceScore != 4
+          // ) {
+          //   performanceScore = 2;
+          // } else if (
+          //   repetitions == targetReps &&
+          //   repsInReserve < targetRIR &&
+          //   performanceScore != 4
+          // ) {
+          //   performanceScore = 3;
+          // } else if (repetitions < targetReps) {
+          //   // too strict for first week
+          //   performanceScore = 4;
+          // } else if (repsInReserve < targetRIR - 1 && performanceScore != 4) {
+          //   performanceScore = 3;
+          // }
+        });
         const newExercise = new Exercise({
           notes,
           exerciseName,
+          muscleGroup,
           repRange,
           changeWeight,
           performanceScore,
@@ -339,7 +341,15 @@ const deleteWorkout = async (req, res) => {
 
   const session = meso.sessions.find((session) => session._id == workoutId);
 
-  session.length == 1 ? meso.remove() : session.remove();
+  meso.sessions.length == 1 ? meso.remove() : session.remove();
+
+  meso.microcycles = session.microcycle - 1;
+  meso.sessions.map((item) => {
+    if (item.microcycle > meso.microcycles) {
+      meso.microcycles = item.microcycle;
+    }
+  });
+
   await user.save();
 
   res.status(StatusCodes.OK).json({

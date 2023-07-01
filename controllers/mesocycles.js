@@ -73,13 +73,19 @@ const getAllMesocycles = async (req, res) => {
 const createMeso = async (req, res) => {
   const {
     mesoName,
-    microcycles,
     goal,
     startDate,
     startWeight,
     setActive,
     sessions,
+    sessionsCount,
+    mesoNotes,
   } = req.body;
+
+  let notes = [];
+  if (mesoNotes) {
+    notes.push(mesoNotes);
+  }
 
   const user = await User.findById(req.user.userId);
 
@@ -98,13 +104,15 @@ const createMeso = async (req, res) => {
 
   const newMesocycle = new Mesocycle({
     mesoName,
-    microcycles,
+    microcycles: 1,
     goal,
     startDate,
     startWeight,
+    sessionsCount,
+    notes,
     status: !setActive ? 'Planned' : 'Active',
     sessions: sessions.map((session, index) => {
-      const { sessionName, exercises } = session;
+      const { sessionName, exercises, sessionNotes } = session;
 
       let musclesTrained = [];
       exercises.map((exercise) => {
@@ -113,28 +121,51 @@ const createMeso = async (req, res) => {
         }
       });
 
+      notes = [];
+      if (sessionNotes) {
+        notes.push(sessionNotes);
+      }
+
       const newSession = new Session({
         microcycle: 1,
         sessionName,
         sessionNumber: index + 1,
         musclesTrained,
+        notes,
         exercises: exercises.map((exercise) => {
-          const { exerciseName, repRange, notes, muscleGroup } = exercise;
+          const { exerciseName, repRange, exerciseNotes, muscleGroup } =
+            exercise;
+
+          let setsArray = [];
+          for (; exercise.sets; ) {
+            setsArray.push(
+              new Set({
+                targetReps: repRange.match(/^\d+/)[0],
+                targetRIR: /* microcycles < 8 ? 3 : microcycles < 4 ? 2 : 1, */ 3,
+              })
+            );
+            exercise.sets--;
+          }
+
+          notes = [];
+          if (exerciseNotes) {
+            notes.push(exerciseNotes);
+          }
 
           const newExercise = new Exercise({
             exerciseName,
             repRange,
             muscleGroup,
-            sets: [
+            sets: setsArray /* [
               new Set({
                 targetReps: repRange.match(/^\d+/)[0],
-                targetRIR: microcycles < 8 ? 3 : microcycles < 4 ? 2 : 1,
+                targetRIR: /* microcycles < 8 ? 3 : microcycles < 4 ? 2 : 1,  3,
               }),
               new Set({
                 targetReps: repRange.match(/^\d+/)[0],
-                targetRIR: microcycles < 8 ? 3 : microcycles < 4 ? 2 : 1,
+                targetRIR: /* microcycles < 8 ? 3 : microcycles < 4 ? 2 : 1,  3,
               }),
-            ],
+            ], */,
             notes,
           });
           return newExercise;
@@ -142,8 +173,6 @@ const createMeso = async (req, res) => {
       });
       return newSession;
     }),
-    currentSession: '',
-    notes: [],
   });
 
   user.mesocycles.push(newMesocycle);

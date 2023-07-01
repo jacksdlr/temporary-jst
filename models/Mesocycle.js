@@ -12,8 +12,6 @@ const MesocycleSchema = new mongoose.Schema(
     microcycles: {
       type: Number,
       min: 1,
-      max: 8,
-      required: true,
     },
     goal: {
       type: String,
@@ -29,6 +27,11 @@ const MesocycleSchema = new mongoose.Schema(
       type: Number,
     },
     sessions: [SessionSchema],
+    sessionsCount: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
     status: {
       type: String,
       required: true,

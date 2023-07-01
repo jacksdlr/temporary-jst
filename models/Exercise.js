@@ -16,6 +16,7 @@ const ExerciseSchema = new mongoose.Schema({
   },
   repRange: {
     type: String,
+    required: true,
   },
   changeWeight: {
     type: String,
@@ -28,6 +29,7 @@ const ExerciseSchema = new mongoose.Schema({
   },
   muscleGroup: {
     type: String,
+    required: true,
   },
 });
 

@@ -29,7 +29,7 @@ const MesoDetails = () => {
     sessionsCount,
     isEditing,
     _id,
-    notes,
+    mesoNotes,
   } = useSelector((store) => store.createMeso);
 
   const handleSubmit = (e) => {
@@ -52,17 +52,28 @@ const MesoDetails = () => {
       return;
     }
 
-    if (!microcycles) {
-      toast.error('Please specify mesocycle length');
-      return;
-    }
-
     if (sessions.length === 0) {
       toast.error('At least one session must exist');
       return;
     }
 
-    sessions.map((session) => {
+    for (let i = 0; i < sessions.length; i++) {
+      if (sessions[i].exercises.length === 0) {
+        return toast.error(
+          `Session "${sessions[i].sessionName}" does not have any exercises`
+        );
+      }
+      for (let j = 0; j < sessions[i].exercises.length; j++) {
+        const { muscleGroup, exerciseName, repRange } =
+          sessions[i].exercises[j];
+        if (!muscleGroup || !exerciseName || !repRange) {
+          return toast.error(
+            `Session "${sessions[i].sessionName}" has incomplete details`
+          );
+        }
+      }
+    }
+    /* sessions.map((session) => {
       if (session.exercises.length === 0) {
         toast.error(
           `Session "${session.sessionName}" does not have any exercises`
@@ -78,18 +89,19 @@ const MesoDetails = () => {
           return;
         }
       });
-    });
+    }); */
 
     // toast.success('submitted');
     dispatch(
       createMeso({
         mesoName,
-        microcycles,
         goal,
         startDate,
         startWeight,
         setActive,
         sessions,
+        sessionsCount,
+        mesoNotes,
       })
     );
   };
@@ -116,13 +128,13 @@ const MesoDetails = () => {
             value={mesoName}
             handleChange={handleMesoInput}
           />
-          <FormRowSelect
+          {/* <FormRowSelect
             name='microcycles'
             labelText='Microcycles *'
             value={microcycles}
             list={['Select mesocycle length', 1, 2, 3, 4, 5, 6, 7, 8]}
             handleChange={handleMesoInput}
-          />
+          /> */}
           <FormRowSelect
             name='goal'
             labelText='Goal'
@@ -153,6 +165,14 @@ const MesoDetails = () => {
               handleChange={handleMesoInput}
             />
           )}
+          <FormRow
+            type='textarea'
+            name='mesoNotes'
+            labelText='Additional Notes'
+            placeholder='More mesocycle info...'
+            value={mesoNotes}
+            handleChange={handleMesoInput}
+          />
           <FormRow
             type='checkbox'
             name='setActive'
