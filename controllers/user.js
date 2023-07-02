@@ -36,6 +36,7 @@ const userObject = (user) => {
     },
     stats,
     token,
+    version: user.__v,
   };
 };
 
@@ -116,10 +117,23 @@ const updateUserData = async (req, res) => {
   });
 };
 
+const syncUserData = async (req, res) => {
+  const user = await User.findOne({ _id: req.user.userId });
+
+  if (req.query.version != user.__v) {
+    res.status(StatusCodes.OK).json({
+      user: userObject(user),
+      msg: 'Synced user data!',
+    });
+  }
+  res.status(StatusCodes.OK).json({ msg: 'User up to date!' });
+};
+
 module.exports = {
   userObject,
   register,
   login,
   updateUserDetails,
   updateUserData,
+  syncUserData,
 };

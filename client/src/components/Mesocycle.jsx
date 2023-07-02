@@ -142,7 +142,7 @@ const Mesocycle = ({
                   mesoName,
                   setActive: status == 'Active' ? true : false,
                   microcycles,
-                  notes,
+                  mesoNotes: notes[0],
                   goal,
                   startDate:
                     startDate &&

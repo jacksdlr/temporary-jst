@@ -10,11 +10,13 @@ import {
   loginUserThunk,
   updateUserDetailsThunk,
   updateUserDataThunk,
+  syncUserDataThunk,
   clearAllStoresThunk,
 } from './userThunk';
 import { createMeso, editMeso } from '../createMeso/createMesoSlice';
 import { deleteWorkout } from '../allWorkouts/allWorkoutsSlice';
 import { deleteMeso } from '../allMesocycles/allMesocyclesSlice';
+import { updateWorkout } from '../workout/workoutSlice';
 
 const initialState = {
   isLoading: false,
@@ -46,6 +48,13 @@ export const updateUserData = createAsyncThunk(
   'user/updateUserData',
   async (user, thunkAPI) => {
     return updateUserDataThunk('/user/updateUserData', user, thunkAPI);
+  }
+);
+
+export const syncUserData = createAsyncThunk(
+  'user/syncUserData',
+  async (version, thunkAPI) => {
+    return syncUserDataThunk(`/user?version=${version}`, thunkAPI);
   }
 );
 
@@ -149,6 +158,30 @@ const userSlice = createSlice({
       })
       .addCase(clearStore.rejected, () => {
         toast.error('There was an error');
+      })
+      .addCase(updateWorkout.fulfilled, (state, { payload }) => {
+        const { user } = payload;
+        state.user = user;
+        addUserToLocalStorage(user);
+      })
+      .addCase(syncUserData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(syncUserData.fulfilled, (state, { payload }) => {
+        const { user, msg } = payload;
+
+        if (msg == 'Synced user data!') {
+          state.isLoading = false;
+          state.user = user;
+          addUserToLocalStorage(user);
+          toast.success(msg);
+        }
+
+        state.isLoading = false;
+      })
+      .addCase(syncUserData.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
       });
   },
 });

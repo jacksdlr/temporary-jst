@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { getUserFromLocalStorage } from '../../utils/localStorage';
+import { createMeso, editMeso } from '../createMeso/createMesoSlice';
 import {
   getNextWorkoutThunk,
   getWorkoutThunk,
@@ -8,8 +11,12 @@ import {
 
 const initialState = {
   isLoading: false,
-  workout: null,
-  mesoId: null,
+  workout: getUserFromLocalStorage()
+    ?.mesocycles?.find((meso) => meso.status == 'Active')
+    ?.sessions?.find((session) => session.status == 'Planned'),
+  mesoId: getUserFromLocalStorage()?.mesocycles?.find(
+    (meso) => meso.status == 'Active'
+  )?._id,
   recoveryModal: {
     isOpen: true,
   },
@@ -207,9 +214,37 @@ const workoutSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateWorkout.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.workout = payload.workout;
-        state.mesoId = payload.mesoId;
+        return {
+          ...initialState,
+          workout: payload.user.mesocycles
+            .find((meso) => meso.status == 'Active')
+            .sessions?.find((session) => session.status == 'Planned'),
+          mesoId: payload.user.mesocycles.find(
+            (meso) => meso.status == 'Active'
+          )._id,
+        };
+      })
+      .addCase(createMeso.fulfilled, (state, { payload }) => {
+        return {
+          ...initialState,
+          workout: payload.user.mesocycles
+            .find((meso) => meso.status == 'Active')
+            .sessions?.find((session) => session.status == 'Planned'),
+          mesoId: payload.user.mesocycles.find(
+            (meso) => meso.status == 'Active'
+          )._id,
+        };
+      })
+      .addCase(editMeso.fulfilled, (state, { payload }) => {
+        return {
+          ...initialState,
+          workout: payload.user.mesocycles
+            .find((meso) => meso.status == 'Active')
+            .sessions?.find((session) => session.status == 'Planned'),
+          mesoId: payload.user.mesocycles.find(
+            (meso) => meso.status == 'Active'
+          )._id,
+        };
       })
       .addCase(updateWorkout.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -230,6 +265,7 @@ export const {
   closeRecoveryModal,
   setRecoveryScore,
   // calculateScores,
+  getNextWorkoutName,
 } = workoutSlice.actions;
 
 export default workoutSlice.reducer;

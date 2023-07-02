@@ -78,10 +78,10 @@ const Wrapper = styled.section`
     white-space: nowrap;
   }
   .select-reps select {
-    max-width: 25rem;
+    /* max-width: 25rem; */
   }
   .select-sets input {
-    max-width: 5rem;
+    /* max-width: 5rem; */
   }
   .form-center button,
   .add-exercise {
@@ -179,7 +179,7 @@ const Wrapper = styled.section`
     }
     .select-sets {
       grid-area: sets;
-      justify-content: flex-end;
+      justify-content: flex-start;
     }
     .exercise-notes {
       grid-area: notes;

@@ -50,7 +50,7 @@ const MesocyclesSearchContainer = () => {
   return (
     <Wrapper>
       <form className='form'>
-        <h4>search workouts</h4>
+        <h4>search mesocycles</h4>
         <div className='form-center'>
           <FormRow
             type='text'

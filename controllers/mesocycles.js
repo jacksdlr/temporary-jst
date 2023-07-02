@@ -193,14 +193,18 @@ const updateMeso = async (req, res) => {
     body: {
       mesoName,
       setActive,
-      microcycles,
-      notes,
+      mesoNotes,
       goal,
       startDate,
       startWeight,
       endWeight,
     },
   } = req;
+
+  let notes = [];
+  if (mesoNotes) {
+    notes.push(mesoNotes);
+  }
 
   const user = await User.findById(userId);
 
@@ -224,7 +228,7 @@ const updateMeso = async (req, res) => {
       ? (meso.status = 'Planned')
       : (meso.status = 'Incomplete');
   }
-  meso.microcycles = microcycles || '';
+
   meso.notes = notes || '';
   meso.goal = goal || '';
   meso.startDate = startDate || '';

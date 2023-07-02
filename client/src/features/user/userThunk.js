@@ -61,6 +61,15 @@ export const updateUserDataThunk = async (url, user, thunkAPI) => {
   }
 };
 
+export const syncUserDataThunk = async (url, thunkAPI) => {
+  try {
+    const response = await customFetch.get(url);
+    return response.data;
+  } catch (error) {
+    return checkForUnauthorizedResponse(error, thunkAPI);
+  }
+};
+
 export const clearAllStoresThunk = async (message, thunkAPI) => {
   try {
     thunkAPI.dispatch(logoutUser(message));

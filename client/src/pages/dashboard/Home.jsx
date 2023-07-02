@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   StatsContainer,
   // ChartsContainer,
@@ -12,6 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 import Wrapper from '../../assets/css-wrappers/HomePage';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import { syncUserData } from '../../features/user/userSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,22 @@ const Home = () => {
 
   const { isLoading, workout } = useSelector((store) => store.workout);
 
+  // useEffect(() => {
+  //   if (!workout) {
+  //     dispatch(getNextWorkout());
+  //   }
+  // }, [user]);
+
   useEffect(() => {
-    dispatch(getNextWorkout());
+    console.log('checking version...');
+    dispatch(syncUserData(user.version));
+  }, []);
+
+  const nextWorkout = useMemo(() => {
+    // this happens every time you go to the page? stop.
+    return user?.mesocycles
+      ?.find((meso) => meso.status == 'Active')
+      ?.sessions?.find((session) => session.status == 'Planned')?.sessionName;
   }, [user]);
 
   if (isLoading) {
@@ -30,7 +45,7 @@ const Home = () => {
 
   return (
     <Wrapper>
-      {!workout ? (
+      {!nextWorkout ? (
         <Link to={'/create-meso'} className='btn btn-hero'>
           <h3>Create a mesocycle</h3>
           <AiOutlineArrowRight size={'3rem'} />
@@ -41,9 +56,10 @@ const Home = () => {
           className='btn btn-hero'
           onClick={() => {
             dispatch(openRecoveryModal());
+            dispatch(getNextWorkout());
           }}
         >
-          <h3>Go to next workout: '{workout.sessionName}'</h3>
+          <h3>Go to next workout: '{nextWorkout}'</h3>
           <AiOutlineArrowRight size={'3rem'} />
         </Link>
       )}

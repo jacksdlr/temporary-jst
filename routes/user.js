@@ -4,6 +4,7 @@ const {
   login,
   updateUserDetails,
   updateUserData,
+  syncUserData,
 } = require('../controllers/user');
 const authenticateUser = require('../middleware/authentication');
 const testUser = require('../middleware/test-user');
@@ -18,6 +19,8 @@ const apiLimiter = rateLimiter({
     msg: 'You have sent too many requests, please try again in 5 minutes.',
   },
 });
+
+router.get('/', authenticateUser, syncUserData);
 
 router.post('/register', apiLimiter, register);
 router.post('/login', apiLimiter, login);

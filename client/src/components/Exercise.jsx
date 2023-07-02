@@ -133,16 +133,13 @@ const Exercise = ({
               ) {
                 targetReps--;
               } else if (
-                weight <= prevWeight &&
+                weight == prevWeight &&
                 targetReps > 5 &&
                 changeWeight == 'Increase'
               ) {
                 targetReps++;
-              } else if (
-                weight < prevWeight &&
-                changeWeight != 'Increase' &&
-                changeWeight != 'Decrease'
-              ) {
+              } else if (weight < prevWeight) {
+                targetReps++;
                 targetReps++;
               }
             }
