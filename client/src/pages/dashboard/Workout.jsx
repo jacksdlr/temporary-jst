@@ -89,12 +89,7 @@ const Workout = () => {
         >
           <div className='workout-warning'>
             <AiOutlineWarning size='2rem' />
-            <p>
-              This is not your next scheduled workout.{' '}
-              {/* Any changes made will not
-            be saved; prior scheduled workout(s) need to be completed or marked
-            as incomplete. */}
-            </p>
+            <p>This is not your next scheduled workout.</p>
             <AiOutlineWarning size='2rem' />
           </div>
           {isWarningShown && (

@@ -48,7 +48,7 @@ const Modal = () => {
           (muscle) => {
             const { muscleGroup } = muscle;
             return (
-              <div key={muscleGroup} className='muscle-container border-bottom'>
+              <div key={muscleGroup} className='muscle-container'>
                 <h5 className={`muscle ${muscleGroup}`}>{muscleGroup}</h5>
                 <div className='btn-container'>
                   <button
