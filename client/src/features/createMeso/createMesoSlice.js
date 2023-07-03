@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 import { deleteMeso } from '../allMesocycles/allMesocyclesSlice';
+import { loginUser } from '../user/userSlice';
 import { createMesoThunk, editMesoThunk } from './createMesoThunk';
 
 const initialState = {

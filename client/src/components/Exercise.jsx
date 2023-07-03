@@ -25,7 +25,7 @@ const Exercise = ({
 
   const [prevState, setPrevState] = useState(sets);
 
-  const { recoveryModal } = useSelector((store) => store.workout);
+  const { workout, recoveryModal } = useSelector((store) => store.workout);
 
   const exerciseInfo = directory
     .map((item) => {
@@ -117,8 +117,14 @@ const Exercise = ({
             <p>RIR</p>
           </div>
           {sets.map((set, setIndex) => {
-            let { weight, repetitions, repsInReserve, targetReps, targetRIR } =
-              set;
+            let {
+              weight,
+              repetitions,
+              repsInReserve,
+              targetReps,
+              targetRIR,
+              newSet,
+            } = set;
 
             let prevWeight = prevState[prevState.length - 1].weight;
             if (prevState[setIndex]) {
@@ -181,12 +187,14 @@ const Exercise = ({
                       </option>
                     ))}
                   </select>
-                  {repetitions == undefined && (
-                    <TbTargetArrow
-                      className={'target'}
-                      onMouseOver={showTargetInfo}
-                    />
-                  )}
+                  {repetitions == undefined &&
+                    workout.microcycle != 1 &&
+                    !newSet && (
+                      <TbTargetArrow
+                        className={'target'}
+                        onMouseOver={showTargetInfo}
+                      />
+                    )}
                 </div>
                 <div className='input-container'>
                   <select
@@ -205,9 +213,10 @@ const Exercise = ({
                       </option>
                     ))}
                   </select>
-                  {repsInReserve == undefined && (
-                    <TbTargetArrow className={'target'} />
-                  )}
+                  {repsInReserve == undefined &&
+                    (workout.microcycle == 1 || newSet) && (
+                      <TbTargetArrow className={'target'} />
+                    )}
                 </div>
               </div>
             );
