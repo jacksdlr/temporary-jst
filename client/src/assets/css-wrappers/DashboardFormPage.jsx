@@ -50,6 +50,11 @@ const Wrapper = styled.section`
   .clear-btn:hover {
     background: var(--black);
   }
+  .border-bottom {
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--grey-100);
+  }
   .calories-container {
     display: flex;
     align-items: center;

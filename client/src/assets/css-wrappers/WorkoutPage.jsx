@@ -26,6 +26,31 @@ const Wrapper = styled.section`
     font-size: 1.3rem;
     text-transform: none;
   }
+  .warning-container {
+    display: flex;
+    flex-direction: column;
+    background: var(--primary-500);
+    color: white;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: var(--borderRadius);
+    box-shadow: var(--shadow-2);
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .workout-warning {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .warning-info {
+    align-self: center;
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+    border-top: 2px solid white;
+    max-width: 80%;
+  }
   .number {
     font-size: 1.5rem;
   }

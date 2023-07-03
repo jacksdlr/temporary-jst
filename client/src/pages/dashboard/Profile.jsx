@@ -129,7 +129,11 @@ const Profile = () => {
         </form>
       </Wrapper>
       <Wrapper>
-        <form className='form' id='user-data' onSubmit={handleDataSubmit}>
+        <form
+          className='form border-bottom'
+          id='user-data'
+          onSubmit={handleDataSubmit}
+        >
           <h3>User data</h3>
           <div className='form-center'>
             <FormRow
@@ -181,7 +185,6 @@ const Profile = () => {
             </button>
           </div>
         </form>
-        <hr />
         <div className='calories-container'>
           <p>{calculateCalories()}</p>
           {/* <AiOutlineQuestionCircle

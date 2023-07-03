@@ -7,7 +7,7 @@ import {
 } from '../../features/workout/workoutSlice';
 import Loading from '../../components/Loading';
 import Wrapper from '../../assets/css-wrappers/WorkoutPage';
-import { AiOutlineMore, AiOutlineFile } from 'react-icons/ai';
+import { AiOutlineMore, AiOutlineFile, AiOutlineWarning } from 'react-icons/ai';
 import Exercise from '../../components/Exercise';
 import { toast } from 'react-toastify';
 import Modal from '../../components/Modal';
@@ -15,9 +15,10 @@ import Modal from '../../components/Modal';
 const Workout = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, workout, mesoId, recoveryModal } = useSelector(
-    (store) => store.workout
-  );
+  const [isWarningShown, setIsWarningShown] = useState(false);
+
+  const { isLoading, workout, mesoId, nextWorkoutId, recoveryModal } =
+    useSelector((store) => store.workout);
 
   useEffect(() => {
     if (!workout) {
@@ -77,11 +78,35 @@ const Workout = () => {
       {/* add a user profile setting to enable/disable automatic set additions */}
       {workout.microcycle != 1 &&
         workout.status == 'Planned' &&
+        workout._id == nextWorkoutId &&
         recoveryModal.isOpen && <Modal />}
-      {/* {recoveryModal.isOpen && (
-        <Modal musclesTrained={workout.musclesTrained} />
-      )} */}
-      {/* temporary */}
+      {workout._id != nextWorkoutId && (
+        <div
+          className='warning-container'
+          onClick={() => {
+            setIsWarningShown(!isWarningShown);
+          }}
+        >
+          <div className='workout-warning'>
+            <AiOutlineWarning size='2rem' />
+            <p>
+              This is not your next scheduled workout.{' '}
+              {/* Any changes made will not
+            be saved; prior scheduled workout(s) need to be completed or marked
+            as incomplete. */}
+            </p>
+            <AiOutlineWarning size='2rem' />
+          </div>
+          {isWarningShown && (
+            <p className='warning-info'>
+              Any changes to this workout will not be saved as issues may arise
+              during creation of subsequent workouts. Complete prior planned
+              workouts or mark them as incomplete to be able to complete this
+              workout.
+            </p>
+          )}
+        </div>
+      )}
       <div className='container'>
         <div className='title'>
           <h4>
@@ -133,7 +158,7 @@ const Workout = () => {
         <button
           className='btn submit-btn'
           onClick={handleSubmit}
-          disabled={isLoading}
+          disabled={isLoading || workout._id != nextWorkoutId}
         >
           Complete Workout
         </button>
