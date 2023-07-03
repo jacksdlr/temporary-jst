@@ -28,7 +28,6 @@ const Home = () => {
   // }, [user]);
 
   useEffect(() => {
-    console.log('checking version...');
     dispatch(syncUserData(user.version));
   }, []);
 

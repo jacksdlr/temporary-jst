@@ -55,7 +55,7 @@ const Navbar = () => {
         <div className='btn-container'>
           <button className='btn' onClick={() => setShowLogout(!showLogout)}>
             <AiOutlineUser /* User icon */ />
-            {user?.name}
+            {user?.name.split(' ')[0]}
             {showLogout ? (
               <AiFillCaretUp />
             ) : (

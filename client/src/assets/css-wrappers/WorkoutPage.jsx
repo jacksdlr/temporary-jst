@@ -258,15 +258,15 @@ const Wrapper = styled.section`
       border-bottom: 10px solid white;
     }
     .muscle {
+      font-size: 1rem;
+    }
+    .muscle-container .muscle {
       font-size: 1.2rem;
     }
-    /* .muscle-container .muscle {
-      margin-bottom: 0.5rem;
-    } */
-    .border-bottom {
+    /* .border-bottom {
       padding-bottom: 0.5rem;
       margin-bottom: 0.5rem;
-    }
+    } */
     .btn-container {
       display: grid;
       grid-template-columns: 1fr 1fr;

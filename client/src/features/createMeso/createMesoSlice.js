@@ -90,6 +90,7 @@ const createMesoSlice = createSlice({
         mesoName: `Meso ${
           getUserFromLocalStorage()?.mesocycles?.length + 1 || 1
         }`,
+        weight: getUserFromLocalStorage()?.data?.weight || '',
       };
     },
     setEditing: (state, { payload }) => {
@@ -130,6 +131,15 @@ const createMesoSlice = createSlice({
         state.mesoName = `Meso ${
           getUserFromLocalStorage()?.stats.totalMesocycles + 1
         }`;
+      })
+      .addCase(loginUser.fulfilled, (state) => {
+        return {
+          ...initialState,
+          mesoName: `Meso ${
+            getUserFromLocalStorage()?.mesocycles?.length + 1 || 1
+          }`,
+          weight: getUserFromLocalStorage()?.data?.weight || '',
+        };
       });
   },
 });

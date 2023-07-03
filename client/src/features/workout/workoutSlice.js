@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 import { createMeso, editMeso } from '../createMeso/createMesoSlice';
+import { loginUser } from '../user/userSlice';
 import {
   getNextWorkoutThunk,
   getWorkoutThunk,
@@ -275,6 +276,23 @@ const workoutSlice = createSlice({
       .addCase(updateWorkout.rejected, (state, { payload }) => {
         state.isLoading = false;
         // toast.error(payload);
+      })
+      .addCase(loginUser.fulfilled, (state, { payload }) => {
+        meso = payload.user.mesocycles.find((meso) => meso.status == 'Active');
+        workout = meso?.sessions?.find(
+          (session) => session.status == 'Planned'
+        );
+        return {
+          ...initialState,
+          workout /* : payload.user.mesocycles
+            .find((meso) => meso.status == 'Active')
+            .sessions?.find((session) => session.status == 'Planned') */,
+          mesoId:
+            /* payload.user.mesocycles.find(
+            (meso) => meso.status == 'Active'
+          ) */ meso?._id,
+          nextWorkoutId: workout?._id,
+        };
       });
   },
 });
