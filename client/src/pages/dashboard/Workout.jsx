@@ -94,10 +94,9 @@ const Workout = () => {
           </div>
           {isWarningShown && (
             <p className='warning-info'>
-              Any changes to this workout will not be saved as issues may arise
-              during creation of subsequent workouts. Complete prior planned
-              workouts or mark them as incomplete to be able to complete this
-              workout.
+              {workout.status == 'Planned'
+                ? 'Any changes to this workout will not be saved as issues may arise during creation of subsequent workouts. Complete prior planned workouts or mark them as incomplete to be able to complete this workout.'
+                : 'Changes to a completed workout will be saved but will not affect subsequent workouts as they have already been created.'}
             </p>
           )}
         </div>
