@@ -9,6 +9,7 @@ import {
 } from 'react-icons/ai';
 import { deleteWorkout } from '../features/allWorkouts/allWorkoutsSlice';
 import { getWorkout } from '../features/workout/workoutSlice';
+import ConfirmationModal from './ConfirmationModal';
 
 const Workout = ({
   mesoName,
@@ -17,14 +18,16 @@ const Workout = ({
   microcycle,
   sessionName,
   sessionNumber,
-  dayCompleted,
   status,
   musclesTrained,
   exercises,
   comments,
+  createdAt,
   updatedAt,
 }) => {
   const dispatch = useDispatch();
+
+  const [isModalShown, setIsModalShown] = useState(false);
 
   return (
     <Wrapper>
@@ -45,11 +48,11 @@ const Workout = ({
             )}{' '}
           </span>
           <span className='text'>
-            {dayCompleted
-              ? `${dayCompleted?.slice(8, 10)}/${dayCompleted?.slice(
+            {updatedAt != createdAt
+              ? `${updatedAt.slice(8, 10)}/${updatedAt.slice(
                   5,
                   7
-                )}/${dayCompleted?.slice(2, 4)}`
+                )}/${updatedAt.slice(2, 4)}`
               : status}{' '}
           </span>
         </h5>
@@ -69,19 +72,31 @@ const Workout = ({
         </div>
       </div>
       <footer>
+        {isModalShown && (
+          <ConfirmationModal
+            action='delete'
+            type='workout'
+            handleCancel={() => setIsModalShown(false)}
+            handleConfirm={() => {
+              dispatch(deleteWorkout({ mesoId, workoutId: _id }));
+            }}
+          />
+        )}
         <div className='actions'>
           <Link
             to={`/workout`}
             onClick={() => dispatch(getWorkout({ mesoId, workoutId: _id }))}
             className='btn edit-btn'
           >
-            view / edit
+            view{/*  / edit */}
           </Link>
+
           <button
             className='btn delete-btn'
             onClick={() => {
+              setIsModalShown(true);
               // ASK FOR CONFIRMATION
-              dispatch(deleteWorkout({ mesoId, workoutId: _id }));
+              // dispatch(deleteWorkout({ mesoId, workoutId: _id }));
             }}
           >
             delete

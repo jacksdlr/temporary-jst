@@ -130,7 +130,7 @@ const Wrapper = styled.section`
     align-items: center;
   }
   // Modal stuff
-  .modal-container {
+  .recovery-modal-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -142,7 +142,7 @@ const Wrapper = styled.section`
     align-items: center;
     justify-content: center;
   }
-  .modal {
+  .recovery-modal {
     display: flex;
     flex-direction: column;
     background: var(--white);
@@ -250,7 +250,7 @@ const Wrapper = styled.section`
     max-height: 500px;
   } */
   @media (max-width: 992px) {
-    .modal {
+    .recovery-modal {
       justify-content: flex-start;
       width: 90vw;
       max-height: 80vh;
@@ -304,7 +304,7 @@ const Wrapper = styled.section`
     .btn-container {
       margin-top: 0;
     }
-    .modal {
+    .recovery-modal {
       padding: 2rem;
     }
     .confirm-btn,

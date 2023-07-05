@@ -33,8 +33,8 @@ const Modal = () => {
   }
 
   return (
-    <aside className='modal-container'>
-      <div className='modal'>
+    <aside className='recovery-modal-container'>
+      <div className='recovery-modal'>
         <h3>Recovery Feedback</h3>
         <h5 className='border-bottom'>
           Before being trained again, how well did each muscle group recover

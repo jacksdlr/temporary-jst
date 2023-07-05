@@ -10,7 +10,7 @@ import Wrapper from '../../assets/css-wrappers/WorkoutPage';
 import { AiOutlineMore, AiOutlineFile, AiOutlineWarning } from 'react-icons/ai';
 import Exercise from '../../components/Exercise';
 import { toast } from 'react-toastify';
-import Modal from '../../components/Modal';
+import RecoveryModal from '../../components/RecoveryModal';
 
 const Workout = () => {
   const dispatch = useDispatch();
@@ -79,7 +79,7 @@ const Workout = () => {
       {workout.microcycle != 1 &&
         workout.status == 'Planned' &&
         workout._id == nextWorkoutId &&
-        recoveryModal.isOpen && <Modal />}
+        recoveryModal.isOpen && <RecoveryModal />}
       {workout._id != nextWorkoutId && (
         <div
           className='warning-container'
@@ -89,14 +89,18 @@ const Workout = () => {
         >
           <div className='workout-warning'>
             <AiOutlineWarning size='2rem' />
-            <p>This is not your next scheduled workout.</p>
+            <p>
+              {workout.status == 'Planned'
+                ? 'This is not your next scheduled workout.'
+                : 'This workout has already been completed.'}
+            </p>
             <AiOutlineWarning size='2rem' />
           </div>
           {isWarningShown && (
             <p className='warning-info'>
               {workout.status == 'Planned'
                 ? 'Any changes to this workout will not be saved as issues may arise during creation of subsequent workouts. Complete prior planned workouts or mark them as incomplete to be able to complete this workout.'
-                : 'Changes to a completed workout will be saved but will not affect subsequent workouts as they have already been created.'}
+                : 'Any changes to a completed workout will not be saved as it may cause some processing errors and/or affect how some data is displayed.'}
             </p>
           )}
         </div>

@@ -18,6 +18,7 @@ import {
   getAllMesocycles,
 } from '../features/allMesocycles/allMesocyclesSlice';
 import { setEditing } from '../features/createMeso/createMesoSlice';
+import ConfirmationModal from './ConfirmationModal';
 
 const Mesocycle = ({
   _id,
@@ -32,6 +33,8 @@ const Mesocycle = ({
   endWeight,
 }) => {
   const dispatch = useDispatch();
+
+  const [isModalShown, setIsModalShown] = useState(false);
 
   /* sessions = sessions.map((session) => {
     if (
@@ -124,6 +127,16 @@ const Mesocycle = ({
         )}
       </div>
       <footer>
+        {isModalShown && (
+          <ConfirmationModal
+            action='delete'
+            type='mesocycle'
+            handleCancel={() => setIsModalShown(false)}
+            handleConfirm={() => {
+              dispatch(deleteMeso(_id));
+            }}
+          />
+        )}
         <div className='actions'>
           <Link
             to={`/all-workouts`}
@@ -161,8 +174,9 @@ const Mesocycle = ({
           <button
             className='btn delete-btn'
             onClick={() => {
+              setIsModalShown(true);
               // ASK FOR CONFIRMATION
-              dispatch(deleteMeso(_id));
+              // dispatch(deleteWorkout({ mesoId, workoutId: _id }));
             }}
           >
             delete
