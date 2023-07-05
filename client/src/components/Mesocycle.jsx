@@ -97,7 +97,7 @@ const Mesocycle = ({
             {endWeight && <p>End weight: {endWeight}kg</p>}
           </div>
         )}
-        <div className='sessions'>
+        <div className={`sessions ${notes.length > 0 && 'border-bottom'}`}>
           {uniqueSessions.map((session, index) => (
             <Link
               key={index}

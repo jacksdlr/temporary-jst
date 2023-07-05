@@ -88,7 +88,10 @@ const Wrapper = styled.article`
     grid-template-columns: 1fr 1fr;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
-    padding: 0.5rem 0 1rem;
+    padding: 0.5rem 0;
+  }
+  .border-bottom {
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--grey-100);
     margin-bottom: 1rem;
   }
