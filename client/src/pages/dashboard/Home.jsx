@@ -10,7 +10,7 @@ import {
   openRecoveryModal,
 } from '../../features/workout/workoutSlice';
 import { Link } from 'react-router-dom';
-import Wrapper from '../../assets/css-wrappers/HomePage';
+import Wrapper from '../../assets/wrappers/HomePage';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { syncUserData } from '../../features/user/userSlice';
 
@@ -46,7 +46,7 @@ const Home = () => {
     <Wrapper>
       {!nextWorkout ? (
         <Link to={'/create-meso'} className='btn btn-hero'>
-          <h3>Create a mesocycle</h3>
+          <h3>Create a training plan...</h3>
           <AiOutlineArrowRight size={'3rem'} />
         </Link>
       ) : (

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Navbar, DesktopSidebar, MobileSidebar } from '../../components';
-import Wrapper from '../../assets/css-wrappers/SharedLayout';
+import Wrapper from '../../assets/wrappers/SharedLayout';
 
 const SharedLayout = () => {
   const { isSidebarOpen } = useSelector((store) => store.navbar);

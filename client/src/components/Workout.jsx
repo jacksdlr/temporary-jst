@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Wrapper from '../assets/css-wrappers/Workout';
+import Wrapper from '../assets/wrappers/Workout';
 import {
   AiOutlineCalendar,
   AiOutlineCloseCircle,

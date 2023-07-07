@@ -1,7 +1,7 @@
 // import { useSelector, useDispatch } from 'react-redux';
 // import { FormRow, FormRowSelect } from './index';
 // import { handleMesoChange, clearInputs } from '../features/mesocycle/mesoSlice';
-// import MesoWrapper from '../assets/css-wrappers/DashboardFormPage';
+// import MesoWrapper from '../assets/wrappers/DashboardFormPage';
 // import { useState } from 'react';
 // import {
 //   AiOutlinePlusCircle,
@@ -9,7 +9,7 @@
 //   AiOutlineEdit,
 // } from 'react-icons/ai';
 // import { muscleGroups } from '../utils/muscleGroups';
-// import SessionWrapper from '../assets/css-wrappers/SessionForm';
+// import SessionWrapper from '../assets/wrappers/SessionForm';
 // import { exercisesList } from '../utils/exercises';
 
 // const MesoDetails = () => {

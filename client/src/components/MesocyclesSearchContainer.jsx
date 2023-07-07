@@ -1,5 +1,5 @@
 import { FormRow, FormRowSelect } from '.';
-import Wrapper from '../assets/css-wrappers/SearchContainer';
+import Wrapper from '../assets/wrappers/SearchContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   handleChange,

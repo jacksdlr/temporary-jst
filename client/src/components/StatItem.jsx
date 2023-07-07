@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Wrapper from '../assets/css-wrappers/StatItem';
+import Wrapper from '../assets/wrappers/StatItem';
 
 const StatItem = ({ count, title, icon, color, background, link }) => {
   return (

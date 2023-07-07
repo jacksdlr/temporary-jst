@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-import Wrapper from '../assets/css-wrappers/Navbar';
+import Wrapper from '../assets/wrappers/Navbar';
 import Logo from './Logo';
 import {
   AiOutlineMenuUnfold,

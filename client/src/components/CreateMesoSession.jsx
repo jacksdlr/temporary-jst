@@ -1,4 +1,4 @@
-import CreateExercises from './CreateExercises';
+import CreateMesoExercise from './CreateMesoExercise';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import {
@@ -12,7 +12,7 @@ import {
   AiOutlineEdit,
 } from 'react-icons/ai';
 
-const CreateSessions = ({ session, sessionIndex }) => {
+const CreateMesoSession = ({ session, sessionIndex }) => {
   const dispatch = useDispatch();
 
   return (
@@ -68,7 +68,7 @@ const CreateSessions = ({ session, sessionIndex }) => {
       />
       {session.exercises.map((exercise, exerciseIndex) => {
         return (
-          <CreateExercises
+          <CreateMesoExercise
             exercise={exercise}
             sessionIndex={sessionIndex}
             exerciseIndex={exerciseIndex}
@@ -92,4 +92,4 @@ const CreateSessions = ({ session, sessionIndex }) => {
   );
 };
 
-export default CreateSessions;
+export default CreateMesoSession;

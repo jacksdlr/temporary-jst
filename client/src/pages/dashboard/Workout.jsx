@@ -6,7 +6,7 @@ import {
   updateWorkout,
 } from '../../features/workout/workoutSlice';
 import Loading from '../../components/Loading';
-import Wrapper from '../../assets/css-wrappers/WorkoutPage';
+import Wrapper from '../../assets/wrappers/WorkoutPage';
 import { AiOutlineMore, AiOutlineFile, AiOutlineWarning } from 'react-icons/ai';
 import Exercise from '../../components/Exercise';
 import { toast } from 'react-toastify';

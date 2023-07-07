@@ -72,6 +72,9 @@ const userSlice = createSlice({
       toast.success(payload);
       removeUserFromLocalStorage();
     },
+    handleDataChange: (state, { payload: { input, value } }) => {
+      state.user.data[input] = value;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -186,5 +189,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { logoutUser } = userSlice.actions;
+export const { logoutUser, handleDataChange } = userSlice.actions;
 export default userSlice.reducer;

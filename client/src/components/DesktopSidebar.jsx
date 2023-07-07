@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Wrapper from '../assets/css-wrappers/DesktopSidebar';
+import Wrapper from '../assets/wrappers/DesktopSidebar';
 import Logo from './Logo';
 import NavLinks from './NavLinks';
 

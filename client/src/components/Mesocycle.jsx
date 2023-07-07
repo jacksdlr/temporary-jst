@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Wrapper from '../assets/css-wrappers/Mesocycle';
+import Wrapper from '../assets/wrappers/Mesocycle';
 import {
   AiOutlineCarryOut,
   AiOutlineExclamationCircle,

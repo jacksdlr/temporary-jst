@@ -29,7 +29,7 @@ const links = [
   {
     id: 4,
     text: 'Mesocycles',
-    path: 'mesocycles',
+    path: 'all-mesocycles',
     icon: <AiOutlineFolderOpen />,
   },
   {

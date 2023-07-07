@@ -1,7 +1,7 @@
 import StatItem from './StatItem';
 import { AiOutlineCalendar, AiOutlineFolderOpen } from 'react-icons/ai';
 import { CgGym } from 'react-icons/cg';
-import Wrapper from '../assets/css-wrappers/StatsContainer';
+import Wrapper from '../assets/wrappers/StatsContainer';
 import { useSelector } from 'react-redux';
 
 const StatsContainer = () => {
@@ -32,7 +32,7 @@ const StatsContainer = () => {
       icon: <AiOutlineFolderOpen />,
       color: '#e9b949',
       background: '#fcefc7',
-      link: '/mesocycles',
+      link: '/all-mesocycles',
     },
   ];
 

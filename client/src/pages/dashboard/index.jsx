@@ -2,7 +2,7 @@ import SharedLayout from './SharedLayout';
 import Home from './Home';
 import Workout from './Workout';
 import AllWorkouts from './AllWorkouts';
-import Mesocycles from './Mesocycles';
+import AllMesocycles from './AllMesocycles';
 import CreateMeso from './CreateMeso';
 import Profile from './Profile';
 
@@ -11,7 +11,7 @@ export {
   Home,
   Workout,
   AllWorkouts,
-  Mesocycles,
+  AllMesocycles,
   CreateMeso,
   Profile,
 };

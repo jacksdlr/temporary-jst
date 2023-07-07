@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import img from '../assets/images/not-found.svg';
-import Wrapper from '../assets/css-wrappers/Error';
+import Wrapper from '../assets/wrappers/Error';
 
 const Error = () => {
   return (

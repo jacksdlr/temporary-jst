@@ -7,7 +7,7 @@ import {
   AiOutlineFall,
 } from 'react-icons/ai';
 import { TbTargetArrow } from 'react-icons/tb';
-import Wrapper from '../assets/css-wrappers/Exercise';
+import Wrapper from '../assets/wrappers/Exercise';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleSetChange, addSet } from '../features/workout/workoutSlice';
 import { useEffect, useState } from 'react';

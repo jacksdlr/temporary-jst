@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Workout from './Workout';
 import Loading from './Loading';
-import Wrapper from '../assets/css-wrappers/WorkoutsContainer';
+import Wrapper from '../assets/wrappers/WorkoutsContainer';
 import { getAllWorkouts } from '../features/allWorkouts/allWorkoutsSlice';
 import PageButtonContainer from './WorkoutsPageButtons';
 

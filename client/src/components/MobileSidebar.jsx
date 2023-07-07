@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import Wrapper from '../assets/css-wrappers/MobileSidebar';
+import Wrapper from '../assets/wrappers/MobileSidebar';
 import Logo from './Logo';
 import { toggleSidebar } from '../features/navbar/navbarSlice';
 import { AiOutlineClose } from 'react-icons/ai';

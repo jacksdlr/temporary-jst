@@ -119,6 +119,7 @@ const CreateExercises = ({ exercise, sessionIndex, exerciseIndex }) => {
                 '6-8',
                 '8-10',
                 '10-12',
+                '10-15',
                 '12-15',
                 '15-20',
                 '20-25',

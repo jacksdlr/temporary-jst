@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Mesocycle from './Mesocycle';
 import Loading from './Loading';
-import Wrapper from '../assets/css-wrappers/MesocyclesContainer';
+import Wrapper from '../assets/wrappers/MesocyclesContainer';
 import { getAllMesocycles } from '../features/allMesocycles/allMesocyclesSlice';
 import PageButtonContainer from './MesocyclesPageButtons';
 

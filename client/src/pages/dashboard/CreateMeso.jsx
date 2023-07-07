@@ -1,4 +1,4 @@
-import CreateSessions from './../../components/CreateSessions';
+import CreateMesoSession from '../../components/CreateMesoSession';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { FormRow, FormRowSelect } from '../../components';
@@ -9,8 +9,8 @@ import {
   createMeso,
   editMeso,
 } from '../../features/createMeso/createMesoSlice';
-import MesoWrapper from '../../assets/css-wrappers/DashboardFormPage';
-import SessionsWrapper from '../../assets/css-wrappers/SessionForm';
+import MesoWrapper from '../../assets/wrappers/DashboardFormPage';
+import SessionsWrapper from '../../assets/wrappers/SessionForm';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 const MesoDetails = () => {
@@ -72,25 +72,7 @@ const MesoDetails = () => {
         }
       }
     }
-    /* sessions.map((session) => {
-      if (session.exercises.length === 0) {
-        toast.error(
-          `Session "${session.sessionName}" does not have any exercises`
-        );
-        return;
-      }
-      session.exercises.map((exercise) => {
-        const { muscleGroup, exerciseName, repRange } = exercise;
-        if (!muscleGroup || !exerciseName || !repRange) {
-          toast.error(
-            `Session "${session.sessionName}" has incomplete details`
-          );
-          return;
-        }
-      });
-    }); */
 
-    // toast.success('submitted');
     dispatch(
       createMeso({
         mesoName,
@@ -219,7 +201,7 @@ const MesoDetails = () => {
         <SessionsWrapper>
           {sessions.map((session, sessionIndex) => {
             return (
-              <CreateSessions
+              <CreateMesoSession
                 session={session}
                 sessionIndex={sessionIndex}
                 key={sessionIndex}

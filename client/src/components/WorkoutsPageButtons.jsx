@@ -1,5 +1,5 @@
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from 'react-icons/ai';
-import Wrapper from '../assets/css-wrappers/PageButtonContainer';
+import Wrapper from '../assets/wrappers/PageButtonContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import { changePage } from '../features/allWorkouts/allWorkoutsSlice';
 

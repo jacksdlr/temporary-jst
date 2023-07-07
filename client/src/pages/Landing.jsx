@@ -1,6 +1,6 @@
 // Maybe change the color of this (undraw.co)
 import main from '../assets/images/main.svg';
-import Wrapper from '../assets/css-wrappers/Landing';
+import Wrapper from '../assets/wrappers/Landing';
 import { Logo } from '../components';
 import { Link } from 'react-router-dom';
 

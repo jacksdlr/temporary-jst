@@ -1,4 +1,4 @@
-import Wrapper from '../assets/css-wrappers/ConfirmationModal';
+import Wrapper from '../assets/wrappers/ConfirmationModal';
 
 const ConfirmationModal = ({ action, type, handleCancel, handleConfirm }) => {
   return (
