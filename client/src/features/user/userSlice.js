@@ -4,6 +4,9 @@ import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
   removeUserFromLocalStorage,
+  addWorkoutToLocalStorage,
+  getWorkoutFromLocalStorage,
+  removeWorkoutFromLocalStorage,
 } from '../../utils/localStorage';
 import {
   registerUserThunk,
@@ -13,14 +16,15 @@ import {
   syncUserDataThunk,
   clearAllStoresThunk,
 } from './userThunk';
-import { createMeso, editMeso } from '../createMeso/createMesoSlice';
-import { deleteWorkout } from '../allWorkouts/allWorkoutsSlice';
-import { deleteMeso } from '../allMesocycles/allMesocyclesSlice';
+import { createMeso, editMeso } from '../create-meso/createMesoSlice';
+import { deleteWorkout } from '../all-workouts/allWorkoutsSlice';
+import { deleteMeso } from '../mesocycles/mesocyclesSlice';
 import { updateWorkout } from '../workout/workoutSlice';
 
 const initialState = {
   isLoading: false,
   user: getUserFromLocalStorage(),
+  nextWorkout: getWorkoutFromLocalStorage(),
 };
 
 export const registerUser = createAsyncThunk(
@@ -53,8 +57,8 @@ export const updateUserData = createAsyncThunk(
 
 export const syncUserData = createAsyncThunk(
   'user/syncUserData',
-  async (version, thunkAPI) => {
-    return syncUserDataThunk(`/user?version=${version}`, thunkAPI);
+  async (updatedAt, thunkAPI) => {
+    return syncUserDataThunk(`/user?updatedAt=${updatedAt}`, thunkAPI);
   }
 );
 
@@ -69,8 +73,10 @@ const userSlice = createSlice({
   reducers: {
     logoutUser: (state, { payload }) => {
       state.user = null;
+      state.nextWorkout = null;
       toast.success(payload);
       removeUserFromLocalStorage();
+      removeWorkoutFromLocalStorage();
     },
     handleDataChange: (state, { payload: { input, value } }) => {
       state.user.data[input] = value;
@@ -82,8 +88,7 @@ const userSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(registerUser.fulfilled, (state, { payload }) => {
-        const { user } = payload;
+      .addCase(registerUser.fulfilled, (state, { payload: { user } }) => {
         state.isLoading = false;
         state.user = user;
         addUserToLocalStorage(user);
@@ -97,11 +102,12 @@ const userSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(loginUser.fulfilled, (state, { payload }) => {
-        const { user } = payload;
+      .addCase(loginUser.fulfilled, (state, { payload: { user, workout } }) => {
         state.isLoading = false;
         state.user = user;
+        state.nextWorkout = workout;
         addUserToLocalStorage(user);
+        addWorkoutToLocalStorage(workout);
         toast.success(`Welcome back, ${user.name}!`);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
@@ -112,8 +118,7 @@ const userSlice = createSlice({
       .addCase(updateUserDetails.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateUserDetails.fulfilled, (state, { payload }) => {
-        const { user } = payload;
+      .addCase(updateUserDetails.fulfilled, (state, { payload: { user } }) => {
         state.isLoading = false;
         state.user = user;
         addUserToLocalStorage(user);
@@ -127,8 +132,7 @@ const userSlice = createSlice({
       .addCase(updateUserData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateUserData.fulfilled, (state, { payload }) => {
-        const { user } = payload;
+      .addCase(updateUserData.fulfilled, (state, { payload: { user } }) => {
         state.isLoading = false;
         state.user = user;
         addUserToLocalStorage(user);
@@ -138,50 +142,69 @@ const userSlice = createSlice({
         state.isLoading = false;
         toast.error(payload);
       })
-      // update user when creating mesocycle)
-      .addCase(createMeso.fulfilled, (state, { payload }) => {
-        const { user } = payload;
+      .addCase(
+        createMeso.fulfilled,
+        (state, { payload: { user, workout } }) => {
+          state.user = user;
+          addUserToLocalStorage(user);
+          state.nextWorkout = workout;
+          addWorkoutToLocalStorage(workout);
+        }
+      )
+      .addCase(
+        deleteWorkout.fulfilled,
+        (state, { payload: { user, workout } }) => {
+          state.user = user;
+          addUserToLocalStorage(user);
+          state.nextWorkout = workout;
+          addWorkoutToLocalStorage(workout);
+        }
+      )
+      .addCase(editMeso.fulfilled, (state, { payload: { user, workout } }) => {
         state.user = user;
         addUserToLocalStorage(user);
+        state.nextWorkout = workout;
+        addWorkoutToLocalStorage(workout);
       })
-      .addCase(deleteWorkout.fulfilled, (state, { payload }) => {
-        const { user } = payload;
-        state.user = user;
-        addUserToLocalStorage(user);
-      })
-      .addCase(editMeso.fulfilled, (state, { payload }) => {
-        const { user } = payload;
-        state.user = user;
-        addUserToLocalStorage(user);
-      })
-      .addCase(deleteMeso.fulfilled, (state, { payload }) => {
-        const { user } = payload;
-        state.user = user;
-        addUserToLocalStorage(user);
-      })
+      .addCase(
+        deleteMeso.fulfilled,
+        (state, { payload: { user, workout } }) => {
+          state.user = user;
+          addUserToLocalStorage(user);
+          state.nextWorkout = workout;
+          addWorkoutToLocalStorage(workout);
+        }
+      )
       .addCase(clearStore.rejected, () => {
         toast.error('There was an error');
       })
-      .addCase(updateWorkout.fulfilled, (state, { payload }) => {
-        const { user } = payload;
-        state.user = user;
-        addUserToLocalStorage(user);
-      })
+      .addCase(
+        updateWorkout.fulfilled,
+        (state, { payload: { user, workout } }) => {
+          state.user = user;
+          addUserToLocalStorage(user);
+          state.nextWorkout = workout;
+          addWorkoutToLocalStorage(workout);
+        }
+      )
       .addCase(syncUserData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(syncUserData.fulfilled, (state, { payload }) => {
-        const { user, msg } = payload;
+      .addCase(
+        syncUserData.fulfilled,
+        (state, { payload: { user, msg, workout } }) => {
+          if (msg == 'Synced user data!') {
+            state.isLoading = false;
+            state.user = user;
+            addUserToLocalStorage(user);
+            state.nextWorkout = workout;
+            addWorkoutToLocalStorage(workout);
+            toast.success(msg);
+          }
 
-        if (msg == 'Synced user data!') {
           state.isLoading = false;
-          state.user = user;
-          addUserToLocalStorage(user);
-          toast.success(msg);
         }
-
-        state.isLoading = false;
-      })
+      )
       .addCase(syncUserData.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);

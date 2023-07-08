@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Wrapper from '../assets/wrappers/Mesocycle';
+import Wrapper from '../../assets/wrappers/Mesocycle';
 import {
   AiOutlineCarryOut,
   AiOutlineExclamationCircle,
@@ -9,16 +9,10 @@ import {
   AiOutlineFile,
   AiOutlineStop,
 } from 'react-icons/ai';
-import {
-  getAllWorkouts,
-  setSearch,
-} from '../features/allWorkouts/allWorkoutsSlice';
-import {
-  deleteMeso,
-  getAllMesocycles,
-} from '../features/allMesocycles/allMesocyclesSlice';
-import { setEditing } from '../features/createMeso/createMesoSlice';
-import ConfirmationModal from './ConfirmationModal';
+import { setSearch } from '../../features/all-workouts/allWorkoutsSlice';
+import { deleteMeso } from '../../features/mesocycles/mesocyclesSlice';
+import { setEditing } from '../../features/create-meso/createMesoSlice';
+import ConfirmationModal from '../ConfirmationModal';
 
 const Mesocycle = ({
   _id,
@@ -36,16 +30,6 @@ const Mesocycle = ({
 
   const [isModalShown, setIsModalShown] = useState(false);
 
-  /* sessions = sessions.map((session) => {
-    if (
-      !sessions.find((item) => {
-        item.sessionName == session.sessionName;
-      })
-    ) {
-      return session;
-    }
-  }); */
-
   let uniqueSessions = [];
   sessions.map((session) => {
     if (
@@ -56,15 +40,6 @@ const Mesocycle = ({
       uniqueSessions.push(session);
     }
   });
-  /* for (let i = 0; i < sessions.length; i++) {
-    if (
-      !uniqueSessions.find(
-        (session) => session.sessionName == sessions[i].sessionName
-      )
-    ) {
-      uniqueSessions.push(sessions[i]);
-    }
-  } */
 
   return (
     <Wrapper>
@@ -175,8 +150,6 @@ const Mesocycle = ({
             className='btn delete-btn'
             onClick={() => {
               setIsModalShown(true);
-              // ASK FOR CONFIRMATION
-              // dispatch(deleteWorkout({ mesoId, workoutId: _id }));
             }}
           >
             delete

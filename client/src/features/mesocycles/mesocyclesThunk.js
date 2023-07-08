@@ -1,13 +1,9 @@
 import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
-import {
-  showLoading,
-  hideLoading,
-  getAllMesocycles,
-} from './allMesocyclesSlice';
+import { showLoading, hideLoading, getAllMesocycles } from './mesocyclesSlice';
 
 export const getAllMesocyclesThunk = async (_, thunkAPI) => {
   const { search, searchStatus, searchGoal, searchMicrocycles, sort, page } =
-    thunkAPI.getState().allMesocycles;
+    thunkAPI.getState().mesocycles;
 
   let url = `/mesocycles?status=${searchStatus}&goal=${searchGoal}&sort=${sort}&page=${page}`;
 

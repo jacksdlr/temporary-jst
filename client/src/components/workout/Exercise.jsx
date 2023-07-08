@@ -1,4 +1,4 @@
-import { directory } from '../utils/directory';
+import { directory } from '../../utils/directory';
 import {
   AiOutlineMore,
   AiOutlineYoutube,
@@ -7,9 +7,9 @@ import {
   AiOutlineFall,
 } from 'react-icons/ai';
 import { TbTargetArrow } from 'react-icons/tb';
-import Wrapper from '../assets/wrappers/Exercise';
+import Wrapper from '../../assets/wrappers/Exercise';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleSetChange, addSet } from '../features/workout/workoutSlice';
+import { handleSetChange, addSet } from '../../features/workout/workoutSlice';
 import { useEffect, useState } from 'react';
 
 const Exercise = ({
@@ -19,7 +19,6 @@ const Exercise = ({
   changeWeight,
   notes,
   exerciseIndex,
-  // prevState,
 }) => {
   const dispatch = useDispatch();
 
@@ -39,23 +38,6 @@ const Exercise = ({
       }
     })
     .filter((item) => item)[0];
-
-  // let additionalSets = [];
-  // /* useEffect(() => { */
-  // if (recoveryModal[exerciseInfo.muscle] < 3) {
-  //   const newSet = {
-  //     weight: sets[sets.length - 1].weight,
-  //     targetReps: repRange.match(/^\d+/)[0],
-  //     targetRIR: sets[sets.length - 1].targetRIR,
-  //   };
-  //   dispatch(addSet({ newSet, exerciseIndex }));
-  //   /* sets.push({
-  //     weight: sets[sets.length - 1].weight,
-  //     targetReps: repRange.match(/^\d+/)[0],
-  //     targetRIR: sets[sets.length - 1].targetRIR,
-  //   }); */
-  // }
-  // /* }, []); */
 
   let repsOptions = [];
   for (let i = 0; i <= 100; i++) {
@@ -164,10 +146,10 @@ const Exercise = ({
                   />
                   {/* add hover information to these */}
                   {changeWeight == 'Increase' && weight <= prevWeight && (
-                    <AiOutlineRise className={'increase'} />
+                    <AiOutlineRise className={'increase-weight'} />
                   )}
                   {changeWeight == 'Decrease' && weight >= prevWeight && (
-                    <AiOutlineFall className={'decrease'} />
+                    <AiOutlineFall className={'decrease-weight'} />
                   )}
                 </div>
                 <div className='input-container'>
@@ -191,7 +173,7 @@ const Exercise = ({
                     workout.microcycle != 1 &&
                     !newSet && (
                       <TbTargetArrow
-                        className={'target'}
+                        className={'target-reps'}
                         onMouseOver={showTargetInfo}
                       />
                     )}
@@ -215,7 +197,7 @@ const Exercise = ({
                   </select>
                   {repsInReserve == undefined &&
                     (workout.microcycle == 1 || newSet) && (
-                      <TbTargetArrow className={'target'} />
+                      <TbTargetArrow className={'target-rir'} />
                     )}
                 </div>
               </div>

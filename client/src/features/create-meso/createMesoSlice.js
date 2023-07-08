@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
-import { deleteMeso } from '../allMesocycles/allMesocyclesSlice';
+import { deleteMeso } from '../mesocycles/mesocyclesSlice';
 import { loginUser } from '../user/userSlice';
 import { createMesoThunk, editMesoThunk } from './createMesoThunk';
 
 const initialState = {
   isLoading: false,
-  mesoName: `Meso ${getUserFromLocalStorage()?.stats.totalMesocycles + 1 || 1}`,
+  mesoName: `Meso ${
+    getUserFromLocalStorage()?.stats?.totalMesocycles + 1 || 1
+  }`,
   microcycles: '',
   goal: '',
   startDate: '',
@@ -85,15 +87,7 @@ const createMesoSlice = createSlice({
             exerciseNotes: '',
           });
     },
-    clearInputs: () => {
-      return {
-        ...initialState,
-        mesoName: `Meso ${
-          getUserFromLocalStorage()?.mesocycles?.length + 1 || 1
-        }`,
-        weight: getUserFromLocalStorage()?.data?.weight || '',
-      };
-    },
+    clearCreateMesoState: () => initialState,
     setEditing: (state, { payload }) => {
       return { ...initialState, ...payload, isEditing: true };
     },
@@ -154,6 +148,6 @@ export const {
   handleExerciseChange,
   addExercise,
   deleteExercise,
-  clearInputs,
+  clearCreateMesoState,
   setEditing,
 } = createMesoSlice.actions;

@@ -5,6 +5,7 @@ import Wrapper from '../../assets/wrappers/SharedLayout';
 
 const SharedLayout = () => {
   const { isSidebarOpen } = useSelector((store) => store.navbar);
+
   return (
     <Wrapper>
       <main className='dashboard'>

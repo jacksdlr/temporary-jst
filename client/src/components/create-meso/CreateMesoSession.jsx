@@ -1,11 +1,11 @@
-import CreateMesoExercise from './CreateMesoExercise';
+import { CreateMesoExercise } from './';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import {
   handleSessionChange,
   deleteSession,
   addExercise,
-} from '../features/createMeso/createMesoSlice';
+} from '../../features/create-meso/createMesoSlice';
 import {
   AiOutlinePlusCircle,
   AiOutlineClose,

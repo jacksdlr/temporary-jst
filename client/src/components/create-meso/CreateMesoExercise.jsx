@@ -1,17 +1,17 @@
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import FormRow from './FormRow';
-import FormRowSelect from './FormRowSelect';
+import FormRow from '../FormRow';
+import FormRowSelect from '../FormRowSelect';
 import {
   handleExerciseChange,
   deleteExercise,
-} from '../features/createMeso/createMesoSlice';
+} from '../../features/create-meso/createMesoSlice';
 import {
   AiOutlineCloseSquare,
   AiOutlineDelete,
   AiOutlineRollback,
 } from 'react-icons/ai';
-import { directory } from '../utils/directory';
+import { directory } from '../../utils/directory';
 
 const muscleGroups = directory.map((item) => item.muscleGroup);
 

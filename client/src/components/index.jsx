@@ -4,7 +4,6 @@ import Navbar from './Navbar';
 import DesktopSidebar from './DesktopSidebar';
 import MobileSidebar from './MobileSidebar';
 import FormRowSelect from './FormRowSelect';
-import CreateMesoSession from './CreateMesoSession';
 import Loading from './Loading';
 import StatsContainer from './StatsContainer';
 
@@ -15,7 +14,6 @@ export {
   DesktopSidebar,
   MobileSidebar,
   FormRowSelect,
-  CreateMesoSession,
   Loading,
   StatsContainer,
 };

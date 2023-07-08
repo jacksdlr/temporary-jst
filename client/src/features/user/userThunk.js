@@ -1,8 +1,8 @@
 import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
 import { logoutUser } from './userSlice';
-import { clearAllWorkoutsState } from '../allWorkouts/allWorkoutsSlice';
-import { clearAllMesocyclesState } from '../allMesocycles/allMesocyclesSlice';
-import { clearInputs } from '../createMeso/createMesoSlice';
+import { clearAllWorkoutsState } from '../all-workouts/allWorkoutsSlice';
+import { clearMesocyclesState } from '../mesocycles/mesocyclesSlice';
+import { clearCreateMesoState } from '../create-meso/createMesoSlice';
 import { clearWorkoutState } from '../workout/workoutSlice';
 
 export const registerUserThunk = async (url, user, thunkAPI) => {
@@ -25,39 +25,19 @@ export const loginUserThunk = async (url, user, thunkAPI) => {
 
 export const updateUserDetailsThunk = async (url, user, thunkAPI) => {
   try {
-    const response = await customFetch.patch(
-      url,
-      user /* , authHeader(thunkAPI) */
-    );
+    const response = await customFetch.patch(url, user);
     return response.data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);
-    /* if (error.response.status === 401) {
-      thunkAPI.dispatch(logoutUser());
-      return thunkAPI.rejectWithValue(
-        'User token does not match! Logging out...'
-      );
-    }
-    return thunkAPI.rejectWithValue(error.response.data.msg); */
   }
 };
 
 export const updateUserDataThunk = async (url, user, thunkAPI) => {
   try {
-    const response = await customFetch.patch(
-      url,
-      user /* , authHeader(thunkAPI) */
-    );
+    const response = await customFetch.patch(url, user);
     return response.data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);
-    /* if (error.response.status === 401) {
-      thunkAPI.dispatch(logoutUser());
-      return thunkAPI.rejectWithValue(
-        'User token does not match! Logging out...'
-      );
-    }
-    return thunkAPI.rejectWithValue(error.response.data.msg); */
   }
 };
 
@@ -73,9 +53,9 @@ export const syncUserDataThunk = async (url, thunkAPI) => {
 export const clearAllStoresThunk = async (message, thunkAPI) => {
   try {
     thunkAPI.dispatch(logoutUser(message));
-    thunkAPI.dispatch(clearAllMesocyclesState);
+    thunkAPI.dispatch(clearMesocyclesState);
     thunkAPI.dispatch(clearAllWorkoutsState);
-    thunkAPI.dispatch(clearInputs);
+    thunkAPI.dispatch(clearCreateMesoState);
     thunkAPI.dispatch(clearWorkoutState);
     return Promise.resolve();
   } catch (error) {

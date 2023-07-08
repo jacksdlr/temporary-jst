@@ -13,6 +13,7 @@ import {
 import { clearStore, logoutUser } from '../features/user/userSlice';
 import { toggleSidebar } from '../features/navbar/navbarSlice';
 import { Link } from 'react-router-dom';
+import MobileSidebar from './MobileSidebar';
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
@@ -25,56 +26,59 @@ const Navbar = () => {
   const isMobile = () => window.innerWidth < 992;
 
   return (
-    <Wrapper>
-      <div className='nav-center'>
-        <button
-          className='toggle-btn'
-          onClick={() => dispatch(toggleSidebar())}
-        >
-          {isSidebarOpen && isMobile() ? (
-            <AiOutlineMenuFold />
-          ) : !isSidebarOpen && isMobile() ? (
-            <AiOutlineMenuUnfold />
-          ) : isSidebarOpen ? (
-            <AiOutlineMenuUnfold />
-          ) : (
-            <AiOutlineMenuFold />
-          )}
-        </button>
-        <div>
-          <Link
-            to='/'
-            onClick={() => {
-              isSidebarOpen && dispatch(toggleSidebar());
-            }}
+    <>
+      <Wrapper>
+        <div className='nav-center'>
+          <button
+            className='toggle-btn'
+            onClick={() => dispatch(toggleSidebar())}
           >
-            <Logo />
-          </Link>
-          <h3 className='logo-text'>Dashboard</h3>
-        </div>
-        <div className='btn-container'>
-          <button className='btn' onClick={() => setShowLogout(!showLogout)}>
-            <AiOutlineUser /* User icon */ />
-            {user?.name.split(' ')[0]}
-            {showLogout ? (
-              <AiFillCaretUp />
+            {isSidebarOpen && isMobile() ? (
+              <AiOutlineMenuFold />
+            ) : !isSidebarOpen && isMobile() ? (
+              <AiOutlineMenuUnfold />
+            ) : isSidebarOpen ? (
+              <AiOutlineMenuUnfold />
             ) : (
-              <AiFillCaretDown /* Dropdown icon */ />
+              <AiOutlineMenuFold />
             )}
           </button>
-          <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
-            <button
-              className='dropdown-btn'
-              onClick={() =>
-                dispatch(clearStore('Logout successful! Come back soon!'))
-              }
+          <div>
+            <Link
+              to='/'
+              onClick={() => {
+                isSidebarOpen && dispatch(toggleSidebar());
+              }}
             >
-              logout
+              <Logo />
+            </Link>
+            <h3 className='logo-text'>Dashboard</h3>
+          </div>
+          <div className='btn-container'>
+            <button className='btn' onClick={() => setShowLogout(!showLogout)}>
+              <AiOutlineUser /* User icon */ />
+              {user?.name.split(' ')[0]}
+              {showLogout ? (
+                <AiFillCaretUp />
+              ) : (
+                <AiFillCaretDown /* Dropdown icon */ />
+              )}
             </button>
+            <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
+              <button
+                className='dropdown-btn'
+                onClick={() =>
+                  dispatch(clearStore('Logout successful! Come back soon!'))
+                }
+              >
+                logout
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+      {/* <MobileSidebar /> */}
+    </>
   );
 };
 export default Navbar;

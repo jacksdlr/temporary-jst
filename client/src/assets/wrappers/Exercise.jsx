@@ -91,17 +91,18 @@ const Wrapper = styled.section`
   .input-container {
     width: 25%;
   }
-  .target {
+  .target-reps,
+  .target-rir {
     height: 2rem;
     color: var(--primary-500);
   }
-  .increase,
-  .decrease {
+  .increase-weight,
+  .decrease-weight {
     height: 1rem;
     margin: 0.5rem 0;
     border-radius: var(--borderRadius);
   }
-  .increase {
+  .increase-weight {
     background-color: var(--green-light);
     color: var(--green-dark);
   }
@@ -109,9 +110,10 @@ const Wrapper = styled.section`
     background-color: var(--red-light);
     color: var(--red-dark);
   }
-  .target,
-  .increase,
-  .decrease {
+  .target-reps,
+  .target-rir,
+  .increase-weight,
+  .decrease-weight {
     position: absolute;
     margin-left: 0.15rem;
   }

@@ -5,8 +5,8 @@ import {
   closeRecoveryModal,
   setRecoveryScore,
   addSet,
-} from '../features/workout/workoutSlice';
-import { directory } from '../utils/directory';
+} from '../../features/workout/workoutSlice';
+import { directory } from '../../utils/directory';
 
 const Modal = () => {
   const dispatch = useDispatch();

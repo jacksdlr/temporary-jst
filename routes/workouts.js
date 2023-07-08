@@ -13,14 +13,6 @@ const testUser = require('../middleware/test-user');
 
 router.route('/', authenticateUser).get(getAllWorkouts);
 
-router.route('/nextWorkout', authenticateUser).get(getNextWorkout);
-
-// is this even real?
-/* router
-  .route('/:id', authenticateUser)
-  .get(getWorkout)
-  .patch(testUser, updateWorkout); */
-
 router
   .route('/:mesoId/:workoutId', authenticateUser)
   .get(getWorkout)

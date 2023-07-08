@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import navbarSlice from './features/navbar/navbarSlice';
 import userSlice from './features/user/userSlice';
-import createMesoSlice from './features/createMeso/createMesoSlice';
-import allWorkoutsSlice from './features/allWorkouts/allWorkoutsSlice';
-import allMesocyclesSlice from './features/allMesocycles/allMesocyclesSlice';
+import createMesoSlice from './features/create-meso/createMesoSlice';
+import allWorkoutsSlice from './features/all-workouts/allWorkoutsSlice';
+import mesocyclesSlice from './features/mesocycles/mesocyclesSlice';
 import workoutSlice from './features/workout/workoutSlice';
 
 export const store = configureStore({
@@ -12,7 +12,7 @@ export const store = configureStore({
     createMeso: createMesoSlice,
     allWorkouts: allWorkoutsSlice,
     workout: workoutSlice,
-    allMesocycles: allMesocyclesSlice,
+    mesocycles: mesocyclesSlice,
     navbar: navbarSlice,
   },
 });

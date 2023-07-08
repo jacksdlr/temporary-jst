@@ -29,7 +29,6 @@ export const getAllWorkoutsThunk = async (_, thunkAPI) => {
     return response.data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);
-    // return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };
 
@@ -42,15 +41,5 @@ export const deleteWorkoutThunk = async (url, thunkAPI) => {
   } catch (error) {
     thunkAPI.dispatch(hideLoading());
     return checkForUnauthorizedResponse(error, thunkAPI);
-    // return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };
-
-/* export const getCurrentWorkoutThunk = async (_, thunkAPI) => {
-  try {
-    const response = await customFetch.get('/workouts/currentWorkout');
-    return response.data;
-  } catch (error) {
-    return checkForUnauthorizedResponse(error, thunkAPI);
-  }
-}; */

@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Wrapper from '../assets/wrappers/Workout';
+import Wrapper from '../../assets/wrappers/Workout';
 import {
   AiOutlineCalendar,
   AiOutlineCloseCircle,
   AiOutlineClockCircle,
 } from 'react-icons/ai';
-import { deleteWorkout } from '../features/allWorkouts/allWorkoutsSlice';
-import { getWorkout } from '../features/workout/workoutSlice';
-import ConfirmationModal from './ConfirmationModal';
+import { deleteWorkout } from '../../features/all-workouts/allWorkoutsSlice';
+import { getWorkout } from '../../features/workout/workoutSlice';
+import ConfirmationModal from '../ConfirmationModal';
 
 const Workout = ({
   mesoName,
@@ -95,8 +95,6 @@ const Workout = ({
             className='btn delete-btn'
             onClick={() => {
               setIsModalShown(true);
-              // ASK FOR CONFIRMATION
-              // dispatch(deleteWorkout({ mesoId, workoutId: _id }));
             }}
           >
             delete

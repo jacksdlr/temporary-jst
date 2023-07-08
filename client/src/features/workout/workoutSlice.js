@@ -1,40 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getUserFromLocalStorage } from '../../utils/localStorage';
-import { createMeso, editMeso } from '../createMeso/createMesoSlice';
+import { getWorkoutFromLocalStorage } from '../../utils/localStorage';
+import { createMeso, editMeso } from '../create-meso/createMesoSlice';
 import { loginUser } from '../user/userSlice';
-import {
-  getNextWorkoutThunk,
-  getWorkoutThunk,
-  updateWorkoutThunk,
-} from './workoutThunk';
-
-let meso = getUserFromLocalStorage()?.mesocycles?.find(
-  (meso) => meso.status == 'Active'
-);
-
-let workout = meso?.sessions?.find((session) => session.status == 'Planned');
+import { getWorkoutThunk, updateWorkoutThunk } from './workoutThunk';
 
 const initialState = {
   isLoading: false,
-  workout /* : getUserFromLocalStorage()
-    ?.mesocycles?.find((meso) => meso.status == 'Active')
-    ?.sessions?.find((session) => session.status == 'Planned') */,
-  mesoId:
-    /* getUserFromLocalStorage()?.mesocycles?.find(
-    (meso) => meso.status == 'Active'
-  )? */ meso?._id,
-  nextWorkoutId: workout?._id,
+  workout: getWorkoutFromLocalStorage(),
   recoveryModal: {
     isOpen: true,
   },
 };
-
-export const getNextWorkout = createAsyncThunk(
-  'workouts/nextWorkout',
-  getNextWorkoutThunk
-);
 
 export const getWorkout = createAsyncThunk(
   'workouts/getWorkout',
@@ -84,11 +61,16 @@ const workoutSlice = createSlice({
       const exercise = state.workout.exercises.find(
         (exercise) => exercise._id == id
       );
-      // state.workout.exercises[exerciseIndex].sets.push(newSet);
       exercise.sets.push(newSet);
       // exercise.performanceScore++;
     },
     clearWorkoutState: () => initialState,
+    setNextWorkout: (state, { payload: { workout } }) => {
+      return {
+        ...initialState,
+        workout,
+      };
+    },
     getCurrentExercise: (state) => {
       // abandoned?
       state.workout.exercises.map((exercise, index) => {
@@ -189,21 +171,6 @@ const workoutSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getNextWorkout.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getNextWorkout.fulfilled, (state, { payload }) => {
-        state.recoveryModal = {
-          isOpen: true,
-        };
-        state.isLoading = false;
-        state.workout = payload.workout;
-        state.mesoId = payload.mesoId;
-      })
-      .addCase(getNextWorkout.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        // toast.error(payload);
-      })
       .addCase(getWorkout.pending, (state) => {
         state.isLoading = true;
       })
@@ -213,86 +180,30 @@ const workoutSlice = createSlice({
         };
         state.isLoading = false;
         state.workout = payload.workout;
-        state.mesoId = payload.mesoId;
       })
       .addCase(getWorkout.rejected, (state, { payload }) => {
         state.isLoading = false;
-        // toast.error(payload);
+        toast.error(payload);
       })
       .addCase(updateWorkout.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateWorkout.fulfilled, (state, { payload }) => {
-        meso = payload.user.mesocycles.find((meso) => meso.status == 'Active');
-        workout = meso?.sessions?.find(
-          (session) => session.status == 'Planned'
-        );
-        return {
-          ...initialState,
-          workout /* : payload.user.mesocycles
-            .find((meso) => meso.status == 'Active')
-            .sessions?.find((session) => session.status == 'Planned') */,
-          mesoId:
-            /* payload.user.mesocycles.find(
-            (meso) => meso.status == 'Active'
-          ) */ meso?._id,
-          nextWorkoutId: workout?._id,
-        };
+      .addCase(updateWorkout.fulfilled, (state, { payload: { workout } }) => {
+        toast.success('Completed workout!');
+        return { ...initialState, workout };
       })
-      .addCase(createMeso.fulfilled, (state, { payload }) => {
-        meso = payload.user.mesocycles.find((meso) => meso.status == 'Active');
-        workout = meso?.sessions?.find(
-          (session) => session.status == 'Planned'
-        );
-        return {
-          ...initialState,
-          workout /* : payload.user.mesocycles
-            .find((meso) => meso.status == 'Active')
-            .sessions?.find((session) => session.status == 'Planned') */,
-          mesoId:
-            /* payload.user.mesocycles.find(
-            (meso) => meso.status == 'Active'
-          ) */ meso?._id,
-          nextWorkoutId: workout?._id,
-        };
+      .addCase(createMeso.fulfilled, (state, { payload: { workout } }) => {
+        return { ...initialState, workout };
       })
-      .addCase(editMeso.fulfilled, (state, { payload }) => {
-        meso = payload.user.mesocycles.find((meso) => meso.status == 'Active');
-        workout = meso?.sessions?.find(
-          (session) => session.status == 'Planned'
-        );
-        return {
-          ...initialState,
-          workout /* : payload.user.mesocycles
-            .find((meso) => meso.status == 'Active')
-            .sessions?.find((session) => session.status == 'Planned') */,
-          mesoId:
-            /* payload.user.mesocycles.find(
-            (meso) => meso.status == 'Active'
-          ) */ meso?._id,
-          nextWorkoutId: workout?._id,
-        };
+      .addCase(editMeso.fulfilled, (state, { payload: { workout } }) => {
+        return { ...initialState, workout };
       })
       .addCase(updateWorkout.rejected, (state, { payload }) => {
         state.isLoading = false;
-        // toast.error(payload);
+        toast.error(payload);
       })
-      .addCase(loginUser.fulfilled, (state, { payload }) => {
-        meso = payload.user.mesocycles.find((meso) => meso.status == 'Active');
-        workout = meso?.sessions?.find(
-          (session) => session.status == 'Planned'
-        );
-        return {
-          ...initialState,
-          workout /* : payload.user.mesocycles
-            .find((meso) => meso.status == 'Active')
-            .sessions?.find((session) => session.status == 'Planned') */,
-          mesoId:
-            /* payload.user.mesocycles.find(
-            (meso) => meso.status == 'Active'
-          ) */ meso?._id,
-          nextWorkoutId: workout?._id,
-        };
+      .addCase(loginUser.fulfilled, (state, { payload: { workout } }) => {
+        state.workout = workout;
       });
   },
 });
@@ -303,12 +214,12 @@ export const {
   handleSetChange,
   addSet,
   clearWorkoutState,
+  setNextWorkout,
   getCurrentExercise,
   setPrevWeights,
   openRecoveryModal,
   closeRecoveryModal,
   setRecoveryScore,
-  // calculateScores,
   getNextWorkoutName,
 } = workoutSlice.actions;
 

@@ -1,10 +1,10 @@
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from 'react-icons/ai';
-import Wrapper from '../assets/wrappers/PageButtonContainer';
+import Wrapper from '../../assets/wrappers/PageButtonContainer';
 import { useSelector, useDispatch } from 'react-redux';
-import { changePage } from '../features/allWorkouts/allWorkoutsSlice';
+import { changePage } from '../../features/mesocycles/mesocyclesSlice';
 
 const PageButtonContainer = () => {
-  const { numberOfPages, page } = useSelector((store) => store.allWorkouts);
+  const { numberOfPages, page } = useSelector((store) => store.mesocycles);
   const dispatch = useDispatch();
 
   const pages = Array.from({ length: numberOfPages }, (_, index) => {

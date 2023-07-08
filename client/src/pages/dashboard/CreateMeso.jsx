@@ -1,16 +1,16 @@
-import CreateMesoSession from '../../components/CreateMesoSession';
+import {
+  CreateMesoSession,
+  CreateMesoDetails,
+} from '../../components/create-meso';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { FormRow, FormRowSelect } from '../../components';
 import {
   handleMesoChange,
   addSession,
-  clearInputs,
   createMeso,
   editMeso,
-} from '../../features/createMeso/createMesoSlice';
-import MesoWrapper from '../../assets/wrappers/DashboardFormPage';
-import SessionsWrapper from '../../assets/wrappers/SessionForm';
+} from '../../features/create-meso/createMesoSlice';
+import Wrapper from '../../assets/wrappers/SessionForm';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 const MesoDetails = () => {
@@ -19,7 +19,6 @@ const MesoDetails = () => {
   const {
     isLoading,
     mesoName,
-    microcycles,
     goal,
     startDate,
     startWeight,
@@ -99,106 +98,9 @@ const MesoDetails = () => {
 
   return (
     <>
-      <MesoWrapper>
-        <h3>{!isEditing ? 'Create Mesocycle' : 'Edit Mesocycle'}</h3>
-        <div className='form-center'>
-          <FormRow
-            type='text'
-            name='mesoName'
-            labelText='Mesocycle Name *'
-            value={mesoName}
-            handleChange={handleMesoInput}
-          />
-          {/* <FormRowSelect
-            name='microcycles'
-            labelText='Microcycles *'
-            value={microcycles}
-            list={['Select mesocycle length', 1, 2, 3, 4, 5, 6, 7, 8]}
-            handleChange={handleMesoInput}
-          /> */}
-          <FormRowSelect
-            name='goal'
-            labelText='Goal'
-            value={goal}
-            list={['Select a goal', 'Bulk', 'Cut', 'Maintenance']}
-            handleChange={handleMesoInput}
-          />
-          <FormRow
-            type='date'
-            name='startDate'
-            labelText='Start Date'
-            value={startDate}
-            handleChange={handleMesoInput}
-          />
-          <FormRow
-            type='number'
-            name='startWeight'
-            labelText='Start Weight (kg)'
-            value={startWeight}
-            handleChange={handleMesoInput}
-          />
-          {isEditing && (
-            <FormRow
-              type='number'
-              name='endWeight'
-              labelText='End Weight (kg)'
-              value={endWeight}
-              handleChange={handleMesoInput}
-            />
-          )}
-          <FormRow
-            type='textarea'
-            name='mesoNotes'
-            labelText='Additional Notes'
-            placeholder='More mesocycle info...'
-            value={mesoNotes}
-            handleChange={handleMesoInput}
-          />
-          <FormRow
-            type='checkbox'
-            name='setActive'
-            labelText='Set as active meso?'
-            checked={setActive}
-            handleChange={handleChecked}
-          />
-          {!isEditing ? (
-            <button
-              className='btn btn-block clear-btn'
-              /* ask for confirmation here */
-              onClick={() => dispatch(clearInputs())}
-            >
-              Reset Mesocycle
-            </button>
-          ) : (
-            <button
-              className='btn btn-block clear-btn'
-              /* ask for confirmation here */
-              onClick={() => dispatch(clearInputs())}
-            >
-              Cancel
-            </button>
-          )}
-          {!isEditing ? (
-            <button
-              className='btn btn-block submit-btn'
-              onClick={handleSubmit}
-              disabled={isLoading}
-            >
-              Create Mesocycle
-            </button>
-          ) : (
-            <button
-              className='btn btn-block submit-btn'
-              onClick={handleSubmit}
-              disabled={isLoading}
-            >
-              Save Changes
-            </button>
-          )}
-        </div>
-      </MesoWrapper>
+      <CreateMesoDetails />
       {!isEditing && (
-        <SessionsWrapper>
+        <Wrapper>
           {sessions.map((session, sessionIndex) => {
             return (
               <CreateMesoSession
@@ -214,7 +116,7 @@ const MesoDetails = () => {
           >
             <AiOutlinePlusCircle size={50} />
           </div>
-        </SessionsWrapper>
+        </Wrapper>
       )}
     </>
   );

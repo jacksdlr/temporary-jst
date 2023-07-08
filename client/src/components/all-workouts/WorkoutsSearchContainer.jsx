@@ -1,72 +1,58 @@
-import { FormRow, FormRowSelect } from '.';
-import Wrapper from '../assets/wrappers/SearchContainer';
+import { FormRow, FormRowSelect } from '..';
+import Wrapper from '../../assets/wrappers/SearchContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   handleChange,
   clearFilters,
-} from '../features/allMesocycles/allMesocyclesSlice';
-import { useState, useMemo } from 'react';
+} from '../../features/all-workouts/allWorkoutsSlice';
 
-const MesocyclesSearchContainer = () => {
+const WorkoutsSearchContainer = () => {
   const dispatch = useDispatch();
 
   const {
     isLoading,
-    search,
+    searchMicrocycle,
+    searchSession,
     searchStatus,
     statusOptions,
-    searchGoal,
-    goalOptions,
-    searchMicrocycles,
+    searchMuscle,
+    muscleOptions,
     sort,
     sortOptions,
-  } = useSelector((store) => store.allMesocycles);
-
-  const [localSearch, setLocalSearch] = useState('');
-
-  const debounce = () => {
-    let timeoutID;
-    return (e) => {
-      setLocalSearch(e.target.value);
-      clearTimeout(timeoutID);
-      timeoutID = setTimeout(() => {
-        dispatch(handleChange({ name: e.target.name, value: e.target.value }));
-      }, 500);
-    };
-  };
-
-  const optimizedDebounce = useMemo(() => debounce(), []);
+  } = useSelector((store) => store.allWorkouts);
 
   const handleSearch = (e) => {
+    if (isLoading) return;
     dispatch(handleChange({ name: e.target.name, value: e.target.value }));
   };
 
   const handleClear = (e) => {
     e.preventDefault();
-    setLocalSearch('');
     dispatch(clearFilters());
   };
 
   return (
     <Wrapper>
       <form className='form'>
-        <h4>search mesocycles</h4>
+        <h4>search workouts</h4>
         <div className='form-center'>
           <FormRow
-            type='text'
-            labelText='Mesocycle name'
-            name='search'
-            value={localSearch}
-            handleChange={optimizedDebounce}
+            type='number'
+            labelText='Microcycle'
+            name='searchMicrocycle'
+            min={1}
+            step={1}
+            value={searchMicrocycle}
+            handleChange={handleSearch}
           />
           <FormRow
             type='number'
-            labelText='No. of microcycles'
-            name='searchMicrocycles'
-            value={searchMicrocycles}
+            labelText='Session'
+            name='searchSession'
             min={1}
             step={1}
-            handleChange={handleSearch} /* this might need to be debounce? */
+            value={searchSession}
+            handleChange={handleSearch}
           />
           {/* search by status */}
           <FormRowSelect
@@ -76,13 +62,13 @@ const MesocyclesSearchContainer = () => {
             handleChange={handleSearch}
             list={['All', ...statusOptions]}
           />
-          {/* search by goal */}
+          {/* search by muscle */}
           <FormRowSelect
-            labelText='Goal'
-            name='searchGoal'
-            value={searchGoal}
+            labelText='Muscle Group'
+            name='searchMuscle'
+            value={searchMuscle}
             handleChange={handleSearch}
-            list={['All', ...goalOptions]}
+            list={['All', ...muscleOptions]}
           />
           {/* sort */}
           <FormRowSelect
@@ -104,4 +90,4 @@ const MesocyclesSearchContainer = () => {
     </Wrapper>
   );
 };
-export default MesocyclesSearchContainer;
+export default WorkoutsSearchContainer;

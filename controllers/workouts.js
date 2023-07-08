@@ -79,27 +79,6 @@ const getAllWorkouts = async (req, res) => {
   res.status(StatusCodes.OK).json({ workouts, totalWorkouts, numberOfPages });
 };
 
-const getNextWorkout = async (req, res) => {
-  const { userId } = req.user;
-
-  const user = await User.findById(userId);
-  const activeMeso = await user.mesocycles.find(
-    (meso) => meso.status == 'Active'
-  );
-
-  if (!activeMeso) {
-    return res
-      .status(StatusCodes.OK)
-      .json({ msg: `You do not have an active mesocycle` });
-  }
-
-  const workout = await activeMeso.sessions.find(
-    (session) => session.status == 'Planned'
-  );
-
-  res.status(StatusCodes.OK).json({ workout, mesoId: activeMeso._id });
-};
-
 // This is for individual workout route (like current workout, when user clicks to view/edit in all-workouts it brings them to workout page)
 const getWorkout = async (req, res) => {
   const {
@@ -326,6 +305,12 @@ const updateWorkout = async (req, res) => {
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
+    workout: {
+      ...user.mesocycles
+        ?.find((meso) => meso.status == 'Active')
+        ?.sessions?.find((session) => session.status == 'Planned')._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
+    },
   });
 };
 
@@ -354,12 +339,17 @@ const deleteWorkout = async (req, res) => {
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
+    workout: {
+      ...user.mesocycles
+        ?.find((meso) => meso.status == 'Active')
+        ?.sessions?.find((session) => session.status == 'Planned')._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
+    },
   });
 };
 
 module.exports = {
   getAllWorkouts,
-  getNextWorkout,
   getWorkout,
   updateWorkout,
   deleteWorkout,

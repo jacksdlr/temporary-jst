@@ -6,8 +6,9 @@ import {
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getNextWorkout,
+  // getNextWorkout,
   openRecoveryModal,
+  setNextWorkout,
 } from '../../features/workout/workoutSlice';
 import { Link } from 'react-router-dom';
 import Wrapper from '../../assets/wrappers/HomePage';
@@ -17,9 +18,9 @@ import { syncUserData } from '../../features/user/userSlice';
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { user } = useSelector((store) => store.user);
+  const { isLoading, user, nextWorkout } = useSelector((store) => store.user);
 
-  const { isLoading, workout } = useSelector((store) => store.workout);
+  const { workout } = useSelector((store) => store.workout);
 
   // useEffect(() => {
   //   if (!workout) {
@@ -28,15 +29,16 @@ const Home = () => {
   // }, [user]);
 
   useEffect(() => {
-    dispatch(syncUserData(user.version));
+    dispatch(syncUserData(user.updatedAt));
   }, []);
 
-  const nextWorkout = useMemo(() => {
-    // this happens every time you go to the page? stop.
-    return user?.mesocycles
-      ?.find((meso) => meso.status == 'Active')
-      ?.sessions?.find((session) => session.status == 'Planned')?.sessionName;
-  }, [user]);
+  // const nextWorkout = useMemo(() => {
+  //   // this happens every time you go to the page? stop.
+  //   /* return user?.mesocycles
+  //     ?.find((meso) => meso.status == 'Active')
+  //     ?.sessions?.find((session) => session.status == 'Planned')?.sessionName */
+  //   return user?.nextWorkout?.sessionName;
+  // }, [user]);
 
   if (isLoading) {
     return <Loading center />;
@@ -54,11 +56,11 @@ const Home = () => {
           to={'/workout'}
           className='btn btn-hero'
           onClick={() => {
-            dispatch(openRecoveryModal());
-            dispatch(getNextWorkout());
+            // need to do this rather than return initial state (if a user makes changes on desktop it will update some state, but workout is still stored in local storage)
+            dispatch(setNextWorkout({ workout: nextWorkout }));
           }}
         >
-          <h3>Go to next workout: '{nextWorkout}'</h3>
+          <h3>Go to next workout: '{nextWorkout.sessionName}'</h3>
           <AiOutlineArrowRight size={'3rem'} />
         </Link>
       )}

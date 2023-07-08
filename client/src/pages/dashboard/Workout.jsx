@@ -1,29 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  openRecoveryModal,
-  getNextWorkout,
-  updateWorkout,
-} from '../../features/workout/workoutSlice';
+import { updateWorkout } from '../../features/workout/workoutSlice';
 import Loading from '../../components/Loading';
 import Wrapper from '../../assets/wrappers/WorkoutPage';
 import { AiOutlineMore, AiOutlineFile, AiOutlineWarning } from 'react-icons/ai';
-import Exercise from '../../components/Exercise';
 import { toast } from 'react-toastify';
-import RecoveryModal from '../../components/RecoveryModal';
+import { RecoveryModal, Exercise } from '../../components/workout';
+import { syncUserData } from '../../features/user/userSlice';
 
 const Workout = () => {
   const dispatch = useDispatch();
 
   const [isWarningShown, setIsWarningShown] = useState(false);
 
-  const { isLoading, workout, mesoId, nextWorkoutId, recoveryModal } =
-    useSelector((store) => store.workout);
+  const { user, nextWorkout } = useSelector((store) => store.user);
+
+  const { isLoading, workout, recoveryModal } = useSelector(
+    (store) => store.workout
+  );
+
+  const { mesoId } = workout;
 
   useEffect(() => {
-    if (!workout) {
-      dispatch(getNextWorkout());
-    }
+    dispatch(syncUserData(user.updatedAt));
   }, []);
 
   const handleSubmit = (e) => {
@@ -40,17 +39,6 @@ const Workout = () => {
         }
       }
     }
-    /* workout.exercises.map((exercise) => {
-      exercise.sets.map((set) => {
-        if (
-          set.weight == undefined ||
-          set.repetitions == undefined ||
-          set.repsInReserve == undefined
-        ) {
-          return toast.error('One or more exercise details are incomplete');
-        }
-      });
-    }); */
 
     dispatch(updateWorkout({ workout, mesoId }));
   };
@@ -78,9 +66,9 @@ const Workout = () => {
       {/* add a user profile setting to enable/disable automatic set additions */}
       {workout.microcycle != 1 &&
         workout.status == 'Planned' &&
-        workout._id == nextWorkoutId &&
+        workout._id == nextWorkout._id &&
         recoveryModal.isOpen && <RecoveryModal />}
-      {workout._id != nextWorkoutId && (
+      {workout._id != nextWorkout._id && (
         <div
           className='warning-container'
           onClick={() => {
@@ -156,7 +144,7 @@ const Workout = () => {
         <button
           className='btn submit-btn'
           onClick={handleSubmit}
-          disabled={isLoading || workout._id != nextWorkoutId}
+          disabled={isLoading || workout._id != nextWorkout._id}
         >
           Complete Workout
         </button>

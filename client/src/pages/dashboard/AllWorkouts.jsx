@@ -1,5 +1,7 @@
-import WorkoutsSearchContainer from '../../components/WorkoutsSearchContainer';
-import WorkoutsContainer from '../../components/WorkoutsContainer';
+import {
+  WorkoutsSearchContainer,
+  WorkoutsContainer,
+} from '../../components/all-workouts';
 
 const AllWorkouts = () => {
   return (

@@ -25,7 +25,6 @@ const initialState = {
   ...initialFilters,
 };
 
-// complete
 export const getAllWorkouts = createAsyncThunk(
   'workouts/getAllWorkouts',
   getAllWorkoutsThunk

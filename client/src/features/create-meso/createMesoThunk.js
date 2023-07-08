@@ -1,10 +1,10 @@
 import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
-import { clearInputs } from './createMesoSlice';
+import { clearCreateMesoState } from './createMesoSlice';
 
 export const createMesoThunk = async (url, mesocycle, thunkAPI) => {
   try {
     const response = await customFetch.post(url, mesocycle);
-    thunkAPI.dispatch(clearInputs());
+    thunkAPI.dispatch(clearCreateMesoState());
     return response.data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);
@@ -14,7 +14,7 @@ export const createMesoThunk = async (url, mesocycle, thunkAPI) => {
 export const editMesoThunk = async (url, mesocycle, thunkAPI) => {
   try {
     const response = await customFetch.patch(url, mesocycle);
-    thunkAPI.dispatch(clearInputs());
+    thunkAPI.dispatch(clearCreateMesoState());
     return response.data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Workout from './Workout';
-import Loading from './Loading';
-import Wrapper from '../assets/wrappers/WorkoutsContainer';
-import { getAllWorkouts } from '../features/allWorkouts/allWorkoutsSlice';
+import { Workout, WorkoutsPageButtons } from './';
+import Loading from '../Loading';
+import Wrapper from '../../assets/wrappers/WorkoutsContainer';
+import { getAllWorkouts } from '../../features/all-workouts/allWorkoutsSlice';
 import PageButtonContainer from './WorkoutsPageButtons';
 
 const WorkoutsContainer = () => {
@@ -64,7 +64,7 @@ const WorkoutsContainer = () => {
           <Workout key={index} {...workout} />
         ))}
       </div>
-      {numberOfPages > 1 && <PageButtonContainer />}
+      {numberOfPages > 1 && <WorkoutsPageButtons />}
     </Wrapper>
   );
 };

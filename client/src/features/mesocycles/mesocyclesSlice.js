@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
-import { getAllMesocyclesThunk, deleteMesoThunk } from './allMesocyclesThunk';
+import { getAllMesocyclesThunk, deleteMesoThunk } from './mesocyclesThunk';
 
 const initialFilters = {
   search: '',
@@ -38,8 +38,8 @@ export const deleteMeso = createAsyncThunk(
   }
 );
 
-const allMesocyclesSlice = createSlice({
-  name: 'allMesocycles',
+const mesocyclesSlice = createSlice({
+  name: 'mesocycles',
   initialState,
   reducers: {
     showLoading: (state) => {
@@ -58,7 +58,7 @@ const allMesocyclesSlice = createSlice({
     changePage: (state, { payload }) => {
       state.page = payload;
     },
-    clearAllMesocyclesState: () => initialState,
+    clearMesocyclesState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -96,6 +96,6 @@ export const {
   handleChange,
   clearFilters,
   changePage,
-  clearAllMesocyclesState,
-} = allMesocyclesSlice.actions;
-export default allMesocyclesSlice.reducer;
+  clearMesocyclesState,
+} = mesocyclesSlice.actions;
+export default mesocyclesSlice.reducer;

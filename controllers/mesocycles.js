@@ -182,6 +182,12 @@ const createMeso = async (req, res) => {
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
+    workout: {
+      ...user.mesocycles
+        ?.find((meso) => meso.status == 'Active')
+        ?.sessions?.find((session) => session.status == 'Planned')._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
+    },
   });
 };
 
@@ -241,6 +247,12 @@ const updateMeso = async (req, res) => {
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
+    workout: {
+      ...user.mesocycles
+        ?.find((meso) => meso.status == 'Active')
+        ?.sessions?.find((session) => session.status == 'Planned')._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
+    },
   });
 };
 
@@ -268,6 +280,12 @@ const deleteMeso = async (req, res) => {
 
   res.status(StatusCodes.OK).json({
     user: userObject(user),
+    workout: {
+      ...user.mesocycles
+        ?.find((meso) => meso.status == 'Active')
+        ?.sessions?.find((session) => session.status == 'Planned')._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
+    },
   });
 };
 

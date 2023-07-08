@@ -8,11 +8,14 @@ const Wrapper = styled.section`
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: var(--shadow-2);
+    display: flex;
+    flex-direction: column;
   }
   .add-session {
     padding: 1rem;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
   .add-session:hover {
     color: var(--primary-500);
@@ -55,6 +58,7 @@ const Wrapper = styled.section`
     max-width: 100%;
     width: 100%;
     padding-bottom: 1rem;
+    margin-bottom: 1rem;
   }
   .form-row {
     margin-bottom: 0;
@@ -152,6 +156,7 @@ const Wrapper = styled.section`
       margin: 1rem;
     }
     .session-notes {
+      align-self: center;
       width: 90%;
       margin: 0 1rem 1.38rem 1rem;
     }

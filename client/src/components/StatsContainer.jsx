@@ -32,7 +32,7 @@ const StatsContainer = () => {
       icon: <AiOutlineFolderOpen />,
       color: '#e9b949',
       background: '#fcefc7',
-      link: '/all-mesocycles',
+      link: '/mesocycles',
     },
   ];
 
