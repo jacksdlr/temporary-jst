@@ -180,15 +180,17 @@ const createMeso = async (req, res) => {
 
   // const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json(
+    userObject(user) /* {
     user: userObject(user),
     workout: {
       ...user.mesocycles
         ?.find((meso) => meso.status == 'Active')
-        ?.sessions?.find((session) => session.status == 'Planned')._doc,
-      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
-    },
-  });
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+  );
 };
 
 // FOR LATER UPDATE: IF THE CURRENT STATUS IS 'PLANNED' LOAD THE SESSIONS ONTO THE PAGE AND SAVE TO DATABASE (USERS SHOULD BE ALLOWED TO EDIT THE SESSIONS OF A PLANNED MESO FROM THE CREATE MESO PAGE)
@@ -245,15 +247,17 @@ const updateMeso = async (req, res) => {
 
   // const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json(
+    userObject(user) /* {
     user: userObject(user),
     workout: {
       ...user.mesocycles
         ?.find((meso) => meso.status == 'Active')
-        ?.sessions?.find((session) => session.status == 'Planned')._doc,
-      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
-    },
-  });
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+  );
 };
 
 const deleteMeso = async (req, res) => {
@@ -278,15 +282,17 @@ const deleteMeso = async (req, res) => {
 
   // const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json(
+    userObject(user) /* {
     user: userObject(user),
     workout: {
       ...user.mesocycles
         ?.find((meso) => meso.status == 'Active')
-        ?.sessions?.find((session) => session.status == 'Planned')._doc,
-      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
-    },
-  });
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+  );
 };
 
 module.exports = {

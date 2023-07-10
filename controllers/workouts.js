@@ -92,22 +92,33 @@ const getWorkout = async (req, res) => {
   ); */
   const meso = user.mesocycles.find((mesocycle) => mesocycle._id == mesoId);
 
-  const workout = meso.sessions.find((session) => session._id == workoutId);
+  const workout = meso.sessions.find(
+    (session) => session._id == workoutId
+  )._doc;
 
   if (!workout) {
     throw new NotFoundError(`No workout with id ${workoutId}`);
   }
-  res.status(StatusCodes.OK).json({ workout, mesoId });
+  res.status(StatusCodes.OK).json({ workout: { ...workout, mesoId } });
 };
 
 const updateWorkout = async (req, res) => {
   const {
     user: { userId },
     params: { mesoId, workoutId },
-    body: { musclesTrained, notes, microcycle, sessionName, sessionNumber },
+    body: {
+      workout: {
+        musclesTrained,
+        notes,
+        microcycle,
+        sessionName,
+        sessionNumber,
+      },
+      isCurrentWorkout,
+    },
   } = req;
 
-  const exercises = req.body.exercises.map((exercise) => {
+  const exercises = req.body.workout.exercises.map((exercise) => {
     const { notes, _id, exerciseName, repRange, sets, muscleGroup } = exercise;
     return {
       notes,
@@ -133,8 +144,11 @@ const updateWorkout = async (req, res) => {
   workout.notes = notes;
   workout.exercises = exercises;
 
-  if (workout.status == 'Planned') {
+  let msg = 'Saved changes!';
+
+  if (workout.status == 'Planned' && isCurrentWorkout) {
     workout.status = 'Completed';
+    workout.dateCompleted = new Date();
 
     let setsCount = 0;
     let setsToFailure = 0;
@@ -299,19 +313,23 @@ const updateWorkout = async (req, res) => {
     });
 
     meso.sessions.push(newSession);
+
+    msg = 'Completed workout!';
   }
 
   await user.save();
 
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json(
+    { ...userObject(user), msg } /* {
     user: userObject(user),
     workout: {
       ...user.mesocycles
         ?.find((meso) => meso.status == 'Active')
-        ?.sessions?.find((session) => session.status == 'Planned')._doc,
-      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
-    },
-  });
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+  );
 };
 
 const deleteWorkout = async (req, res) => {
@@ -337,15 +355,17 @@ const deleteWorkout = async (req, res) => {
 
   await user.save();
 
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json(
+    userObject(user) /* {
     user: userObject(user),
     workout: {
       ...user.mesocycles
         ?.find((meso) => meso.status == 'Active')
-        ?.sessions?.find((session) => session.status == 'Planned')._doc,
-      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
-    },
-  });
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+  );
 };
 
 module.exports = {

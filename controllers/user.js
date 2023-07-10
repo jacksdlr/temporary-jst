@@ -22,21 +22,36 @@ const userObject = (user) => {
       };
     }
   }
+
+  let nextWorkout = {
+    ...user.mesocycles
+      ?.find((meso) => meso.status == 'Active')
+      ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+    mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+  };
+
+  if (!nextWorkout.mesoId) {
+    nextWorkout = null;
+  }
+
   return {
-    name: user.name,
-    email: user.email,
-    // mesocycles: user.mesocycles,
-    exercises: user.customExercises,
-    data: {
-      height: user.height,
-      weight: user.weight,
-      age: user.age,
-      sex: user.sex,
-      activityLevel: user.activityLevel,
+    user: {
+      name: user.name,
+      email: user.email,
+      // mesocycles: user.mesocycles,
+      exercises: user.customExercises,
+      data: {
+        height: user.height,
+        weight: user.weight,
+        age: user.age,
+        sex: user.sex,
+        activityLevel: user.activityLevel,
+      },
+      stats,
+      token,
+      updatedAt: user.updatedAt,
     },
-    stats,
-    token,
-    updatedAt: user.updatedAt,
+    workout: nextWorkout,
   };
 };
 
@@ -70,15 +85,17 @@ const login = async (req, res) => {
   }
 
   // const token = user.createJWT();
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json(
+    userObject(user) /* {
     user: userObject(user),
     workout: {
       ...user.mesocycles
         ?.find((meso) => meso.status == 'Active')
-        ?.sessions?.find((session) => session.status == 'Planned')._doc,
-      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
-    },
-  });
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+  );
 };
 
 // Update user name, email, password
@@ -98,9 +115,17 @@ const updateUserDetails = async (req, res) => {
 
   // const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json(
+    userObject(user) /* {
     user: userObject(user),
-  });
+    workout: {
+      ...user.mesocycles
+        ?.find((meso) => meso.status == 'Active')
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+  );
 };
 
 // Update user height, weight, age, and activity level
@@ -118,25 +143,34 @@ const updateUserData = async (req, res) => {
 
   // const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).json(
+    userObject(user) /* {
     user: userObject(user),
-  });
+    workout: {
+      ...user.mesocycles
+        ?.find((meso) => meso.status == 'Active')
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+  );
 };
 
 const syncUserData = async (req, res) => {
   const user = await User.findOne({ _id: req.user.userId });
 
   if (new Date(req.query.updatedAt).toString() != user.updatedAt.toString()) {
-    return res.status(StatusCodes.OK).json({
-      user: userObject(user),
-      msg: 'Synced user data!',
-      workout: {
-        ...user.mesocycles
-          ?.find((meso) => meso.status == 'Active')
-          ?.sessions?.find((session) => session.status == 'Planned')._doc,
-        mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')._id,
-      },
-    });
+    return res.status(StatusCodes.OK).json(
+      { ...userObject(user), msg: 'Synced user data!' } /* {
+    user: userObject(user),
+    workout: {
+      ...user.mesocycles
+        ?.find((meso) => meso.status == 'Active')
+        ?.sessions?.find((session) => session.status == 'Planned')?._doc,
+      mesoId: user.mesocycles?.find((meso) => meso.status == 'Active')?._id,
+    } ,
+  } */
+    );
   }
   return res.status(StatusCodes.OK).json({ msg: 'User up to date!' });
 };

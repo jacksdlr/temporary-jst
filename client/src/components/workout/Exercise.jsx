@@ -5,12 +5,28 @@ import {
   AiOutlineFile,
   AiOutlineRise,
   AiOutlineFall,
+  AiOutlinePlus,
+  AiOutlineMinus,
+  AiOutlineDelete,
 } from 'react-icons/ai';
+import { CgInsertBefore, CgInsertAfter } from 'react-icons/cg';
 import { TbTargetArrow } from 'react-icons/tb';
+import { MdDoNotDisturb } from 'react-icons/md';
 import Wrapper from '../../assets/wrappers/Exercise';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleSetChange, addSet } from '../../features/workout/workoutSlice';
+import {
+  handleSetChange,
+  addExerciseBefore,
+  addExerciseAfter,
+  addSet,
+  removeSet,
+  addExerciseNote,
+  disableSetProgression,
+  removeExercise,
+} from '../../features/workout/workoutSlice';
 import { useEffect, useState } from 'react';
+import Options from '../Options';
+import { Button } from '@mui/material';
 
 const Exercise = ({
   name,
@@ -19,6 +35,7 @@ const Exercise = ({
   changeWeight,
   notes,
   exerciseIndex,
+  exerciseId,
 }) => {
   const dispatch = useDispatch();
 
@@ -67,16 +84,83 @@ const Exercise = ({
             {exerciseInfo.muscle}
           </p>
           <div className='links'>
-            <AiOutlineYoutube
+            <Button
+              /* aria-controls={anchorEl ? 'basic-menu' : undefined}
+              aria-haspopup='true'
+              aria-expanded={anchorEl ? 'true' : undefined}
+              onClick={handleClick}*/
               className='options'
-              size={'1.75rem'}
               onClick={() => console.log('open video')}
+            >
+              <AiOutlineYoutube size={'1.75rem'} />
+            </Button>
+
+            <Options
+              options={[
+                {
+                  text: 'Add exercise before',
+                  icon: <CgInsertAfter />,
+                  action: () =>
+                    dispatch(
+                      addExerciseBefore(/* open modal to create exercise and pass this function */)
+                    ),
+                },
+                {
+                  text: 'Add exercise after',
+                  icon: <CgInsertBefore />,
+                  action: () =>
+                    dispatch(
+                      addExerciseAfter(/* open modal to create exercise and pass this function */)
+                    ),
+                },
+                {
+                  text: 'Add set',
+                  icon: <AiOutlinePlus />,
+                  action: () =>
+                    dispatch(
+                      addSet({
+                        newSet: {
+                          weight: sets[sets.length - 1].weight,
+                          targetReps: repRange.match(/^\d+/)[0],
+                          targetRIR: sets[sets.length - 1].targetRIR,
+                          newSet: true,
+                        },
+                        id: exerciseId,
+                      })
+                    ),
+                },
+                {
+                  text: 'Remove set',
+                  icon: <AiOutlineMinus />,
+                  action: () => dispatch(removeSet({ exerciseIndex })),
+                },
+                {
+                  text: 'Add note',
+                  icon: <AiOutlineFile />,
+                  action: () =>
+                    dispatch(
+                      addExerciseNote(/* open modal to create note and pass this function */)
+                    ),
+                },
+                {
+                  text: 'Disable set progression',
+                  icon: <MdDoNotDisturb />,
+                  action: () =>
+                    dispatch(disableSetProgression({ exerciseIndex })),
+                },
+                {
+                  text: 'Remove exercise',
+                  icon: <AiOutlineDelete />,
+                  action: () => dispatch(removeExercise({ exerciseIndex })),
+                },
+              ]}
+              iconSize='1.75rem'
             />
-            <AiOutlineMore
+            {/* <AiOutlineMore
               className='options'
               size={'1.75rem'}
               onClick={() => console.log('open menu')}
-            />
+            /> */}
           </div>
         </div>
         <h4 className='exercise-title'>

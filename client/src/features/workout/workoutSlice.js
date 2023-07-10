@@ -22,14 +22,26 @@ export const getWorkout = createAsyncThunk(
 
 export const updateWorkout = createAsyncThunk(
   'workouts/updateWorkout',
-  async ({ mesoId, workout }, thunkAPI) => {
+  async ({ mesoId, workout, isCurrentWorkout }, thunkAPI) => {
     return updateWorkoutThunk(
+      `/workouts/${workout.mesoId}/${workout._id}`,
+      workout,
+      isCurrentWorkout,
+      thunkAPI
+    );
+  }
+);
+
+/* export const skipWorkout = createAsyncThunk(
+  'workouts/skipWorkout',
+  async ({ mesoId, workout }, thunkAPI) => {
+    return skipWorkoutThunk(
       `/workouts/${mesoId}/${workout._id}`,
       workout,
       thunkAPI
     );
   }
-);
+); */
 
 const workoutSlice = createSlice({
   name: 'workout',
@@ -57,12 +69,52 @@ const workoutSlice = createSlice({
         state.workout.exercises[exerciseIndex].sets[setIndex][input] = value;
       }
     },
+    skipWorkout: (state) => {
+      toast.warning('Feature in development...');
+    },
+    addExercise: (state /* , { payload: { exercise } } */) => {
+      toast.warning('Feature in development...');
+    },
+    addWorkoutNote: (state /* , { payload: { note, isPermanent } } */) => {
+      toast.warning('Feature in development...');
+    },
+    addExerciseBefore: (
+      state /* , { payload: { exercise, exerciseIndex } } */
+    ) => {
+      toast.warning('Feature in development...');
+    },
+    addExerciseAfter: (
+      state /* , { payload: { exercise, exerciseIndex } } */
+    ) => {
+      toast.warning('Feature in development...');
+    },
     addSet: (state, { payload: { newSet, id } }) => {
       const exercise = state.workout.exercises.find(
         (exercise) => exercise._id == id
       );
       exercise.sets.push(newSet);
       // exercise.performanceScore++;
+    },
+    removeSet: (state, { payload: { exerciseIndex } }) => {
+      if (state.workout.exercises[exerciseIndex].sets.length == 1) {
+        toast.error('You cannot remove the last set of an exercise...');
+      } else {
+        state.workout.exercises[exerciseIndex].sets.pop();
+      }
+    },
+    addExerciseNote: (state /* , { payload: { note, isPermanent } } */) => {
+      toast.warning('Feature in development...');
+    },
+    disableSetProgression: (state, { payload: { exerciseIndex } }) => {
+      toast.warning('Feature in development...');
+      // state.workout.exercises[exerciseIndex].setProgressionAllowed = false
+    },
+    removeExercise: (state, { payload: { exerciseIndex } }) => {
+      if (state.workout.exercises.length == 1) {
+        toast.error('You cannot remove the last exercise of a workout...');
+      } else {
+        state.workout.exercises.splice(exerciseIndex, 1);
+      }
     },
     clearWorkoutState: () => initialState,
     setNextWorkout: (state, { payload: { workout } }) => {
@@ -188,10 +240,13 @@ const workoutSlice = createSlice({
       .addCase(updateWorkout.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateWorkout.fulfilled, (state, { payload: { workout } }) => {
-        toast.success('Completed workout!');
-        return { ...initialState, workout };
-      })
+      .addCase(
+        updateWorkout.fulfilled,
+        (state, { payload: { workout, msg } }) => {
+          toast.success(msg);
+          return { ...initialState, workout };
+        }
+      )
       .addCase(createMeso.fulfilled, (state, { payload: { workout } }) => {
         return { ...initialState, workout };
       })
@@ -212,7 +267,16 @@ export const {
   showLoading,
   hideLoading,
   handleSetChange,
+  skipWorkout,
+  addExercise,
+  addWorkoutNote,
+  addExerciseBefore,
+  addExerciseAfter,
   addSet,
+  removeSet,
+  addExerciseNote,
+  disableSetProgression,
+  removeExercise,
   clearWorkoutState,
   setNextWorkout,
   getCurrentExercise,

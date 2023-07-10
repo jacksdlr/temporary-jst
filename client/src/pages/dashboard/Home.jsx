@@ -56,7 +56,6 @@ const Home = () => {
           to={'/workout'}
           className='btn btn-hero'
           onClick={() => {
-            // need to do this rather than return initial state (if a user makes changes on desktop it will update some state, but workout is still stored in local storage)
             dispatch(setNextWorkout({ workout: nextWorkout }));
           }}
         >

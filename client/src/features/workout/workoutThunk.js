@@ -9,9 +9,17 @@ export const getWorkoutThunk = async (url, thunkAPI) => {
   }
 };
 
-export const updateWorkoutThunk = async (url, workout, thunkAPI) => {
+export const updateWorkoutThunk = async (
+  url,
+  workout,
+  isCurrentWorkout,
+  thunkAPI
+) => {
   try {
-    const response = await customFetch.patch(url, workout);
+    const response = await customFetch.patch(url, {
+      workout,
+      isCurrentWorkout,
+    });
     return response.data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);

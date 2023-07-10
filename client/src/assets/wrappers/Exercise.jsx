@@ -17,16 +17,17 @@ const Wrapper = styled.section`
     margin-bottom: 0.5rem;
     border-bottom: 1px solid var(--grey-100); */
     justify-content: space-between;
+    align-items: center;
   }
   .info p {
     padding: 0.2rem 0.6rem;
     margin: 0;
     margin-right: 1rem;
     border-radius: var(--borderRadius);
+    height: fit-content;
   }
   .links {
     display: flex;
-    gap: 10px;
     align-items: center;
   }
   .options:hover {

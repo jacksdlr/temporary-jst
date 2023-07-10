@@ -17,6 +17,9 @@ const Wrapper = styled.section`
     align-items: center;
     text-align: left;
   }
+  .options {
+    color: var(--textColor);
+  }
   .options:hover {
     cursor: pointer;
     color: var(--primary-500);

@@ -1,12 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateWorkout } from '../../features/workout/workoutSlice';
+import {
+  updateWorkout,
+  skipWorkout,
+  addExercise,
+  addWorkoutNote,
+} from '../../features/workout/workoutSlice';
 import Loading from '../../components/Loading';
 import Wrapper from '../../assets/wrappers/WorkoutPage';
-import { AiOutlineMore, AiOutlineFile, AiOutlineWarning } from 'react-icons/ai';
+import {
+  AiOutlineMore,
+  AiOutlineFile,
+  AiOutlineWarning,
+  AiOutlineFastForward,
+  AiOutlinePlus,
+} from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import { RecoveryModal, Exercise } from '../../components/workout';
 import { syncUserData } from '../../features/user/userSlice';
+import Options from '../../components/Options';
 
 const Workout = () => {
   const dispatch = useDispatch();
@@ -18,31 +30,9 @@ const Workout = () => {
   const { isLoading, workout, recoveryModal } = useSelector(
     (store) => store.workout
   );
-
-  const { mesoId } = workout;
-
   useEffect(() => {
     dispatch(syncUserData(user.updatedAt));
   }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    for (let i = 0; i < workout.exercises.length; i++) {
-      for (let j = 0; j < workout.exercises[i].sets.length; j++) {
-        if (
-          workout.exercises[i].sets[j].weight == undefined ||
-          workout.exercises[i].sets[j].repetitions == undefined ||
-          workout.exercises[i].sets[j].repsInReserve == undefined
-        ) {
-          return toast.error('One or more exercise details are incomplete');
-        }
-      }
-    }
-
-    dispatch(updateWorkout({ workout, mesoId }));
-  };
-
   if (isLoading) {
     return (
       <Wrapper>
@@ -61,19 +51,43 @@ const Workout = () => {
     );
   }
 
+  const { mesoId } = workout;
+
+  const isCurrentWorkout = workout._id === nextWorkout._id;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isCurrentWorkout || workout.status == 'Completed') {
+      for (let i = 0; i < workout.exercises.length; i++) {
+        for (let j = 0; j < workout.exercises[i].sets.length; j++) {
+          if (
+            workout.exercises[i].sets[j].weight == undefined ||
+            workout.exercises[i].sets[j].repetitions == undefined ||
+            workout.exercises[i].sets[j].repsInReserve == undefined
+          ) {
+            return toast.error('One or more exercise details are incomplete');
+          }
+        }
+      }
+    }
+
+    dispatch(updateWorkout({ isCurrentWorkout, workout /* mesoId */ }));
+  };
+
   return (
     <Wrapper>
       {/* add a user profile setting to enable/disable automatic set additions */}
       {workout.microcycle != 1 &&
-        workout.status == 'Planned' &&
-        workout._id == nextWorkout._id &&
+        /* workout.status == 'Planned' && */
+        isCurrentWorkout &&
         recoveryModal.isOpen && <RecoveryModal />}
-      {workout._id != nextWorkout._id && (
+      {!isCurrentWorkout && (
         <div
           className='warning-container'
-          onClick={() => {
+          /* onClick={() => {
             setIsWarningShown(!isWarningShown);
-          }}
+          }} */
         >
           <div className='workout-warning'>
             <AiOutlineWarning size='2rem' />
@@ -102,10 +116,35 @@ const Workout = () => {
               <> / {workout.sessionName}</>
             )}
           </h4>
-          <AiOutlineMore
-            className='options'
-            size={'2rem'}
-            onClick={() => console.log('open menu')}
+          <Options
+            options={[
+              {
+                text:
+                  workout.status != 'Completed'
+                    ? 'Skip workout'
+                    : 'Mark as incomplete',
+                icon: <AiOutlineFastForward />,
+                action: () => dispatch(skipWorkout()),
+              },
+              {
+                text: 'Add exercise',
+                icon: <AiOutlinePlus />,
+                action: () =>
+                  dispatch(
+                    addExercise(/* open modal to create exercise and pass this function */)
+                  ),
+              },
+              {
+                text: 'Add note',
+                icon: <AiOutlineFile />,
+                action: () =>
+                  dispatch(
+                    addWorkoutNote(/* open modal to create exercise and pass this function */)
+                  ),
+              },
+            ]}
+            isCurrentWorkout={workout._id === nextWorkout._id}
+            iconSize='2rem'
           />
         </div>
         <div
@@ -138,15 +177,16 @@ const Workout = () => {
             changeWeight={exercise.changeWeight}
             notes={exercise.notes}
             exerciseIndex={index}
+            exerciseId={exercise._id}
             // prevState={prevState.exercises[index]}
           />
         ))}
         <button
           className='btn submit-btn'
           onClick={handleSubmit}
-          disabled={isLoading || workout._id != nextWorkout._id}
+          disabled={isLoading /*  || workout._id != nextWorkout._id */}
         >
-          Complete Workout
+          {isCurrentWorkout ? 'Complete Workout' : 'Save Changes'}
         </button>
       </form>
     </Wrapper>

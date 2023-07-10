@@ -23,7 +23,7 @@ const Workout = ({
   exercises,
   comments,
   createdAt,
-  updatedAt,
+  dateCompleted,
 }) => {
   const dispatch = useDispatch();
 
@@ -48,11 +48,11 @@ const Workout = ({
             )}{' '}
           </span>
           <span className='text'>
-            {updatedAt != createdAt
-              ? `${updatedAt.slice(8, 10)}/${updatedAt.slice(
+            {status == 'Completed'
+              ? `${dateCompleted.slice(8, 10)}/${dateCompleted.slice(
                   5,
                   7
-                )}/${updatedAt.slice(2, 4)}`
+                )}/${dateCompleted.slice(2, 4)}`
               : status}{' '}
           </span>
         </h5>

@@ -105,9 +105,14 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, { payload: { user, workout } }) => {
         state.isLoading = false;
         state.user = user;
-        state.nextWorkout = workout;
+        if (workout) {
+          state.nextWorkout = workout;
+          addWorkoutToLocalStorage(workout);
+        } else {
+          state.nextWorkout = null;
+          removeWorkoutFromLocalStorage();
+        }
         addUserToLocalStorage(user);
-        addWorkoutToLocalStorage(workout);
         toast.success(`Welcome back, ${user.name}!`);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
@@ -147,8 +152,15 @@ const userSlice = createSlice({
         (state, { payload: { user, workout } }) => {
           state.user = user;
           addUserToLocalStorage(user);
+          if (workout) {
+            state.nextWorkout = workout;
+            addWorkoutToLocalStorage(workout);
+          } else {
+            state.nextWorkout = null;
+            removeWorkoutFromLocalStorage();
+          } /* 
           state.nextWorkout = workout;
-          addWorkoutToLocalStorage(workout);
+          addWorkoutToLocalStorage(workout); */
         }
       )
       .addCase(
@@ -156,23 +168,44 @@ const userSlice = createSlice({
         (state, { payload: { user, workout } }) => {
           state.user = user;
           addUserToLocalStorage(user);
+          if (workout) {
+            state.nextWorkout = workout;
+            addWorkoutToLocalStorage(workout);
+          } else {
+            state.nextWorkout = null;
+            removeWorkoutFromLocalStorage();
+          } /* 
           state.nextWorkout = workout;
-          addWorkoutToLocalStorage(workout);
+          addWorkoutToLocalStorage(workout); */
         }
       )
       .addCase(editMeso.fulfilled, (state, { payload: { user, workout } }) => {
         state.user = user;
         addUserToLocalStorage(user);
+        if (workout) {
+          state.nextWorkout = workout;
+          addWorkoutToLocalStorage(workout);
+        } else {
+          state.nextWorkout = null;
+          removeWorkoutFromLocalStorage();
+        } /* 
         state.nextWorkout = workout;
-        addWorkoutToLocalStorage(workout);
+        addWorkoutToLocalStorage(workout); */
       })
       .addCase(
         deleteMeso.fulfilled,
         (state, { payload: { user, workout } }) => {
           state.user = user;
           addUserToLocalStorage(user);
+          if (workout) {
+            state.nextWorkout = workout;
+            addWorkoutToLocalStorage(workout);
+          } else {
+            state.nextWorkout = null;
+            removeWorkoutFromLocalStorage();
+          } /* 
           state.nextWorkout = workout;
-          addWorkoutToLocalStorage(workout);
+          addWorkoutToLocalStorage(workout); */
         }
       )
       .addCase(clearStore.rejected, () => {
@@ -183,8 +216,15 @@ const userSlice = createSlice({
         (state, { payload: { user, workout } }) => {
           state.user = user;
           addUserToLocalStorage(user);
+          if (workout) {
+            state.nextWorkout = workout;
+            addWorkoutToLocalStorage(workout);
+          } else {
+            state.nextWorkout = null;
+            removeWorkoutFromLocalStorage();
+          } /* 
           state.nextWorkout = workout;
-          addWorkoutToLocalStorage(workout);
+          addWorkoutToLocalStorage(workout); */
         }
       )
       .addCase(syncUserData.pending, (state) => {
@@ -197,8 +237,15 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.user = user;
             addUserToLocalStorage(user);
+            if (workout) {
+              state.nextWorkout = workout;
+              addWorkoutToLocalStorage(workout);
+            } else {
+              state.nextWorkout = null;
+              removeWorkoutFromLocalStorage();
+            } /* 
             state.nextWorkout = workout;
-            addWorkoutToLocalStorage(workout);
+            addWorkoutToLocalStorage(workout); */
             toast.success(msg);
           }
 
