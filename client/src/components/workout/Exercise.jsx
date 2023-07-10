@@ -27,6 +27,7 @@ import {
 import { useEffect, useState } from 'react';
 import Options from '../Options';
 import { Button } from '@mui/material';
+import { toast } from 'react-toastify';
 
 const Exercise = ({
   name,
@@ -90,11 +91,10 @@ const Exercise = ({
               aria-expanded={anchorEl ? 'true' : undefined}
               onClick={handleClick}*/
               className='options'
-              onClick={() => console.log('open video')}
+              onClick={() => toast.warning('Feature in development...')}
             >
               <AiOutlineYoutube size={'1.75rem'} />
             </Button>
-
             <Options
               options={[
                 {

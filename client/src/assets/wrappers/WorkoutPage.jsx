@@ -260,6 +260,9 @@ const Wrapper = styled.section`
       border-top: 10px solid white;
       border-bottom: 10px solid white;
     }
+    .options {
+      min-width: 0;
+    }
     .muscle {
       font-size: 1rem;
     }
