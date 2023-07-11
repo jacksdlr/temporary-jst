@@ -16,7 +16,11 @@ import {
   AiOutlinePlus,
 } from 'react-icons/ai';
 import { toast } from 'react-toastify';
-import { RecoveryModal, Exercise } from '../../components/workout';
+import {
+  WorkoutModal,
+  RecoveryModal,
+  Exercise,
+} from '../../components/workout';
 import { syncUserData } from '../../features/user/userSlice';
 import Options from '../../components/Options';
 
@@ -75,6 +79,14 @@ const Workout = () => {
     dispatch(updateWorkout({ isCurrentWorkout, workout /* mesoId */ }));
   };
 
+  // Modal stuff
+  const initialModalState = { open: false, type: null, action: null };
+
+  const [modal, setModal] = useState(initialModalState);
+  const handleModalOpen = ({ type, action }) =>
+    setModal({ open: true, type, action });
+  const handleModalClose = () => setModal(initialModalState);
+
   return (
     <Wrapper>
       {/* add a user profile setting to enable/disable automatic set additions */}
@@ -107,6 +119,7 @@ const Workout = () => {
           )}
         </div>
       )}
+      <WorkoutModal modal={modal} handleClose={handleModalClose} />
       <div className='container'>
         <div className='title'>
           <h4>
@@ -116,36 +129,44 @@ const Workout = () => {
               <> / {workout.sessionName}</>
             )}
           </h4>
-          <Options
-            options={[
-              {
-                text:
-                  workout.status != 'Completed'
-                    ? 'Skip workout'
-                    : 'Mark as incomplete',
-                icon: <AiOutlineFastForward />,
-                action: () => dispatch(skipWorkout()),
-              },
-              {
-                text: 'Add exercise',
-                icon: <AiOutlinePlus />,
-                action: () =>
-                  dispatch(
-                    addExercise(/* open modal to create exercise and pass this function */)
-                  ),
-              },
-              {
-                text: 'Add note',
-                icon: <AiOutlineFile />,
-                action: () =>
-                  dispatch(
-                    addWorkoutNote(/* open modal to create exercise and pass this function */)
-                  ),
-              },
-            ]}
-            isCurrentWorkout={workout._id === nextWorkout._id}
-            iconSize='2rem'
-          />
+          {
+            <Options
+              options={[
+                {
+                  text:
+                    workout.status != 'Completed'
+                      ? 'Skip workout'
+                      : 'Mark as incomplete',
+                  icon: <AiOutlineFastForward />,
+                  action: () =>
+                    handleModalOpen({
+                      type: 'skip',
+                      action: () => dispatch(skipWorkout()),
+                    }),
+                },
+                {
+                  text: 'Add exercise',
+                  icon: <AiOutlinePlus />,
+                  action: () =>
+                    handleModalOpen({
+                      type: 'exercise',
+                      action: () => dispatch(addExercise()),
+                    }),
+                },
+                {
+                  text: 'Add note',
+                  icon: <AiOutlineFile />,
+                  action: () =>
+                    handleModalOpen({
+                      type: 'note',
+                      action: () => dispatch(addWorkoutNote()),
+                    }),
+                },
+              ]}
+              isCurrentWorkout={workout._id === nextWorkout._id}
+              iconSize='2rem'
+            />
+          }
         </div>
         <div
           className={`muscles ${workout.notes.length != 0 && 'border-bottom'}`}
@@ -178,6 +199,7 @@ const Workout = () => {
             notes={exercise.notes}
             exerciseIndex={index}
             exerciseId={exercise._id}
+            handleModalOpen={handleModalOpen}
             // prevState={prevState.exercises[index]}
           />
         ))}

@@ -26,7 +26,7 @@ import {
 } from '../../features/workout/workoutSlice';
 import { useEffect, useState } from 'react';
 import Options from '../Options';
-import { Button } from '@mui/material';
+import { Button, Modal, Box, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 
 const Exercise = ({
@@ -37,6 +37,7 @@ const Exercise = ({
   notes,
   exerciseIndex,
   exerciseId,
+  handleModalOpen,
 }) => {
   const dispatch = useDispatch();
 
@@ -86,10 +87,6 @@ const Exercise = ({
           </p>
           <div className='links'>
             <Button
-              /* aria-controls={anchorEl ? 'basic-menu' : undefined}
-              aria-haspopup='true'
-              aria-expanded={anchorEl ? 'true' : undefined}
-              onClick={handleClick}*/
               className='options'
               onClick={() => toast.warning('Feature in development...')}
             >
@@ -101,17 +98,25 @@ const Exercise = ({
                   text: 'Add exercise before',
                   icon: <CgInsertAfter />,
                   action: () =>
-                    dispatch(
-                      addExerciseBefore(/* open modal to create exercise and pass this function */)
-                    ),
+                    handleModalOpen({
+                      type: 'exercise',
+                      action: () =>
+                        dispatch(
+                          addExerciseBefore(/* open modal to create exercise and pass this function */)
+                        ),
+                    }),
                 },
                 {
                   text: 'Add exercise after',
                   icon: <CgInsertBefore />,
                   action: () =>
-                    dispatch(
-                      addExerciseAfter(/* open modal to create exercise and pass this function */)
-                    ),
+                    handleModalOpen({
+                      type: 'exercise',
+                      action: () =>
+                        dispatch(
+                          addExerciseAfter(/* open modal to create exercise and pass this function */)
+                        ),
+                    }),
                 },
                 {
                   text: 'Add set',
@@ -132,15 +137,23 @@ const Exercise = ({
                 {
                   text: 'Remove set',
                   icon: <AiOutlineMinus />,
-                  action: () => dispatch(removeSet({ exerciseIndex })),
+                  action: () =>
+                    handleModalOpen({
+                      type: 'confirm',
+                      action: () => dispatch(removeSet({ exerciseIndex })),
+                    }),
                 },
                 {
                   text: 'Add note',
                   icon: <AiOutlineFile />,
                   action: () =>
-                    dispatch(
-                      addExerciseNote(/* open modal to create note and pass this function */)
-                    ),
+                    handleModalOpen({
+                      type: 'note',
+                      action: () =>
+                        dispatch(
+                          addExerciseNote(/* open modal to create note and pass this function */)
+                        ),
+                    }),
                 },
                 {
                   text: 'Disable set progression',
@@ -151,16 +164,15 @@ const Exercise = ({
                 {
                   text: 'Remove exercise',
                   icon: <AiOutlineDelete />,
-                  action: () => dispatch(removeExercise({ exerciseIndex })),
+                  action: () =>
+                    handleModalOpen({
+                      type: 'confirm',
+                      action: () => dispatch(removeExercise({ exerciseIndex })),
+                    }),
                 },
               ]}
               iconSize='1.75rem'
             />
-            {/* <AiOutlineMore
-              className='options'
-              size={'1.75rem'}
-              onClick={() => console.log('open menu')}
-            /> */}
           </div>
         </div>
         <h4 className='exercise-title'>

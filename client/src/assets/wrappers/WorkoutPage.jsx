@@ -60,6 +60,10 @@ const Wrapper = styled.section`
   p {
     margin: 0;
   }
+  .modal {
+    display: flex;
+    flex-direction: column;
+  }
   .muscles {
     display: flex;
     flex-wrap: wrap;
