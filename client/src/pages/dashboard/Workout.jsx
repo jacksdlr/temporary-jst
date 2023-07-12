@@ -34,9 +34,21 @@ const Workout = () => {
   const { isLoading, workout, recoveryModal } = useSelector(
     (store) => store.workout
   );
+
+  console.log(workout.exercises);
+
   useEffect(() => {
     dispatch(syncUserData(user.updatedAt));
   }, []);
+
+  // Modal stuff
+  const initialModalState = { open: false, type: null, id: null, action: null };
+
+  const [modal, setModal] = useState(initialModalState);
+  const handleModalOpen = ({ type, id, action, exerciseIndex }) =>
+    setModal({ open: true, type, id, action, exerciseIndex });
+  const handleModalClose = () => setModal(initialModalState);
+
   if (isLoading) {
     return (
       <Wrapper>
@@ -79,14 +91,6 @@ const Workout = () => {
     dispatch(updateWorkout({ isCurrentWorkout, workout /* mesoId */ }));
   };
 
-  // Modal stuff
-  const initialModalState = { open: false, type: null, action: null };
-
-  const [modal, setModal] = useState(initialModalState);
-  const handleModalOpen = ({ type, action }) =>
-    setModal({ open: true, type, action });
-  const handleModalClose = () => setModal(initialModalState);
-
   return (
     <Wrapper>
       {/* add a user profile setting to enable/disable automatic set additions */}
@@ -125,9 +129,8 @@ const Workout = () => {
           <h4>
             Week <span className='number'>{workout.microcycle}</span> / Session{' '}
             <span className='number'>{workout.sessionNumber}</span>
-            {workout.sessionName != `Session ${workout.sessionNumber}` && (
-              <> / {workout.sessionName}</>
-            )}
+            {workout.sessionName != `Session ${workout.sessionNumber}` &&
+              ` / ${workout.sessionName}`}
           </h4>
           {
             <Options
@@ -140,8 +143,12 @@ const Workout = () => {
                   icon: <AiOutlineFastForward />,
                   action: () =>
                     handleModalOpen({
-                      type: 'skip',
-                      action: () => dispatch(skipWorkout()),
+                      type: 'confirm',
+                      id:
+                        workout.status != 'Completed'
+                          ? 'skipWorkout'
+                          : 'markIncomplete',
+                      action: skipWorkout,
                     }),
                 },
                 {
@@ -150,7 +157,8 @@ const Workout = () => {
                   action: () =>
                     handleModalOpen({
                       type: 'exercise',
-                      action: () => dispatch(addExercise()),
+                      id: 'addExercise',
+                      action: addExercise,
                     }),
                 },
                 {
@@ -159,7 +167,8 @@ const Workout = () => {
                   action: () =>
                     handleModalOpen({
                       type: 'note',
-                      action: () => dispatch(addWorkoutNote()),
+                      id: 'addWorkoutNote',
+                      action: addWorkoutNote,
                     }),
                 },
               ]}

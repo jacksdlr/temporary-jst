@@ -72,11 +72,36 @@ const workoutSlice = createSlice({
     skipWorkout: (state) => {
       toast.warning('Feature in development...');
     },
-    addExercise: (state /* , { payload: { exercise } } */) => {
-      toast.warning('Feature in development...');
+    addExercise: (state, { payload: exercise }) => {
+      let existingMuscle = state.workout.musclesTrained.find(
+        (muscle) => muscle == exercise.muscleGroup
+      );
+      if (!existingMuscle) {
+        state.workout.musclesTrained.push(exercise.muscleGroup);
+      }
+
+      let sets = [];
+      for (let i = 0; i < exercise.sets; i++) {
+        sets.push({
+          targetReps: exercise.repRange.match(/^\d+/)[0],
+          targetRIR: state.workout.exercises[0].sets[0].targetRIR,
+          newSet: true,
+        });
+      }
+
+      state.workout.exercises.push({
+        exerciseName: exercise.exerciseName,
+        repRange: exercise.repRange,
+        muscleGroup: exercise.muscleGroup,
+        sets,
+        notes: [exercise.note],
+      });
+
+      toast.success(`Added ${exercise.exerciseName}!`);
     },
-    addWorkoutNote: (state /* , { payload: { note, isPermanent } } */) => {
-      toast.warning('Feature in development...');
+    addWorkoutNote: (state, { payload }) => {
+      state.workout.notes.push(payload);
+      toast.success('Added note!');
     },
     addExerciseBefore: (
       state /* , { payload: { exercise, exerciseIndex } } */
@@ -102,18 +127,34 @@ const workoutSlice = createSlice({
         state.workout.exercises[exerciseIndex].sets.pop();
       }
     },
-    addExerciseNote: (state /* , { payload: { note, isPermanent } } */) => {
-      toast.warning('Feature in development...');
+    addExerciseNote: (state, { payload: { exerciseIndex, note } }) => {
+      state.workout.exercises[exerciseIndex].notes.push(note);
+      toast.success('Added note!');
     },
     disableSetProgression: (state, { payload: { exerciseIndex } }) => {
-      toast.warning('Feature in development...');
-      // state.workout.exercises[exerciseIndex].setProgressionAllowed = false
+      state.workout.exercises[exerciseIndex].disableSetProgression =
+        !state.workout.exercises[exerciseIndex].disableSetProgression;
+      toast.success(
+        `${
+          !state.workout.exercises[exerciseIndex].disableSetProgression
+            ? 'Enabled'
+            : 'Disabled'
+        } set progression!`
+      );
     },
     removeExercise: (state, { payload: { exerciseIndex } }) => {
       if (state.workout.exercises.length == 1) {
         toast.error('You cannot remove the last exercise of a workout...');
       } else {
         state.workout.exercises.splice(exerciseIndex, 1);
+        state.workout.musclesTrained.forEach((muscle, index) => {
+          const existingExercise = state.workout.exercises.find(
+            (exercise) => exercise.muscleGroup == muscle
+          );
+          if (!existingExercise) {
+            state.workout.musclesTrained.splice(index, 1);
+          }
+        });
       }
     },
     clearWorkoutState: () => initialState,

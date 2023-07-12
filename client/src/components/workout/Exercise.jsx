@@ -41,6 +41,7 @@ const Exercise = ({
 }) => {
   const dispatch = useDispatch();
 
+  // broken
   const [prevState, setPrevState] = useState(sets);
 
   const { workout, recoveryModal } = useSelector((store) => store.workout);
@@ -100,10 +101,9 @@ const Exercise = ({
                   action: () =>
                     handleModalOpen({
                       type: 'exercise',
-                      action: () =>
-                        dispatch(
-                          addExerciseBefore(/* open modal to create exercise and pass this function */)
-                        ),
+                      id: 'addExerciseBefore',
+                      action: addExerciseBefore,
+                      exerciseIndex,
                     }),
                 },
                 {
@@ -112,10 +112,9 @@ const Exercise = ({
                   action: () =>
                     handleModalOpen({
                       type: 'exercise',
-                      action: () =>
-                        dispatch(
-                          addExerciseAfter(/* open modal to create exercise and pass this function */)
-                        ),
+                      id: 'addExerciseAfter',
+                      action: addExerciseAfter,
+                      exerciseIndex,
                     }),
                 },
                 {
@@ -140,6 +139,7 @@ const Exercise = ({
                   action: () =>
                     handleModalOpen({
                       type: 'confirm',
+                      id: 'removeSet',
                       action: () => dispatch(removeSet({ exerciseIndex })),
                     }),
                 },
@@ -149,15 +149,23 @@ const Exercise = ({
                   action: () =>
                     handleModalOpen({
                       type: 'note',
-                      action: () =>
-                        dispatch(
-                          addExerciseNote(/* open modal to create note and pass this function */)
-                        ),
+                      id: 'addExerciseNote',
+                      action: addExerciseNote,
+                      exerciseIndex,
                     }),
                 },
                 {
-                  text: 'Disable set progression',
-                  icon: <MdDoNotDisturb />,
+                  text: `${
+                    !workout.exercises[exerciseIndex].disableSetProgression
+                      ? 'Disable'
+                      : 'Enable'
+                  } set progression`,
+                  icon: !workout.exercises[exerciseIndex]
+                    .disableSetProgression ? (
+                    <MdDoNotDisturb />
+                  ) : (
+                    <AiOutlineRise />
+                  ),
                   action: () =>
                     dispatch(disableSetProgression({ exerciseIndex })),
                 },
@@ -167,6 +175,7 @@ const Exercise = ({
                   action: () =>
                     handleModalOpen({
                       type: 'confirm',
+                      id: 'removeExercise',
                       action: () => dispatch(removeExercise({ exerciseIndex })),
                     }),
                 },

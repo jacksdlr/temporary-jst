@@ -158,9 +158,7 @@ const userSlice = createSlice({
           } else {
             state.nextWorkout = null;
             removeWorkoutFromLocalStorage();
-          } /* 
-          state.nextWorkout = workout;
-          addWorkoutToLocalStorage(workout); */
+          }
         }
       )
       .addCase(
@@ -174,9 +172,7 @@ const userSlice = createSlice({
           } else {
             state.nextWorkout = null;
             removeWorkoutFromLocalStorage();
-          } /* 
-          state.nextWorkout = workout;
-          addWorkoutToLocalStorage(workout); */
+          }
         }
       )
       .addCase(editMeso.fulfilled, (state, { payload: { user, workout } }) => {
@@ -188,9 +184,7 @@ const userSlice = createSlice({
         } else {
           state.nextWorkout = null;
           removeWorkoutFromLocalStorage();
-        } /* 
-        state.nextWorkout = workout;
-        addWorkoutToLocalStorage(workout); */
+        }
       })
       .addCase(
         deleteMeso.fulfilled,
@@ -203,9 +197,7 @@ const userSlice = createSlice({
           } else {
             state.nextWorkout = null;
             removeWorkoutFromLocalStorage();
-          } /* 
-          state.nextWorkout = workout;
-          addWorkoutToLocalStorage(workout); */
+          }
         }
       )
       .addCase(clearStore.rejected, () => {
@@ -222,19 +214,13 @@ const userSlice = createSlice({
           } else {
             state.nextWorkout = null;
             removeWorkoutFromLocalStorage();
-          } /* 
-          state.nextWorkout = workout;
-          addWorkoutToLocalStorage(workout); */
+          }
         }
       )
-      .addCase(syncUserData.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(
         syncUserData.fulfilled,
         (state, { payload: { user, msg, workout } }) => {
           if (msg == 'Synced user data!') {
-            state.isLoading = false;
             state.user = user;
             addUserToLocalStorage(user);
             if (workout) {
@@ -243,17 +229,12 @@ const userSlice = createSlice({
             } else {
               state.nextWorkout = null;
               removeWorkoutFromLocalStorage();
-            } /* 
-            state.nextWorkout = workout;
-            addWorkoutToLocalStorage(workout); */
+            }
             toast.success(msg);
           }
-
-          state.isLoading = false;
         }
       )
       .addCase(syncUserData.rejected, (state, { payload }) => {
-        state.isLoading = false;
         toast.error(payload);
       });
   },
