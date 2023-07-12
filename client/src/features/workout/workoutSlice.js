@@ -94,7 +94,7 @@ const workoutSlice = createSlice({
         repRange: exercise.repRange,
         muscleGroup: exercise.muscleGroup,
         sets,
-        notes: [exercise.note],
+        notes: exercise.note != '' ? [exercise.note] : [],
       });
 
       toast.success(`Added ${exercise.exerciseName}!`);
