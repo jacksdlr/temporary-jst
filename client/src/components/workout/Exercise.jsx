@@ -130,6 +130,7 @@ const Exercise = ({
                           newSet: true,
                         },
                         id: exerciseId,
+                        exerciseIndex,
                       })
                     ),
                 },
@@ -140,7 +141,7 @@ const Exercise = ({
                     handleModalOpen({
                       type: 'confirm',
                       id: 'removeSet',
-                      action: () => dispatch(removeSet({ exerciseIndex })),
+                      action: () => removeSet({ exerciseIndex }),
                     }),
                 },
                 {
@@ -176,7 +177,7 @@ const Exercise = ({
                     handleModalOpen({
                       type: 'confirm',
                       id: 'removeExercise',
-                      action: () => dispatch(removeExercise({ exerciseIndex })),
+                      action: () => removeExercise({ exerciseIndex }),
                     }),
                 },
               ]}

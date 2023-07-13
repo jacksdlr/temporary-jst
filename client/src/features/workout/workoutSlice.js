@@ -97,27 +97,81 @@ const workoutSlice = createSlice({
         notes: exercise.note != '' ? [exercise.note] : [],
       });
 
-      toast.success(`Added ${exercise.exerciseName}!`);
+      toast.success(`Added ${exercise.exerciseName} to the workout!`);
     },
     addWorkoutNote: (state, { payload }) => {
       state.workout.notes.push(payload);
-      toast.success('Added note!');
+      toast.success('Added workout note!');
     },
-    addExerciseBefore: (
-      state /* , { payload: { exercise, exerciseIndex } } */
-    ) => {
-      toast.warning('Feature in development...');
-    },
-    addExerciseAfter: (
-      state /* , { payload: { exercise, exerciseIndex } } */
-    ) => {
-      toast.warning('Feature in development...');
-    },
-    addSet: (state, { payload: { newSet, id } }) => {
-      const exercise = state.workout.exercises.find(
-        (exercise) => exercise._id == id
+    addExerciseBefore: (state, { payload: { exercise, exerciseIndex } }) => {
+      let existingMuscle = state.workout.musclesTrained.find(
+        (muscle) => muscle == exercise.muscleGroup
       );
-      exercise.sets.push(newSet);
+      if (!existingMuscle) {
+        state.workout.musclesTrained.push(exercise.muscleGroup);
+      }
+
+      let sets = [];
+      for (let i = 0; i < exercise.sets; i++) {
+        sets.push({
+          targetReps: exercise.repRange.match(/^\d+/)[0],
+          targetRIR: state.workout.exercises[0].sets[0].targetRIR,
+          newSet: true,
+        });
+      }
+
+      state.workout.exercises.splice(exerciseIndex, 0, {
+        exerciseName: exercise.exerciseName,
+        repRange: exercise.repRange,
+        muscleGroup: exercise.muscleGroup,
+        sets,
+        notes: exercise.note != '' ? [exercise.note] : [],
+      });
+
+      toast.success(
+        `Added ${exercise.exerciseName} before ${
+          state.workout.exercises[exerciseIndex + 1].exerciseName
+        }!`
+      );
+    },
+    addExerciseAfter: (state, { payload: { exercise, exerciseIndex } }) => {
+      let existingMuscle = state.workout.musclesTrained.find(
+        (muscle) => muscle == exercise.muscleGroup
+      );
+      if (!existingMuscle) {
+        state.workout.musclesTrained.push(exercise.muscleGroup);
+      }
+
+      let sets = [];
+      for (let i = 0; i < exercise.sets; i++) {
+        sets.push({
+          targetReps: exercise.repRange.match(/^\d+/)[0],
+          targetRIR: state.workout.exercises[0].sets[0].targetRIR,
+          newSet: true,
+        });
+      }
+
+      state.workout.exercises.splice(exerciseIndex + 1, 0, {
+        exerciseName: exercise.exerciseName,
+        repRange: exercise.repRange,
+        muscleGroup: exercise.muscleGroup,
+        sets,
+        notes: exercise.note != '' ? [exercise.note] : [],
+      });
+
+      toast.success(
+        `Added ${exercise.exerciseName} after ${state.workout.exercises[exerciseIndex].exerciseName}!`
+      );
+    },
+    addSet: (state, { payload: { newSet, id, exerciseIndex } }) => {
+      if (id) {
+        const exercise = state.workout.exercises.find(
+          (exercise) => exercise._id == id
+        );
+        exercise.sets.push(newSet);
+      } else {
+        state.workout.exercises[exerciseIndex].sets.push(newSet);
+      }
       // exercise.performanceScore++;
     },
     removeSet: (state, { payload: { exerciseIndex } }) => {
@@ -125,6 +179,7 @@ const workoutSlice = createSlice({
         toast.error('You cannot remove the last set of an exercise...');
       } else {
         state.workout.exercises[exerciseIndex].sets.pop();
+        toast.success(`Removed set!`);
       }
     },
     addExerciseNote: (state, { payload: { exerciseIndex, note } }) => {
@@ -155,6 +210,7 @@ const workoutSlice = createSlice({
             state.workout.musclesTrained.splice(index, 1);
           }
         });
+        toast.success('Removed exercise!');
       }
     },
     clearWorkoutState: () => initialState,

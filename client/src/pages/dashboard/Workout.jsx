@@ -35,8 +35,6 @@ const Workout = () => {
     (store) => store.workout
   );
 
-  console.log(workout.exercises);
-
   useEffect(() => {
     dispatch(syncUserData(user.updatedAt));
   }, []);

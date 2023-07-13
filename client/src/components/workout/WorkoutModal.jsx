@@ -47,10 +47,6 @@ const WorkoutModal = ({ modal, handleClose }) => {
 
   const [content, setContent] = useState(initialState);
 
-  // const handleNoteChange = (e) => {
-  //   setContent(e.target.value);
-  // };
-
   const handleChange = (e) => {
     setContent({ ...content, [e.target.name]: e.target.value });
   };
@@ -87,7 +83,7 @@ const WorkoutModal = ({ modal, handleClose }) => {
     } else if (modal.type == 'note') {
       dispatch(modal.action(content.note));
     } else {
-      modal.action();
+      dispatch(modal.action());
     }
     setContent(initialState);
     handleClose();
